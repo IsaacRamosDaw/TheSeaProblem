@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Echedey | Isaac | Luke | Nicolas",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "2.8.5",
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "mysql2": "3.14.0",
+    "sequelize": "6.37.7",
+    "sequelize-auto-migrations": "github:scimonster/sequelize-auto-migrations#a063aa6535a3f580623581bf866cef2d609531ba"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "sequelize-cli": "^6.6.2"
+  }
+}
