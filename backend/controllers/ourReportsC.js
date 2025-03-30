@@ -1,6 +1,9 @@
+//! Esto es lo mismo que llamar al models/index.js
 const db = require('../models');
+//! llamamos al objeto de los modelos y lo usamos para realizar acciones en cada controlador.
 const OurReports = db.ourReports;
-
+//! Acción para cada uno (No están terminadas); 
+//?Cuando termines ve al frontend src/app.js
 exports.findAll = (req, res) => {
   OurReports.findAll()
   .then(reports => {

@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 
+//! Modelo de datos para la tabla de nuestros reportes
 module.exports = (sequelize) => {
   const OurReports = sequelize.define('ourReports', { 
       name: {
@@ -17,3 +18,5 @@ module.exports = (sequelize) => {
 
   return OurReports;
 };
+
+//? Ve a routes/ourReportsR.js 

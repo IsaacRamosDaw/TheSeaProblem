@@ -1,5 +1,7 @@
 const endpoint = "http://localhost:8080/ourReports/";
 
+//! Aquí me encargo de hacer una llamada a los datos con el controlador findall() de ourReportsC.js 
+
 export function get () {
   const data = fetch(endpoint, {
     method: 'GET',

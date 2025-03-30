@@ -1,4 +1,5 @@
 
+//! Ruta para cada acción que queramos con la tabla de nuestros reportes 
 module.exports = (app) => {
   const ourReports = require('../controllers/ourReportsC.js');
   var router = require("express").Router();
@@ -6,17 +7,19 @@ module.exports = (app) => {
   //List all ourReportss
   router.get("/",  ourReports.findAll);
 
-  // // Get one ourReports
+  // Get one ourReports
   router.get("/:id", ourReports.findOne);
 
-  // //Create an ourReports
+  //Create an ourReports
   router.post("/", ourReports.create);
 
-  // // Update a ourReports
+  // Update a ourReports
   router.put("/:id", ourReports.update);
 
-  // //Delete ourReports
+  //Delete ourReports
   router.delete("/:id", ourReports.delete);
 
   app.use("/ourReports", router);
 };
+//? cada ruta irá a un controlador que contiene las funciones para cada acción
+//? ve controllers/ourReportsC.js
