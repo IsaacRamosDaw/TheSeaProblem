@@ -1,18 +1,19 @@
-//! Este es el inicio. 
+//! Este es el inicio.
 
 //! Creamos el objeto del servidor
-const express = require("express");
+import express from "express";
 //! Llamamos al objeto que exportamos en models/index.js
-const db = require('./models');
+import {db} from './models/index';
 //! Esto es para las solicitudes proventientes del frontend
-const cors = require("cors");
-//! Esto es para las imagenes, más adelante veremos sobre esto 
-var path = require("path");
-//! permite usar el archivo env 
-require("dotenv").config();
+import cors, { CorsOptions } from "cors";
+//! Esto es para las imagenes, más adelante veremos sobre esto
+
+//! permite usar el archivo env
+import 'dotenv/config'
+
 
 //! Ve al archivo .env.example. duplicalo y dejalo como ".env"
-//? Abre el archivo, lee los comentarios para entenderlo y vuelve 
+//? Abre el archivo, lee los comentarios para entenderlo y vuelve
 
 //* Ahora que has vuelto sigamos
 //! Creamos el servidor
@@ -24,10 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //! dirección de la que se permiten las solicitudes, yo la he creado como un objeto, se puede de otras maneras
-var corsOptions = {
-  origin: "http://localhost:5173/",
-}
-app.use(cors(corsOptions.origin));
+
+app.use(cors("http://localhost:5173/" as CorsOptions));
 
 //! Esto está en la explicación de tiburcio, pero como ya manejamos las rutas en el frontend se puede comentar,
 //! sirve para comprobar si el servidor está arrancado
@@ -51,9 +50,9 @@ db.sequelize.sync({ force: true }).then(() => {
 
 //! Rutas para ejecutar los controladores de cada modelo
 // Routes
-require("./routes/ourReportsR")(app);
-require("./routes/userR")(app);
+app.route("/api/ourReportsR")
+app.route("/api/userR")
 
 //! Exportación del servidor.
-module.exports = app;
+export default app;
 //? Ve al archivo db/env.config.js
