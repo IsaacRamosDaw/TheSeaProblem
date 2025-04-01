@@ -1,13 +1,11 @@
 //! Nos traemos el código de antes
-const envConfig = require('./env.config');
-
+import {envConfig} from './env.config'
 //! Ahora creamos el objeto que representa la conexión a la db, con los parámetros que ya definimos anteriormente
-module.exports = {
+export const dbConfig = {
   HOST: envConfig.host,
   USER: envConfig.username,
   PASSWORD: envConfig.password,
   DB: envConfig.database,
-  dialect: envConfig.dialect,
   pool: {
     max: 5,
     min: 0,
