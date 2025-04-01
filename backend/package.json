@@ -14,7 +14,7 @@
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
-    "cors": "2.8.5",
+    "cors": "^2.8.5",
     "dotenv": "16.4.7",
     "express": "^5.1.0",
     "joi": "^17.13.3",
@@ -24,6 +24,7 @@
     "sequelize-auto-migrations": "github:scimonster/sequelize-auto-migrations#a063aa6535a3f580623581bf866cef2d609531ba"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "cross-env": "^7.0.3",
     "sequelize-cli": "^6.6.2"
