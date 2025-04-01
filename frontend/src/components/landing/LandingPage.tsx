@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getOurReports } from "@/frontend/src/services/ourReports/ourReports";
 import { OurReportAttributes } from "@/backend/models/ourReportsM";
+import { getOurReports } from "../../services/ourReports/ourReports";
 
 
 //! Ten al lado el services/ourReports.services.js
