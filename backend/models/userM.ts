@@ -2,12 +2,12 @@ import { DataTypes, Model, Sequelize } from 'sequelize';
 
 type UserAttributes = {
   name: string;
-  number: string;
+  number: number;
 }
 
 class User extends Model<UserAttributes> implements UserAttributes {
   declare name: string;
-  declare number: string;
+  declare number: number;
 }
 
 export default (sequelize:Sequelize) => {
@@ -17,7 +17,7 @@ export default (sequelize:Sequelize) => {
         allowNull: false
       },
       number: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false
       },
     },
