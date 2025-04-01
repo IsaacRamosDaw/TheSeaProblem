@@ -5,7 +5,7 @@ type ReportAttributes = {
   name: string;
   number: string;
 }
-class Report extends Model<ReportAttributes>  {
+export class Report extends Model<ReportAttributes>  {
   declare name: string;
   declare number: string;
 }

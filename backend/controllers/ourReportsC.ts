@@ -4,7 +4,7 @@ import {Request, Response} from 'express';
 //! Acción para cada uno (No están terminadas);
 //?Cuando termines ve al frontend src/app.js
 
-const findAll = (req:Request, res:Response) => {
+const findAll = (_req:Request, res:Response) => {
   db.ourReports.findAll()
   .then(reports => {
     if (reports.length === 0) {

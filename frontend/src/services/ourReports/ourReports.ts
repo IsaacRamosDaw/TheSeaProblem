@@ -1,8 +1,10 @@
-const endpoint = "http://localhost:8080/ourReports/";
+import type { OurReportAttributes } from "@/backend/models/ourReportsM";
 
-//! Aquí me encargo de hacer una llamada a los datos con el controlador findall() de ourReportsC.js 
+const endpoint = "http://localhost:8080/api/ourReports";
 
-export function get () {
+//! Aquí me encargo de hacer una llamada a los datos con el controlador findall() de ourReportsC.js
+
+export const getOurReports = () => {
   const data = fetch(endpoint, {
     method: 'GET',
     headers: new Headers({
@@ -19,6 +21,6 @@ export function get () {
     return error;
   })
 
-  return data;
+  return data as Promise<OurReportAttributes[]>;
 }
 
