@@ -30,7 +30,6 @@
     // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
     "baseUrl": "../",                                  /* Specify the base directory to resolve non-relative module names. */
     "paths": {
-      "@/backend/*": ["./backend/*"],
       "@/frontend/*": ["./frontend/*"],
       "@/shared/*": ["./shared/*"],
       "@/services/*": ["./frontend/src/services/*"]
@@ -120,7 +119,7 @@
     "node_modules", // Exclude node_modules directory
     "../backend", // Exclude backend directory
     "../dist", // Exclude dist directory
-    // "../shared", // Exclude shared directory
+    "../shared", // Exclude shared directory
     "**/*.spec.*", // Exclude test files
     "**/*.test.*"  // Exclude test files
   ]
