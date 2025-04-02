@@ -7,7 +7,7 @@ const findAll = (req:Request, res:Response) => {
   User.findAll()
   .then(users => {
     if (users.length === 0) {
-      return res.status(204).send();
+      return res.status(404).send({message: 'No users found'});
     }
     res.json(users);
     })
@@ -19,10 +19,23 @@ const findAll = (req:Request, res:Response) => {
 };
 
 const findOne = (req:Request, res:Response) => {
-  User.findOne()
-  .then(users => {
+  const id = req.params.id;
+  
+    if (!id) {
+      return res.status(404).send({ message: "Id is undefined" });
+    }
+
+  User.findByPk(id)
+  .then(user => {
+    if (!user) {
+      return res.status(404).send({ message: "User Not found." });
+    }
+    res.json(user);
     })
   .catch(error => {
+    res.status(500).send({
+      message: error.message || "Some error occurred while retrieving users."
+    })
   })
 };
 const create = (req:Request, res:Response) => {
@@ -30,6 +43,7 @@ const create = (req:Request, res:Response) => {
   .then(users => {
     })
   .catch(error => {
+    
   })
 };
 
@@ -41,7 +55,8 @@ const create = (req:Request, res:Response) => {
 //   })
 // };
 
-const deleteRecord = (req:Request, res:Response) => {
+const destroy = (req:Request, res:Response) => {
+  const id = req.params.id;
   User.destroy()
   .then(users => {
     })
@@ -53,7 +68,7 @@ const OurReports = {
   findAll,
   findOne,
   create,
-  delete: deleteRecord,
+  destroy,
   user: db.user,
 };
 
