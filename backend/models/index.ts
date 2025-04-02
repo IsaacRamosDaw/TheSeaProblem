@@ -3,6 +3,7 @@ import { dbConfig } from '../db/db.config';
 import reports from './reportsM';
 import emissions from './emissionsM';
 import user from './userM';
+import company from './companyM';
 
 //!Creamos el objeto sequelize, que para que entiendas lo que sucede abajo es literalmente decir "Conectate a esta db"
 import { Sequelize } from 'sequelize'; // Use ES module syntax
@@ -40,18 +41,21 @@ const db: {
   reports: ReturnType<typeof reports>;
   emissions: ReturnType<typeof emissions>;
   user: ReturnType<typeof user>;
+  company: ReturnType<typeof company>;
   sequelize: Sequelize;
 } = {
     sequelize,
     reports: reports(sequelize),
     emissions: emissions(sequelize),
-    user: user(sequelize)
+    user: user(sequelize),
+    company: company(sequelize)
   };
 
 //? Ve a models/reportsM.js
 db.reports = reports(sequelize);
 db.emissions = emissions(sequelize);
 db.user = user(sequelize);
+db.company = company(sequelize);
 db.sequelize = sequelize;
 
 export {db};
