@@ -1,4 +1,4 @@
-import type { OurReport } from "@/backend/models/ourReportsM";
+import type { OurReport } from "@/shared/types/db-models";
 
 const endpoint = "http://localhost:8080/api/ourReports";
 
