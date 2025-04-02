@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { get } from "../../services/ourReports/ourReports.services";
+import type { OurReport } from "@/shared/types/db-models";
+import { getOurReports } from "@/services/ourReports";
+
 
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
-  const [ourReports, setOurReports] = useState([]);
+  const [ourReports, setOurReports] = useState<OurReport[]>([]);
 
   useEffect(() => {
     //! Esto es una función autoinvocada, se ejecuta al momento de leerse
     (
       async function fetchData() {
-        const data = await get();
-        console.log(data);
+        const data = await getOurReports();
         setOurReports(data);
       }
     )();
