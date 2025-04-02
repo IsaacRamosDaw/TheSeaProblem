@@ -40,9 +40,9 @@ const db: {
   };
 
 //? Ve a models/reportsM.js
+db.user = user(sequelize);
 db.reports = reports(sequelize);
 db.emissions = emissions(sequelize);
-db.user = user(sequelize);
 db.company = company(sequelize);
 db.sequelize = sequelize;
 
