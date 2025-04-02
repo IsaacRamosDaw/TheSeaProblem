@@ -10,6 +10,7 @@ export type OurReport = {
 }
 
 // Define a class that extends Sequelize's Model with the attributes
+
 export class OurReportClass extends Model<OurReport>  {
   declare id: CreationOptional<number>;
   declare name: string;
