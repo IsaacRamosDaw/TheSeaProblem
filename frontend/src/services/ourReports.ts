@@ -1,4 +1,4 @@
-import type { OurReportAttributes } from "@/backend/models/ourReportsM";
+import type { OurReport } from "@/backend/models/ourReportsM";
 
 const endpoint = "http://localhost:8080/api/ourReports";
 
@@ -21,6 +21,6 @@ export const getOurReports = () => {
     return error;
   })
 
-  return data as Promise<OurReportAttributes[]>;
+  return data as Promise<OurReport[]>;
 }
 

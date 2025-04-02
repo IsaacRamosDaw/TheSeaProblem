@@ -1,20 +1,20 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
 // Define a type for the attributes of the model
-type CompanyAttributes = {
+export type Company = {
   name: string;
   number: string;
 }
 
 // Define a class that extends Sequelize's Model with the attributes
-class Company extends Model<CompanyAttributes>  {
+class CompanyClass extends Model<Company>  {
   declare name: string;
   declare number: string;
 }
 
 
 export default (sequelize:Sequelize) => {
-  Company.init({
+  CompanyClass.init({
       name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -33,5 +33,5 @@ export default (sequelize:Sequelize) => {
      }
   );
 
-  return Company;
+  return CompanyClass;
 };

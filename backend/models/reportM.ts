@@ -1,18 +1,18 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 
-// Define the User model
-type ReportAttributes = {
+// Define the model
+export type Report = {
   name: string;
   number: string;
 }
-export class Report extends Model<ReportAttributes>  {
+export class ReportClass extends Model<Report>  {
   declare name: string;
   declare number: string;
 }
 
 
 export default  (sequelize:Sequelize) => {
-  Report.init(
+  ReportClass.init(
     {
       name: {
         type: DataTypes.STRING,
@@ -30,5 +30,5 @@ export default  (sequelize:Sequelize) => {
     }
   );
 
-  return Report;
+  return ReportClass;
 };
