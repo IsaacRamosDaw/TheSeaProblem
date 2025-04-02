@@ -1,22 +1,23 @@
-
+import { Router } from 'express';
+import { request, response} from 'express';
 module.exports = (app) => {
-  const user = require('../controllers/userC.js');
+  const reports = require('../controllers/reportsC.ts');
   var router = require("express").Router();
 
   //List all users
-  router.get("/",  user.findAll);
+  router.get("/",  reports.findAll);
 
   // // Get one user
-  router.get("/:id", user.findOne);
+  router.get("/:id", reports.findOne);
 
   // //Create an user
-  router.post("/", user.create);
+  router.post("/", reports.create);
 
   // // Update a user
-  router.put("/:id", user.update);
+  router.put("/:id", reports.update);
 
   // //Delete user
-  router.delete("/:id", user.delete);
+  router.delete("/:id", reports.delete);
 
-  app.use("/users", router);
+  app.use("/reports", router);
 };

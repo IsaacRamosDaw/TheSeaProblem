@@ -1,13 +1,18 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from 'sequelize';
 
+enum PollutionType {
+  Plastic = 'Plastic',
+  OilSpill = 'Oil Spill',
+  Chemical ='Chemical'
+}
 // Define a type for the attributes of the model
 export type Reports = {
   id?: number;
-  user: string,
-  name: string;
+  user: string;
+  shortDescription: string;
   description: string;
   location: string;
-  pollutionType: string;
+  pollutionType: PollutionType;
   date: Date;
 }
 
@@ -15,10 +20,10 @@ export type Reports = {
 export class ReportsClass extends Model<Reports> {
   declare id: CreationOptional<number>;
   declare user: string;
-  declare name: string;
+  declare shortDescription: string;
   declare description: string;
   declare location: string;
-  declare pollutionType: string;
+  declare pollutionType: PollutionType;
   declare date: Date;
 }
 
@@ -29,7 +34,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      name: {
+      shortDescription: {
         type: DataTypes.STRING,
         allowNull: false,
       },
