@@ -1,20 +1,5 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from 'sequelize';
-
-enum PollutionType {
-  Plastic = 'Plastic',
-  OilSpill = 'Oil Spill',
-  Chemical ='Chemical'
-}
-// Define a type for the attributes of the model
-export type Reports = {
-  id?: number;
-  user: string;
-  shortDescription: string;
-  description: string;
-  location: string;
-  pollutionType: PollutionType;
-  date: Date;
-}
+import type { Reports, PollutionType } from "@/shared/types/db-models"
 
 // Define a class that extends Sequelize's Model with the attributes
 export class ReportsClass extends Model<Reports> {
