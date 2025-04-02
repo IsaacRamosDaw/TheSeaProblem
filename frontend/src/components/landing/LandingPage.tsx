@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { OurReport } from "@/shared/types/db-models";
 import { getOurReports } from "../../services/ourReports";
-import React from "react";
 
 
 //! Ten al lado el services/ourReports.services.js
