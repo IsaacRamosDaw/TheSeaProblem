@@ -29,3 +29,20 @@ export type Reports = {
   pollutionType: PollutionType;
   date: Date;
 }
+
+// Define a type for the attributes of the model
+export type CompanyAttributes = {
+  id?: number;
+  companyName: string;
+  taxId: string;
+  address: string;
+  userId: number;
+  industrialSector: string;
+  relatedActivitiesDescription: string;
+  emissionsId: number; // dudo, porque esto es el fk de la tabla emissions
+}
+
+export type Emissions = {
+  id?: number;
+  name: string;
+}

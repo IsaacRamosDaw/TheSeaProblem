@@ -1,18 +1,9 @@
 import { DataTypes, Model, Sequelize, ForeignKey, CreationOptional} from 'sequelize';
+import { CompanyAttributes } from '@/shared/types/db-models';
 import Emissions from './emissionsM';
 import User from './userM';
 
-// Define a type for the attributes of the model
-type CompanyAttributes = {
-  id?: number;
-  companyName: string;
-  taxId: string;
-  address: string;
-  userId: number;
-  industrialSector: string;
-  relatedActivitiesDescription: string;
-  emissionsId: number; // dudo, porque esto es el fk de la tabla emissions
-}
+//! Te moví el objeto al archivo db-models.d.ts 
 
 // Define a class that extends Sequelize's Model with the attributes
 class Company extends Model<CompanyAttributes>  {

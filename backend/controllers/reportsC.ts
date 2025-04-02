@@ -1,17 +1,13 @@
-//! Esto es lo mismo que llamar al models/index.js
 import {db} from '../models/index';
 import {Request, Response} from 'express';
-//! Acción para cada uno (No están terminadas);
-//?Cuando termines ve al frontend src/app.js
-
+import { Reports } from '@/shared/types/db-models';
 
 const findAll = (_req:Request, res:Response) => {
-  db.reports.findAll()
-  .then(report => {
-    if (report.length === 0) {
-      return res.status(204).send();
-    }
-    res.json(report);
+  
+  db.reports.findAll().then(report => {
+    if (report.length === 0) return res.status(404).send({ message: 'No users found' });
+
+      res.json(report);
     })
   .catch(error => {
     res.status(500).send({
@@ -20,19 +16,34 @@ const findAll = (_req:Request, res:Response) => {
   })
 };
 
-const findOne = (req:Request, res:Response) => {
-  db.reports.findOne()
-  .then(report => {
+const findOne = (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+
+  if (!id) return res.status(400).send({ message: "Invalid report ID." });
+  
+  db.reports.findByPk(id).then(report => {
+    if (!report) return res.status(404).send({ message: "Report not found." });
+    
+      res.json(report);
     })
-  .catch(error => {
-  })
+    .catch(error => {
+      res.status(500).send({
+        message: error.message || "Some error occurred while retrieving the report."
+      });
+    });
 };
-const create = (req:Request, res:Response) => {
-  db.reports.create()
-  .then(report => {
-    })
-  .catch(error => {
+
+const create = (req: Request, res: Response) => {
+  const report: Reports = req.body;
+
+  db.reports.create(report).then(report => {
+    res.status(201).json(report);
   })
+  .catch(error => {
+    res.status(500).send({
+      message: error.message || "Some error occurred while creating the report."
+    });
+  });
 };
 
 // We either don't do this or we define explicit updates
@@ -44,21 +55,29 @@ const create = (req:Request, res:Response) => {
 //   })
 // };
 
-const deleteRecord = (req:Request, res:Response) => {
-  db.reports.destroy()
-  .then(report => {
+const destroy = (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+
+  if (!id) return res.status(400).send({ message: "Invalid report ID." });
+  
+  db.reports.destroy({ where: { id } }).then(deleted => {
+    if (!deleted) return res.status(404).send({ message: "Report not found." });
+      
+      res.json({ message: "Report deleted successfully." });
     })
-  .catch(error => {
-  })
+    .catch(error => {
+      res.status(500).send({
+        message: error.message || "Some error occurred while deleting the report."
+      });
+    });
 };
 
-//! llamamos al objeto de los modelos y lo usamos para realizar acciones en cada controlador.
 const Reports = {
   findAll,
   findOne,
   create,
-  delete: deleteRecord,
-  ourReports: db.reports,
+  destroy,
+  reports: db.reports,
 };
 
 export default Reports;
