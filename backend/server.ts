@@ -3,17 +3,16 @@
 //! Creamos el objeto del servidor
 import express from "express";
 //! Llamamos al objeto que exportamos en models/index.js
-import {db} from './models/index';
+import { db } from "./models/index";
 //! Esto es para las solicitudes proventientes del frontend
 import cors, { CorsOptions } from "cors";
 //! Esto es para las imagenes, más adelante veremos sobre esto
 
 // controllers
-import OurReports from "./controllers/reportsC";
+import Reports from "./controllers/reportsC";
 
 //! permite usar el archivo env
-import 'dotenv/config'
-
+import "dotenv/config";
 
 //! Ve al archivo .env.example. duplicalo y dejalo como ".env"
 //? Abre el archivo, lee los comentarios para entenderlo y vuelve
@@ -40,9 +39,8 @@ app.use(cors("http://localhost:5173/" as CorsOptions));
 //! Creamos la variable del puerto, si no la encuentra en el archivo .env, pues usa el 8080
 const PORT = process.env.PORT || 8080;
 
-
 //! Inicializamos el servidor
-app.listen(PORT, () => {
+export const server = app.listen(PORT, () => {
   console.log(`Server is running http://localhost:${PORT}`);
 });
 
@@ -53,8 +51,8 @@ db.sequelize.sync({ force: true }).then(() => {
 
 //! Rutas para ejecutar los controladores de cada modelo
 // Routes
-app.get("/api/ourReports", OurReports.findAll)
-
+app.get("/api/reports", Reports.findAll);
+app.get("/api/reports/:id", Reports.findOne);
 
 //! Exportación del servidor.
 export default app;
