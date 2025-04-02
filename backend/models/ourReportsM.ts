@@ -34,12 +34,8 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       pollutionType: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
-        references: {
-          model: 'Emissions',
-          key: 'id',
-        }
       },
     },
     {
