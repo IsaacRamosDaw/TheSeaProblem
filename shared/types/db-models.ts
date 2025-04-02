@@ -1,6 +1,6 @@
-import type { User} from "@/backend/models/userM";
-import type { Company } from "@/backend/models/companyM";
-import type { Report } from "@/backend/models/reportM";
-import type { OurReport } from "@/backend/models/ourReportsM";
-
-export type { User, Company, Report, OurReport };
+// Define a type for the attributes of the model
+export type OurReport = {
+  id?: number;
+  name: string;
+  description: string;
+}

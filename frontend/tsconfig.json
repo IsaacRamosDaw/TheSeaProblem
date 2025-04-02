@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.json", // Extend the base tsconfig.json file
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 

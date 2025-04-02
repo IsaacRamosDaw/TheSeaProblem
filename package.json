@@ -1,0 +1,13 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "tsc": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
+}
