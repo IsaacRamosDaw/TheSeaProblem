@@ -1,13 +1,12 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
-
-export type User = {
-  name: string;
-  number: number;
-}
+import { Model, DataTypes, Sequelize } from "sequelize";
+import { User } from "@/shared/types/db-models";
 
 class UserClass extends Model<User> {
+  declare id?: number;
   declare name: string;
-  declare number: number;
+  declare lastname: string;
+  declare email: string;
+  declare password: string;
 }
 
 export default (sequelize:Sequelize) => {
@@ -16,12 +15,19 @@ export default (sequelize:Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      number: {
-        type: DataTypes.INTEGER,
+      lastname: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      password: {
+        type: DataTypes.STRING,
         allowNull: false
       },
     },
-
     {
       timestamps: false,
       sequelize,

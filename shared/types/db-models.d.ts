@@ -1,3 +1,11 @@
+export type User = {
+  id?: number;
+  name: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
+
 // Define a type for the attributes of the model
 export type OurReport = {
   id?: number;
@@ -8,7 +16,7 @@ export type OurReport = {
 export enum PollutionType {
   Plastic = 'Plastic',
   OilSpill = 'Oil Spill',
-  Chemical ='Chemical'
+  Chemical = 'Chemical'
 }
 
 // Define a type for the attributes of the model
