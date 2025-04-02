@@ -2,6 +2,8 @@
 import { dbConfig } from '../db/db.config';
 import ourReports from './ourReportsM';
 import user from './userM';
+import UserModel, { initUserModel } from './TestUserM'
+
 
 //!Creamos el objeto sequelize, que para que entiendas lo que sucede abajo es literalmente decir "Conectate a esta db"
 import { Sequelize } from 'sequelize'; // Use ES module syntax
@@ -33,20 +35,23 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 //! Y ahora creamos el objeto db que contendrá los modelos de cada tabla
 
-
+initUserModel(sequelize);
 //! Los vamos añadiendo
 const db: {
   ourReports: ReturnType<typeof ourReports>;
   user: ReturnType<typeof user>;
+  userModel: typeof UserModel;
   sequelize: Sequelize;
 } = {
     sequelize,
     ourReports: ourReports(sequelize),
-    user: user(sequelize)
+    user: user(sequelize),
+    userModel: UserModel,
   };
 
 //? Ve a models/ourReportsM.js
 db.ourReports = ourReports(sequelize);
+db.userModel = UserModel;
 db.user = user(sequelize);
 db.sequelize = sequelize;
 
