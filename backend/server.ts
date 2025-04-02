@@ -9,7 +9,7 @@ import cors, { CorsOptions } from "cors";
 //! Esto es para las imagenes, más adelante veremos sobre esto
 
 // controllers
-import OurReports from "./controllers/ourReportsC";
+import OurReports from "./controllers/reportsC";
 
 //! permite usar el archivo env
 import 'dotenv/config'

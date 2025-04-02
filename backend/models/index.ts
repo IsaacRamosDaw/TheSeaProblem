@@ -1,6 +1,6 @@
 //!Nos traemos todo el objeto que representa una conexión a la db
 import { dbConfig } from '../db/db.config';
-import ourReports from './ourReportsM';
+import reports from './reportsM';
 import emissions from './emissionsM';
 import user from './userM';
 
@@ -37,19 +37,19 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 //! Los vamos añadiendo
 const db: {
-  ourReports: ReturnType<typeof ourReports>;
+  reports: ReturnType<typeof reports>;
   emissions: ReturnType<typeof emissions>;
   user: ReturnType<typeof user>;
   sequelize: Sequelize;
 } = {
     sequelize,
-    ourReports: ourReports(sequelize),
+    reports: reports(sequelize),
     emissions: emissions(sequelize),
     user: user(sequelize)
   };
 
-//? Ve a models/ourReportsM.js
-db.ourReports = ourReports(sequelize);
+//? Ve a models/reportsM.js
+db.reports = reports(sequelize);
 db.emissions = emissions(sequelize);
 db.user = user(sequelize);
 db.sequelize = sequelize;
