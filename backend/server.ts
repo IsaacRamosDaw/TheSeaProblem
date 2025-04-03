@@ -2,9 +2,9 @@ import express from "express";
 import {db} from './models/index';
 import cors, { CorsOptions } from "cors";
 
-// controllers
-import OurReports from "./controllers/reportsC";
-import 'dotenv/config'
+import Reports from "./controllers/reportsC";
+import ReportsR from "./routes/reportsR";
+import "dotenv/config";
 const app = express();
 
 app.use(express.json());
@@ -18,7 +18,8 @@ app.use(cors("http://localhost:5173/" as CorsOptions));
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
+//! Inicializamos el servidor
+export const server = app.listen(PORT, () => {
   console.log(`Server is running http://localhost:${PORT}`);
 });
 
@@ -27,6 +28,6 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 // Routes
-app.get("/api/ourReports", OurReports.findAll)
+ReportsR(app);
 
 export default app;

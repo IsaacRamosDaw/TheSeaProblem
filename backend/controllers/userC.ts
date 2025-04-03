@@ -22,9 +22,8 @@ const findOne = (req: Request, res: Response) => {
   if (!id) return res.status(404).send({ message: "Id is undefined" });
 
   db.user.findByPk(id).then(user => {
-    if (!user) {
-      return res.status(404).send({ message: "User Not found." });
-    }
+    if (!user) return res.status(404).send({ message: "User Not found." });
+    
     res.json(user);
   })
     .catch(error => {
@@ -42,7 +41,7 @@ const create = (req: Request, res: Response) => {
   })
   .catch(error => {
     res.status(500).send({
-      message: error.message || "Some error occurred while creating the db.user."
+      message: error.message || "Some error occurred while creating the user."
     })
   })
 };
