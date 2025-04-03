@@ -11,6 +11,9 @@ import cors, { CorsOptions } from "cors";
 // controllers
 import Reports from "./controllers/reportsC";
 
+// Routes
+import ReportsR from "./routes/reportsR";
+
 //! permite usar el archivo env
 import "dotenv/config";
 
@@ -51,8 +54,7 @@ db.sequelize.sync({ force: true }).then(() => {
 
 //! Rutas para ejecutar los controladores de cada modelo
 // Routes
-app.get("/api/reports", Reports.findAll);
-app.get("/api/reports/:id", Reports.findOne);
+ReportsR(app);
 
 //! Exportación del servidor.
 export default app;
