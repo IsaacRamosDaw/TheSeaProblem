@@ -9,7 +9,7 @@ export class ReportsClass extends Model<Report> {
   declare description: string;
   declare location: string;
   declare pollutionType: PollutionType;
-  declare date: Date;
+  declare date: string;
 }
 
 export default (sequelize: Sequelize) => {
@@ -36,7 +36,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       date: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },

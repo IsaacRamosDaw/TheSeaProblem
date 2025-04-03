@@ -1,4 +1,4 @@
-import type { OurReport } from "@/shared/types/db-models";
+import type { Report } from "@/shared/types/db-models";
 
 const endpoint = "http://localhost:8080/api/ourReports";
 
@@ -6,21 +6,22 @@ const endpoint = "http://localhost:8080/api/ourReports";
 
 export const getOurReports = () => {
   const data = fetch(endpoint, {
-    method: 'GET',
+    method: "GET",
     headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     }),
-  }).then(response => {
-    if (!response.ok) {
-      throw new Error("Error fetching data");
-    }
-    return response.json();
-  }).catch(error => {
-    console.error("CHACHO HUBO UN ERRO MUCHACHO");
-    return error;
   })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("CHACHO HUBO UN ERRO MUCHACHO");
+      return error;
+    });
 
-  return data as Promise<OurReport[]>;
-}
-
+  return data as Promise<Report[]>;
+};
