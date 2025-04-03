@@ -24,7 +24,7 @@ export const server = app.listen(PORT, () => {
 });
 
 db.sequelize.sync({ force: true }).then(() => {
-  console.log("Reiniciada la base de datos");
+  console.log("Reboot of the db");
 });
 
 // Routes

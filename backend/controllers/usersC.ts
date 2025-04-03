@@ -1,5 +1,5 @@
 import { db } from '../models/index';
-import { UsersSchema } from '@/shared/schemas/user-schema';
+import { UsersSchema } from '../../shared/schemas/user-schema';
 import { Request, Response } from 'express';
 
 
