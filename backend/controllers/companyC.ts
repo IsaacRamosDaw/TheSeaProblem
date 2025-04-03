@@ -1,13 +1,15 @@
 import { db } from "../models";
 import { Request, Response } from "express";
-import { Company } from "@/shared/types/db-models";
+import { CompanySchema } from "../../shared/schemas/company-schema";
 
+const findAll = (_req: Request, res: Response) => {
+  db.companies.findAll().then(companies => {
+    if (companies.length === 0) {
+      res.status(200).json([]);
+      return;
+    }
 
-const findAll = (req: Request, res: Response) => {
-  db.company.findAll().then(companies => {
-    if (companies.length === 0) return res.status(404).send({ message: 'No companies found' });
-
-    res.json(companies);
+    res.status(200).json(companies);
   })
   .catch(error => {
     res.status(500).send({
@@ -16,51 +18,101 @@ const findAll = (req: Request, res: Response) => {
   })
 };
 
-const findOne = (req: Request, res: Response) => {
+const findOneById = (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
 
-  if (!id) return res.status(404).send({ message: "Id is undefined" });
+  if (!id) {
+    res.status(400).json({ message: "ID is required" });
+    return;
+  }
 
-  db.company.findByPk(id).then(company => {
-    if (!company) return res.status(404).send({ message: "company Not found." }); 
+  db.companies.findByPk(id).then(company => {
+    if (!company) {
+      throw new Error(`Unable to locate company with id: ${id}`);
+    }
     
-    res.json(company);
+    res.status(200).json(company);
   })
   .catch(error => {
     res.status(500).send({
-      message: error.message || "Some error occurred while retrieving companys."
+      message: error.message || "Some error occurred while retrieving company."
     })
   })
 };
 
 const create = (req: Request, res: Response) => {
-  const company: Company = req.body;
+  const company = req.body;
 
-  db.company.create(company).then(company => {
-    res.json(company);
+  const cleanCompany = CompanySchema.safeParse(company);
+
+  if (!cleanCompany.success) {
+    res.status(400).json({
+      message: "Invalid data",
+      errors: cleanCompany.error.errors,
+    });
+
+    return;
+  }
+
+  db.companies.create(cleanCompany.data).then(company => {
+    res.status(201).json(company);
   })
   .catch(error => {
     res.status(500).send({
-      message: error.message || "Some error occurred while creating the company."
+      message: "Some error occurred while creating the company.",
+      error: error.message
     })
   })
 };
 
-// const update = (req, res) => {
-//   db.company.update()
-//   .then(users => {
-//     })
-//   .catch(error => {
-//   })
-// };
+const updateById = (req: Request, res: Response) => {
+  const id = req.params.id;
 
-const destroy = (req: Request, res: Response) => {
+  if (!id) {
+    res.status(404).json({ message: "ID is required" });
+    return;
+  }
+
+  const company = req.body;
+  const cleanCompany = CompanySchema.safeParse(company);
+
+  if (!cleanCompany.success) {
+    res.status(400).json({
+      message: "Invalid data",
+      errors: cleanCompany.error.errors,
+    });
+    return;
+  }
+
+  db.companies.update(cleanCompany.data, { where: { id } }).then(company => {
+    if (!company) {
+      throw new Error(`Unable to locate company with id: ${id}`);
+    }
+
+    res.status(200).json(company);
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message:
+        error.message || `Some error occurred while updating company with id: ${id}.`,
+    });
+  })
+}
+
+const destroyById = (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
+  
+  if (!id) {
+    res.status(400).json({ message: "ID is required" });
+    return;
+  }
 
-  if (!id) return res.status(404).send({ message: "Id is undefined" });
-
-  db.company.destroy({ where: { id: id } }).then(() => {
-    res.json({message: "Company deleted succesfully"})
+  db.companies.destroy({ where: { id: id } }).then((user) => {
+    if (!user) {
+      throw new Error(`Unable to locate company with id: ${id}`);
+    }
+  
+    res.status(204).send();
   })
   .catch(error => {
     res.status(500).send({
@@ -69,12 +121,12 @@ const destroy = (req: Request, res: Response) => {
   })
 };
 
-const CompanyController = {
-  findAll,
-  findOne,
+const Companies = {
   create,
-  destroy,
-  companny: db.company,
+  findAll,
+  findOneById,
+  updateById,
+  destroyById,
 };
 
-export default CompanyController;
+export default Companies;
