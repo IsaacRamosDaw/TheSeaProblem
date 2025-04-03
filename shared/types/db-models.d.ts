@@ -14,7 +14,6 @@ export type User = {
   password: string;
 }
 
-
 // Define a type for the attributes of the model
 export type Company = {
   id?: number;
@@ -24,10 +23,14 @@ export type Company = {
   userId: number;
   industrialSector: string;
   relatedActivitiesDescription: string;
-  emissionsId: number; // dudo, porque esto es el fk de la tabla emissions
 }
 
 export type Emissions = {
   id?: number;
-  name: string;
+  pollutionType: string;
+  volume: number;
+  frequency: string;
+  dischargePoint: string;
+  reductionTarget: string;
+  companyId: number;
 }
