@@ -31,7 +31,7 @@ export type Reports = {
 }
 
 // Define a type for the attributes of the model
-export type CompanyAttributes = {
+export type Company = {
   id?: number;
   companyName: string;
   taxId: string;
