@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize, ForeignKey, CreationOptional} from 'sequelize';
+import { DataTypes, Model, Sequelize, CreationOptional} from 'sequelize';
 import { Company } from '@/shared/types/db-models';
 import Emissions from './emissionsM';
 import User from './userM';
@@ -6,7 +6,7 @@ import User from './userM';
 //! Te moví el objeto al archivo db-models.d.ts 
 
 // Define a class that extends Sequelize's Model with the attributes
-class CompanyClass extends Model<Company>  {
+class CompaniesClass extends Model<Company>  {
   declare id: CreationOptional<number>;
   declare companyName: string;
   declare taxId: string;
@@ -18,7 +18,7 @@ class CompanyClass extends Model<Company>  {
 
 
 export default (sequelize: Sequelize) => {
-  CompanyClass.init({
+  CompaniesClass.init({
       companyName: {
         type: DataTypes.STRING,
         allowNull: false
@@ -60,12 +60,12 @@ export default (sequelize: Sequelize) => {
   const UserModel = User(sequelize);
   
   // Definir la relación uno a muchos con Emissions
-  CompanyClass.hasMany(EmissionsModel, { foreignKey: 'companyId' });
-  EmissionsModel.belongsTo(CompanyClass, { foreignKey: 'companyId' });
+  CompaniesClass.hasMany(EmissionsModel, { foreignKey: 'companyId' });
+  EmissionsModel.belongsTo(CompaniesClass, { foreignKey: 'companyId' });
 
   // Relación con User
-  CompanyClass.belongsTo(UserModel, { foreignKey: 'userId' });
-  UserModel.hasMany(CompanyClass, { foreignKey: 'userId' });
+  CompaniesClass.belongsTo(UserModel, { foreignKey: 'userId' });
+  UserModel.hasMany(CompaniesClass, { foreignKey: 'userId' });
 
-  return CompanyClass;
+  return CompaniesClass;
 };

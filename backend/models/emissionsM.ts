@@ -19,7 +19,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       volume: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },
       frequency: {

@@ -2,7 +2,7 @@ import { dbConfig } from '../db/db.config';
 import reports from './reportsM';
 import emissions from './emissionsM';
 import user from './userM';
-import company from './companyM';
+import companies from './companyM';
 
 import { Sequelize } from 'sequelize'; // Use ES module syntax
 import { Model, InferAttributes, InferCreationAttributes, CreationOptional, Dialect } from 'sequelize';
@@ -24,21 +24,21 @@ const db: {
   reports: ReturnType<typeof reports>;
   emissions: ReturnType<typeof emissions>;
   user: ReturnType<typeof user>;
-  company: ReturnType<typeof company>;
+  companies: ReturnType<typeof companies>;
   sequelize: Sequelize;
 } = {
     sequelize,
     reports: reports(sequelize),
     emissions: emissions(sequelize),
     user: user(sequelize),
-    company: company(sequelize)
+    companies: companies(sequelize)
   };
 
 //? Ve a models/reportsM.js
 db.user = user(sequelize);
 db.reports = reports(sequelize);
 db.emissions = emissions(sequelize);
-db.company = company(sequelize);
+db.companies = companies(sequelize);
 db.sequelize = sequelize;
 
 export {db};

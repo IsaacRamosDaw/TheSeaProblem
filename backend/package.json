@@ -2,6 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
@@ -21,13 +22,14 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "3.14.0",
     "sequelize": "6.37.7",
-    "sequelize-auto-migrations": "github:scimonster/sequelize-auto-migrations#a063aa6535a3f580623581bf866cef2d609531ba"
+    "sequelize-auto-migrations": "github:scimonster/sequelize-auto-migrations#a063aa6535a3f580623581bf866cef2d609531ba",
+    "tsx": "^4.19.3",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "cross-env": "^7.0.3",
-    "sequelize-cli": "^6.6.2",
-    "ts-node": "^10.9.2"
+    "sequelize-cli": "^6.6.2"
   }
 }
