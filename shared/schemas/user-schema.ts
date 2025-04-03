@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const UserSchema = z.object({
+export const UsersSchema = z.object({
   id: z.number().optional(),
   name: z.string().min(1, { message: "Name is required" }),
   lastname: z.string().min(1, { message: "Lastname is required" }),

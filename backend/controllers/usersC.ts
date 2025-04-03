@@ -1,10 +1,10 @@
 import { db } from '../models/index';
-import { UserSchema } from '@/shared/schemas/user-schema';
+import { UsersSchema } from '@/shared/schemas/user-schema';
 import { Request, Response } from 'express';
 
 
 const findAll = (_req: Request, res: Response) => {
-  db.user.findAll().then(users => {
+  db.users.findAll().then(users => {
     if (users.length === 0) {
       res.status(202).json([]);
       return;
@@ -27,7 +27,7 @@ const findOneById = (req: Request, res: Response) => {
     return;
   }
 
-  db.user.findByPk(id).then(user => {
+  db.users.findByPk(id).then(user => {
     if (!user) {
       throw new Error(`Unable to locate User with id: ${id}`);
     }
@@ -44,7 +44,7 @@ const findOneById = (req: Request, res: Response) => {
 const create = (req: Request, res: Response) => {
   const user = req.body;
 
-  const cleanUser = UserSchema.safeParse(user);
+  const cleanUser = UsersSchema.safeParse(user);
 
   if (!cleanUser.success) {
     res.status(400).json({
@@ -54,7 +54,7 @@ const create = (req: Request, res: Response) => {
     return;
   }
 
-  db.user.create(cleanUser.data).then(user => {
+  db.users.create(cleanUser.data).then(user => {
     res.status(201).json(user);
   })
   .catch(error => {
@@ -75,7 +75,7 @@ const updateById = (req: Request, res: Response) => {
   const user = req.body;
 
   // Validate the incoming data
-  const cleanUser = UserSchema.safeParse(user);
+  const cleanUser = UsersSchema.safeParse(user);
   if (!cleanUser.success) {
     res.status(400).json({
       message: "Invalid data",
@@ -109,7 +109,7 @@ const destroyById = (req: Request, res: Response) => {
     return;
   }
 
-  db.user.destroy({ where: { id: id } }).then((user) => {
+  db.users.destroy({ where: { id: id } }).then((user) => {
     if (!user) {
       throw new Error(`Unable to locate report with id: ${id}`);
     }
@@ -123,13 +123,12 @@ const destroyById = (req: Request, res: Response) => {
   })
 };
 
-const User = {
+const Users = {
   create,
   findAll,
   findOneById,
   updateById,
   destroyById,
-  user: db.user,
 };
 
-export default User;
+export default Users;

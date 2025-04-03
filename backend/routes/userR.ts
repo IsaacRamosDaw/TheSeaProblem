@@ -1,4 +1,4 @@
-import User from "../controllers/userC";
+import User from "../controllers/usersC";
 import {type Express, Router} from "express";
 
 export default (app: Express) => {
