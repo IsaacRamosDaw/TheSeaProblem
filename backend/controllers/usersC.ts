@@ -6,7 +6,7 @@ import { Request, Response } from 'express';
 const findAll = (_req: Request, res: Response) => {
   db.users.findAll().then(users => {
     if (users.length === 0) {
-      res.status(202).json([]);
+      res.status(200).json([]);
       return;
     }
 
@@ -72,10 +72,11 @@ const updateById = (req: Request, res: Response) => {
     res.status(404).json({ message: "ID is required" });
     return;
   }
+
   const user = req.body;
 
-  // Validate the incoming data
   const cleanUser = UsersSchema.safeParse(user);
+
   if (!cleanUser.success) {
     res.status(400).json({
       message: "Invalid data",
@@ -84,9 +85,7 @@ const updateById = (req: Request, res: Response) => {
     return;
   }
 
-  db.reports
-    .update(cleanUser.data, { where: { id } })
-    .then((user) => {
+  db.users.update(cleanUser.data, { where: { id } }).then(user => {
       if (!user) {
         throw new Error(`Unable to locate user with id: ${id}`);
       }

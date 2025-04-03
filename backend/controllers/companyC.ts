@@ -1,11 +1,11 @@
 import { db } from "../models";
 import { Request, Response } from "express";
-import { CompanySchema } from "@/shared/schemas/company-schema";
+import { CompanySchema } from "../../shared/schemas/company-schema";
 
 const findAll = (_req: Request, res: Response) => {
-  db.company.findAll().then(companies => {
+  db.companies.findAll().then(companies => {
     if (companies.length === 0) {
-      res.status(202).json([]);
+      res.status(200).json([]);
       return;
     }
 
@@ -26,9 +26,9 @@ const findOneById = (req: Request, res: Response) => {
     return;
   }
 
-  db.company.findByPk(id).then(company => {
+  db.companies.findByPk(id).then(company => {
     if (!company) {
-      throw new Error(`Unable to locate User with id: ${id}`);
+      throw new Error(`Unable to locate company with id: ${id}`);
     }
     
     res.status(200).json(company);
@@ -54,7 +54,7 @@ const create = (req: Request, res: Response) => {
     return;
   }
 
-  db.company.create(cleanCompany.data).then(company => {
+  db.companies.create(cleanCompany.data).then(company => {
     res.status(201).json(company);
   })
   .catch(error => {
@@ -73,8 +73,8 @@ const updateById = (req: Request, res: Response) => {
     return;
   }
 
-  const user = req.body;
-  const cleanCompany = CompanySchema.safeParse(user);
+  const company = req.body;
+  const cleanCompany = CompanySchema.safeParse(company);
 
   if (!cleanCompany.success) {
     res.status(400).json({
@@ -84,12 +84,12 @@ const updateById = (req: Request, res: Response) => {
     return;
   }
 
-  db.reports.update(cleanCompany.data, { where: { id } }).then(user => {
-    if (!user) {
+  db.companies.update(cleanCompany.data, { where: { id } }).then(company => {
+    if (!company) {
       throw new Error(`Unable to locate company with id: ${id}`);
     }
 
-    res.status(200).json(user);
+    res.status(200).json(company);
   })
   .catch((error) => {
     res.status(500).send({
@@ -107,7 +107,7 @@ const destroyById = (req: Request, res: Response) => {
     return;
   }
 
-  db.company.destroy({ where: { id: id } }).then((user) => {
+  db.companies.destroy({ where: { id: id } }).then((user) => {
     if (!user) {
       throw new Error(`Unable to locate company with id: ${id}`);
     }
@@ -116,7 +116,7 @@ const destroyById = (req: Request, res: Response) => {
   })
   .catch(error => {
     res.status(500).send({
-      message: error.message || "Some error occurred while deleting the user."
+      message: error.message || "Some error occurred while deleting the company."
     })
   })
 };
