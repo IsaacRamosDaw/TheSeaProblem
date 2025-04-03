@@ -1,83 +1,151 @@
-import {db} from '../models/index';
-import {Request, Response} from 'express';
-import { Reports } from '@/shared/types/db-models';
 
-const findAll = (_req:Request, res:Response) => {
-  
-  db.reports.findAll().then(report => {
-    if (report.length === 0) return res.status(404).send({ message: 'No users found' });
+//! Esto es lo mismo que llamar al models/index.js
+import { ReportSchema } from "../../shared/schemas/report-schema";
+import { db } from "../models/index";
+import { Request, Response } from "express";
+//! Acción para cada uno (No están terminadas);
+//?Cuando termines ve al frontend src/app.js
 
-      res.json(report);
+const findAll = (_req: Request, res: Response) => {
+  db.reports
+    .findAll()
+    .then((report) => {
+      if (report.length === 0) {
+        res.status(200).json([]);
+        return;
+      }
+      res.status(200).json(report);
     })
-  .catch(error => {
-    res.status(500).send({
-      message: error.message || "Some error occurred while retrieving Reportss."
-    })
-  })
+    .catch((error) => {
+      res.status(500).send({
+        message:
+          error.message || "Some error occurred while retrieving Reportss.",
+      });
+    });
 };
 
-const findOne = (req: Request, res: Response) => {
-  const id = parseInt(req.params.id);
-
-  if (!id) return res.status(400).send({ message: "Invalid report ID." });
-  
-  db.reports.findByPk(id).then(report => {
-    if (!report) return res.status(404).send({ message: "Report not found." });
-    
-      res.json(report);
+const findOneById = (req: Request, res: Response) => {
+  const id = req.params.id;
+  if (!id) {
+    res.status(400).json({ message: "ID is required" });
+    return;
+  }
+  db.reports
+    .findOne({ where: { id } })
+    .then((report) => {
+      if (!report) {
+        throw new Error(`Unable to locate report with id: ${id}`);
+      }
+      res.status(200).json(report);
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).send({
-        message: error.message || "Some error occurred while retrieving the report."
+        message:
+          error.message || `Some error occurred while retrieving report ${id}.`,
       });
     });
 };
 
 const create = (req: Request, res: Response) => {
-  const report: Reports = req.body;
+  const reportData = req.body;
 
-  db.reports.create(report).then(report => {
-    res.status(201).json(report);
-  })
-  .catch(error => {
-    res.status(500).send({
-      message: error.message || "Some error occurred while creating the report."
+  // Validate the incoming data
+  const result = ReportSchema.safeParse(reportData);
+
+  if (!result.success) {
+    res.status(400).json({
+      message: "Invalid data",
+      errors: result.error.errors,
     });
-  });
+    return;
+  }
+
+  // If validation passes, proceed to create the report
+
+  db.reports
+    .create(result.data)
+    .then((report) => {
+      res.status(201).json(report);
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: "Error creating report",
+        error: error.message,
+      });
+    });
 };
 
-// We either don't do this or we define explicit updates
-// const update = (req, res) => {
-//   db.ourReports.update()
-//   .then(reports => {
-//     })
-//   .catch(error => {
-//   })
-// };
+const updateById = (req: Request, res: Response) => {
+  const id = req.params.id;
+  if (!id) {
+    res.status(404).json({ message: "ID is required" });
+    return;
+  }
+  const reportData = req.body;
 
-const destroy = (req: Request, res: Response) => {
-  const id = parseInt(req.params.id);
+  // Validate the incoming data
+  const result = ReportSchema.safeParse(reportData);
+  if (!result.success) {
+    res.status(400).json({
+      message: "Invalid data",
+      errors: result.error.errors,
+    });
+    return;
+  }
 
-  if (!id) return res.status(400).send({ message: "Invalid report ID." });
-  
-  db.reports.destroy({ where: { id } }).then(deleted => {
-    if (!deleted) return res.status(404).send({ message: "Report not found." });
-      
-      res.json({ message: "Report deleted successfully." });
+  db.reports
+    .update(result.data, { where: { id } })
+    .then((report) => {
+      if (!report) {
+        throw new Error(`Unable to locate report with id: ${id}`);
+      }
+
+      res.status(200).json(report);
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).send({
-        message: error.message || "Some error occurred while deleting the report."
+        message:
+          error.message || `Some error occurred while updating report ${id}.`,
+      });
+    });
+};
+
+const destroyById = (req: Request, res: Response) => {
+  const id = req.params.id;
+  if (!id) {
+    res.status(400).json({ message: "ID is required" });
+    return;
+  }
+  db.reports
+    .destroy({ where: { id } })
+    .then((report) => {
+      if (!report) {
+        throw new Error(`Unable to locate report with id: ${id}`);
+      }
+      res.status(204).send();
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message:
+          error.message || `Some error occurred while deleting report ${id}.`,
       });
     });
 };
 
 const Reports = {
   findAll,
-  findOne,
+  findOneById,
+  /**
+   * Create a new report. Requires a POST request with the report data in the body.
+   * The data is validated using the ReportSchema before being saved to the database.
+   */
   create,
-  destroy,
-  reports: db.reports,
+  /**
+   * Update an existing report by ID. Requires a PUT request with the report data in the body.
+   * The data is validated using the ReportSchema before being updated in the database.
+   */
+  updateById,
+  destroyById,
 };
 
 export default Reports;

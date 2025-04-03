@@ -14,7 +14,6 @@ class CompanyClass extends Model<Company>  {
   declare userId: number;
   declare industrialSector: string;
   declare relatedActivitiesDescription: string;
-  declare emissionsId: number;
 }
 
 
@@ -47,14 +46,6 @@ export default (sequelize: Sequelize) => {
       relatedActivitiesDescription: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      emissionsId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'emissions',
-          key: 'id'
-        }
       }
     },
     {
@@ -68,11 +59,13 @@ export default (sequelize: Sequelize) => {
   const EmissionsModel = Emissions(sequelize);
   const UserModel = User(sequelize);
   
-  CompanyClass.belongsTo(EmissionsModel, { foreignKey: 'pollutionType' });
-  EmissionsModel.hasMany(CompanyClass, { foreignKey: 'pollutionType' });
+  // Definir la relación uno a muchos con Emissions
+  CompanyClass.hasMany(EmissionsModel, { foreignKey: 'companyId' });
+  EmissionsModel.belongsTo(CompanyClass, { foreignKey: 'companyId' });
 
-  CompanyClass.belongsTo(UserModel, { foreignKey: 'contactUser' });
-  UserModel.hasMany(CompanyClass, { foreignKey: 'contactUser' });
+  // Relación con User
+  CompanyClass.belongsTo(UserModel, { foreignKey: 'userId' });
+  UserModel.hasMany(CompanyClass, { foreignKey: 'userId' });
 
   return CompanyClass;
 };
