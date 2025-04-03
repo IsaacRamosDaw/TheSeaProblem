@@ -1,6 +1,5 @@
-
 //! Esto es lo mismo que llamar al models/index.js
-import { ReportSchema } from "../../shared/schemas/report-schema";
+import { ReportSchema } from "@/shared/schemas/report-schema";
 import { db } from "../models/index";
 import { Request, Response } from "express";
 //! Acción para cada uno (No están terminadas);

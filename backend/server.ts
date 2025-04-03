@@ -1,8 +1,7 @@
 import express from "express";
-import {db} from './models/index';
+import { db } from "./models/index";
 import cors, { CorsOptions } from "cors";
 
-import Reports from "./controllers/reportsC";
 import ReportsR from "./routes/reportsR";
 import "dotenv/config";
 const app = express();
