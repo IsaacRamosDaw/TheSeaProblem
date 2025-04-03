@@ -40,8 +40,7 @@ describe("findOneById user", () => {
     server.close(); // Close the server
   });
 
-  it("should return a report if found", async () => {
-    const mockUser = { id: 1, title: "Sample Report" };
+  it("should return a user if found", async () => {
     (db.users.findByPk as jest.Mock).mockResolvedValue(mockUser);
 
     const res = await request(app).get("/api/users/1");
@@ -51,7 +50,7 @@ describe("findOneById user", () => {
     expect(db.users.findByPk).toHaveBeenCalledWith(1);
   });
 
-  it("should return 500 when no reports is found", async () => {
+  it("should return 500 when no users is found", async () => {
     (db.users.findByPk as jest.Mock).mockResolvedValue(null);
 
     const response = await request(app).get("/api/users/99");
@@ -70,7 +69,7 @@ describe("findOneById user", () => {
   });
 
   it("should return the user with the correct id", async () => {
-    const mockUser = { id: 1, title: "Sample Report" };
+    const mockUser = { id: 1, title: "Sample user" };
     (db.users.findByPk as jest.Mock).mockResolvedValue(mockUser);
 
     const response = await request(app).get("/api/users/1");
@@ -93,14 +92,14 @@ describe("create User", () => {
     (db.users.create as jest.Mock).mockResolvedValue(invalidMockUser);
 
     const res = await request(app)
-      .post("/api/reports")
-      .send({ title: "Sample Report" });
+      .post("/api/users")
+      .send({ title: "Sample user" });
 
     expect(res.status).toBe(400);
     expect(db.users.create).not.toHaveBeenCalled();
   });
 
-  it("should create a report with valid properties", async () => {
+  it("should create a user with valid properties", async () => {
     (db.users.create as jest.Mock).mockResolvedValue(mockUser);
 
     const response = await request(app).post("/api/users").send(mockUser);
@@ -119,14 +118,132 @@ describe("create User", () => {
     expect(response.body).toHaveProperty("message", "Invalid data");
   });
 
-  // it("should handle database errors properly", async () => {
-  //   (db.users.create as jest.Mock).mockRejectedValue(new Error("DB error"));
+  it("should handle database errors properly", async () => {
+    (db.users.create as jest.Mock).mockRejectedValue(new Error("DB error"));
 
-  //   const response = await request(app).post("/api/users").send(mockUser);
+    const response = await request(app).post("/api/users").send(mockUser);
 
-  //   expect(response.status).toBe(500);
-  //   expect(response.body).toHaveProperty("message", "Error creating user");
-  // });
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty("message", "Some error occurred while creating the user.");
+  });
+});
+
+describe("updateById user", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  afterAll(async () => {
+    await db.sequelize.close(); 
+    server.close(); 
+  });
+
+  it("should return 404 if ID is not provided", async () => {
+    const response = await request(app).put("/api/users/").send(mockUser);
+
+    expect(response.status).toBe(404);
+  });
+
+  it("should return 400 for invalid data", async () => {
+    const response = await request(app)
+      .put("/api/users/1")
+      .send({ invalidField: "Invalid Data" });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("message", "Invalid data");
+  });
+
+  it("should update a user with valid properties", async () => {
+    (db.users.update as jest.Mock).mockResolvedValue(mockUser);
+
+    const response = await request(app).put("/api/users/1").send(mockUser);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(mockUser);
+    expect(db.users.update).toHaveBeenCalledWith(mockUser, {
+      where: { id: "1" },
+    });
+  });
+
+  it("should handle database errors properly", async () => {
+
+    (db.users.update as jest.Mock).mockRejectedValue(new Error("DB error"));
+
+    const res = await request(app).put("/api/users/1").send(mockUser);
+
+    expect(res.status).toBe(500);
+    expect(res.body).toHaveProperty("message", "DB error");
+  });  
+});
+
+describe("findAll Users", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  afterAll(async () => {
+    await db.sequelize.close(); // Close Sequelize connection
+    server.close(); // Close the server
+  });
+
+  it("should return all Users", async () => {
+    (db.users.findAll as jest.Mock).mockResolvedValue([mockUser]);
+    const response = await request(app).get("/api/users");
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual([mockUser]);
+    expect(db.users.findAll).toHaveBeenCalled();
+  });
+
+  it("should handle database errors properly", async () => {
+    (db.users.findAll as jest.Mock).mockRejectedValue(new Error("DB error"));
+    const response = await request(app).get("/api/users");
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty("message", "DB error");
+  });
+
+  it("should return empty array if no users are found", async () => {
+    (db.users.findAll as jest.Mock).mockResolvedValue([]);
+    const response = await request(app).get("/api/users");
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual([]);
+  });
+});
+
+describe("destroyById Users", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  afterAll(async () => {
+    await db.sequelize.close(); 
+    server.close(); 
+  });
+
+  it("should return 404 if ID is not provided", async () => {
+    const response = await request(app).delete(`/api/users/`);
+
+    expect(response.status).toBe(404);
+  });
+
+  it("should delete a report by ID", async () => {
+    (db.users.destroy as jest.Mock).mockResolvedValue(1);
+
+    const response = await request(app).delete("/api/users/1");
+
+    expect(response.status).toBe(204);
+    expect(db.users.destroy).toHaveBeenCalledWith({
+      where: { id: 1 },
+    });
+  });
+
+  it("should handle database errors properly", async () => {
+    (db.users.destroy as jest.Mock).mockRejectedValue(new Error("DB error"));
+
+    const response = await request(app).delete("/api/users/1");
+
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty("message", "DB error");
+  });
 });
 
 

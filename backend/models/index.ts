@@ -23,21 +23,21 @@ const db: {
   reports: ReturnType<typeof reports>;
   emissions: ReturnType<typeof emissions>;
   users: ReturnType<typeof user>;
-  company: ReturnType<typeof company>;
+  companies: ReturnType<typeof company>;
   sequelize: Sequelize;
 } = {
   sequelize,
   reports: reports(sequelize),
   emissions: emissions(sequelize),
   users: user(sequelize),
-  company: company(sequelize)
+  companies: company(sequelize)
 };
 
 
 db.users = user(sequelize);
 db.reports = reports(sequelize);
 db.emissions = emissions(sequelize);
-db.company = company(sequelize);
+db.companies = company(sequelize);
 db.sequelize = sequelize;
 
 export {db};

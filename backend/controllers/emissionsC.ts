@@ -1,11 +1,11 @@
 import { db } from "../models/index";
-import { EmissionsSchema } from "@/shared/schemas/emission-schema";
+import { EmissionsSchema } from "../../shared/schemas/emission-schema";
 import { Request, Response } from "express";
 
 const findAll = (_req: Request, res: Response) => {
   db.emissions.findAll().then(emissionss => {
     if (emissionss.length === 0) {
-      res.status(202).json([]);
+      res.status(200).json([]);
       return;
     }
 
@@ -27,12 +27,12 @@ const findOneById = (req: Request, res: Response) => {
     return;
   }
 
-  db.emissions.findByPk(id).then(emissions => {
-    if (!emissions) {
-      return res.status(404).send({ message: "Emissions Not found." });
+  db.emissions.findByPk(id).then(emission => {
+    if (!emission) {
+      throw new Error(`Unable to locate User with id: ${id}`);
     }
 
-    res.status(200).json(emissions);
+    res.status(200).json(emission);
   })
     .catch((error) => {
       res.status(500).send({
@@ -110,7 +110,7 @@ const destroyById = (req: Request, res: Response) => {
     return;
   }
 
-  db.users.destroy({ where: { id: id } }).then(user => {
+  db.emissions.destroy({ where: { id: id } }).then(user => {
     if (!user) {
       throw new Error(`Unable to locate report with id: ${id}`);
     }
