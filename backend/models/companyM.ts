@@ -1,32 +1,25 @@
-import { DataTypes, Model, Sequelize, ForeignKey} from 'sequelize';
+import { DataTypes, Model, Sequelize, ForeignKey, CreationOptional} from 'sequelize';
+import { Company } from '@/shared/types/db-models';
 import Emissions from './emissionsM';
 import User from './userM';
 
-// Define a type for the attributes of the model
-type CompanyAttributes = {
-  companyName: string;
-  taxId: string;
-  address: string;
-  contactUser: number;
-  industrialSector: string;
-  relatedActivitiesDescription: string;
-  pollutionType: number; // dudo, porque esto es el fk de la tabla emissions
-}
+//! Te moví el objeto al archivo db-models.d.ts 
 
 // Define a class that extends Sequelize's Model with the attributes
-class Company extends Model<CompanyAttributes>  {
+class CompanyClass extends Model<Company>  {
+  declare id: CreationOptional<number>;
   declare companyName: string;
   declare taxId: string;
   declare address: string;
-  declare contactUser: number;
+  declare userId: number;
   declare industrialSector: string;
   declare relatedActivitiesDescription: string;
-  declare pollutionType: number;
+  declare emissionsId: number;
 }
 
 
 export default (sequelize: Sequelize) => {
-  Company.init({
+  CompanyClass.init({
       companyName: {
         type: DataTypes.STRING,
         allowNull: false
@@ -39,7 +32,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      contactUser: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -55,7 +48,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      pollutionType: {
+      emissionsId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -75,11 +68,11 @@ export default (sequelize: Sequelize) => {
   const EmissionsModel = Emissions(sequelize);
   const UserModel = User(sequelize);
   
-  Company.belongsTo(EmissionsModel, { foreignKey: 'pollutionType' });
-  EmissionsModel.hasMany(Company, { foreignKey: 'pollutionType' });
+  CompanyClass.belongsTo(EmissionsModel, { foreignKey: 'pollutionType' });
+  EmissionsModel.hasMany(CompanyClass, { foreignKey: 'pollutionType' });
 
-  Company.belongsTo(UserModel, { foreignKey: 'contactUser' });
-  UserModel.hasMany(Company, { foreignKey: 'contactUser' });
+  CompanyClass.belongsTo(UserModel, { foreignKey: 'contactUser' });
+  UserModel.hasMany(CompanyClass, { foreignKey: 'contactUser' });
 
-  return Company;
+  return CompanyClass;
 };

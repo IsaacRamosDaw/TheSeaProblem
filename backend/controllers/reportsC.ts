@@ -1,3 +1,4 @@
+
 //! Esto es lo mismo que llamar al models/index.js
 import { ReportSchema } from "../../shared/schemas/report-schema";
 import { db } from "../models/index";
@@ -131,7 +132,6 @@ const destroyById = (req: Request, res: Response) => {
     });
 };
 
-//! llamamos al objeto de los modelos y lo usamos para realizar acciones en cada controlador.
 const Reports = {
   findAll,
   findOneById,
