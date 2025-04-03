@@ -4,6 +4,9 @@ import cors, { CorsOptions } from "cors";
 
 import ReportsR from "./routes/reportsR";
 import UserR from "./routes/userR";
+import CompanyR from "./routes/companyR";
+import EmissionsR from "./routes/emissionsR";
+
 import "dotenv/config";
 const app = express();
 
@@ -30,5 +33,7 @@ db.sequelize.sync({ force: true }).then(() => {
 // Routes
 ReportsR(app);
 UserR(app);
+CompanyR(app);
+EmissionsR(app);
 
 export default app;

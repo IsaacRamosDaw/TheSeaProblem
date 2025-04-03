@@ -1,93 +1,135 @@
 import { db } from "../models/index";
+import { EmissionsSchema } from "@/shared/schemas/emission-schema";
 import { Request, Response } from "express";
-import { Emissions } from "@/shared/types/db-models";
 
 const findAll = (_req: Request, res: Response) => {
-  db.emissions
-    .findAll()
-    .then((emissionss) => {
-      if (emissionss.length === 0)
-        return res.status(404).send({ message: "No Emissionss found" });
+  db.emissions.findAll().then(emissionss => {
+    if (emissionss.length === 0) {
+      res.status(202).json([]);
+      return;
+    }
 
-      res.json(emissionss);
-    })
+    res.json(emissionss);
+  })
     .catch((error) => {
       res.status(500).send({
         message:
-          error.message || "Some error occurred while retrieving Emissionss.",
+          error.message || "Some error occurred while retrieving emissionss.",
       });
     });
 };
 
-const findOne = (req: Request, res: Response) => {
+const findOneById = (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
 
-  if (!id) return res.status(404).send({ message: "Id is undefined" });
+  if (!id) {
+    res.status(400).json({ message: "ID is required" });
+    return;
+  }
 
-  db.emissions
-    .findByPk(id)
-    .then((emissions) => {
-      if (!emissions) {
-        return res.status(404).send({ message: "Emissions Not found." });
-      }
-      res.json(emissions);
-    })
+  db.emissions.findByPk(id).then(emissions => {
+    if (!emissions) {
+      return res.status(404).send({ message: "Emissions Not found." });
+    }
+
+    res.status(200).json(emissions);
+  })
     .catch((error) => {
       res.status(500).send({
         message:
-          error.message || "Some error occurred while retrieving Emissionss.",
+          error.message || "Some error occurred while retrieving emissionss.",
       });
     });
 };
 
 const create = (req: Request, res: Response) => {
-  const emissions: Emissions = req.body;
+  const emissions = req.body;
 
-  db.emissions
-    .create(emissions)
-    .then((emissionss) => {
-      res.json(emissionss);
-    })
-    .catch((error) => {
-      res.status(500).send({
-        message:
-          error.message ||
-          "Some error occurred while creating the db.Emissions.",
-      });
+  const cleanEmissions = EmissionsSchema.safeParse(emissions);
+
+  if (!cleanEmissions.success) {
+    res.status(400).json({
+      message: "Invalid data",
+      errors: cleanEmissions.error.errors,
     });
+    return;
+  }
+
+  db.emissions.create(cleanEmissions.data).then(emission => {
+      res.status(201).json(emission);
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message:
+        error.message ||
+        "Some error occurred while creating the emissions.",
+    });
+  });
 };
 
-// const update = (req, res) => {
-//   db.Emissions.update()
-//   .then(Emissionss => {
-//     })
-//   .catch(error => {
-//   })
-// };
+const updateById = (req: Request, res: Response) => {
+  const id = req.params.id;
 
-const destroy = (req: Request, res: Response) => {
+  if (!id) {
+    res.status(404).json({ message: "ID is required" });
+    return;
+  }
+
+  const emission = req.body;
+
+  // Validate the incoming data
+  const cleanEmission = EmissionsSchema.safeParse(emission);
+  if (!cleanEmission.success) {
+    res.status(400).json({
+      message: "Invalid data",
+      errors: cleanEmission.error.errors,
+    });
+    return;
+  }
+
+  db.emissions.update(cleanEmission.data, { where: { id } }).then(emission => {
+    if (!emission) {
+      throw new Error(`Unable to locate emission with id: ${id}`);
+    }
+
+    res.status(200).json(emission);
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message:
+        error.message || `Some error occurred while updating emission ${id}.`,
+    });
+  })
+}
+
+const destroyById = (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  if (!id) return res.status(404).send({ message: "Id is undefined" });
+  
+  if (!id) {
+    res.status(400).json({ message: "ID is required" });
+    return;
+  }
 
-  db.emissions
-    .destroy({ where: { id: id } })
-    .then(() => {
-      res.json({ message: "Emissions deleted succesfully" });
+  db.users.destroy({ where: { id: id } }).then(user => {
+    if (!user) {
+      throw new Error(`Unable to locate report with id: ${id}`);
+    }
+  
+    res.status(204).send();
+  })
+  .catch(error => {
+    res.status(500).send({
+      message: error.message || "Some error occurred while deleting the user."
     })
-    .catch((error) => {
-      res.status(500).send({
-        message:
-          error.message || "Some error occurred while deleting the Emissions.",
-      });
-    });
+  })
 };
 
-const EmissionsController = {
-  findAll,
-  findOne,
+const Emissions = {
   create,
-  destroy,
-  emissions: db.emissions,
+  findAll,
+  findOneById,
+  updateById,
+  destroyById,
 };
 
-export default EmissionsController;
+export default Emissions;
