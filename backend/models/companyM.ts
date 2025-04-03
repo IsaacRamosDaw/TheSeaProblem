@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize, CreationOptional} from 'sequelize';
 import { Company } from '@/shared/types/db-models';
 import Emissions from './emissionsM';
-import User from './userM';
+import User from './usersM';
 
 //! Te moví el objeto al archivo db-models.d.ts 
 

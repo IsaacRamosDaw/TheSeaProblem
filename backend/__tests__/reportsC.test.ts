@@ -6,10 +6,10 @@ import type { Report } from "../../shared/types/db-models";
 jest.mock("../models/index", () => ({
   db: {
     reports: {
-      findOne: jest.fn(),
       create: jest.fn(),
-      update: jest.fn(),
       findAll: jest.fn(),
+      findOne: jest.fn(),
+      update: jest.fn(),
       destroy: jest.fn(),
     },
     sequelize: {

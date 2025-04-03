@@ -1,9 +1,9 @@
 import express from "express";
-import {db} from './models/index';
+import { db } from "./models/index";
 import cors, { CorsOptions } from "cors";
 
-import Reports from "./controllers/reportsC";
 import ReportsR from "./routes/reportsR";
+import UserR from "./routes/userR";
 import "dotenv/config";
 const app = express();
 
@@ -29,5 +29,6 @@ db.sequelize.sync({ force: true }).then(() => {
 
 // Routes
 ReportsR(app);
+UserR(app);
 
 export default app;
