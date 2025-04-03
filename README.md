@@ -4,7 +4,7 @@ A digital, Erasmus+ funded collaboration between WEB-Developer students from I.E
 
 <div align="center">
   <h2 align="center">Save the Ocean</h2>
-  <img src="frontend/public/logo.svg" alt="Save the Ocean Logo" width="500px" height="150px"/>
+  <img src="frontend/public/Logo.svg" alt="Save the Ocean Logo" width="500px" height="150px"/>
 </div>
 
 Within the framework of United Nations Sustainable Development Goal 14, which aims to conserve and sustainably use the oceans, seas, and marine resources, our project proposes a digital platform for environmental transparency focused on reducing marine pollution.
