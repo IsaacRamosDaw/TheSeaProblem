@@ -1,60 +1,79 @@
-import {db} from '../models/index';
-import {Request, Response} from 'express';
+import { db } from '../models/index';
+import { Request, Response } from 'express';
+import { User } from '@/shared/types/db-models';
 
-const User = db.user;
 
-const findAll = (req:Request, res:Response) => {
-  User.findAll()
-  .then(users => {
-    if (users.length === 0) {
-      return res.status(204).send();
-    }
-    res.json(users);
+const findAll = (req: Request, res: Response) => {
+  db.user.findAll().then(users => {
+    if (users.length === 0) return res.status(404).send({ message: 'No users found' });
+
+      res.json(users);
     })
+    .catch(error => {
+      res.status(500).send({
+        message: error.message || "Some error occurred while retrieving users."
+      })
+    })
+};
+
+const findOne = (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+
+  if (!id) return res.status(404).send({ message: "Id is undefined" });
+
+  db.user.findByPk(id).then(user => {
+    if (!user) return res.status(404).send({ message: "User Not found." });
+    
+    res.json(user);
+  })
+    .catch(error => {
+      res.status(500).send({
+        message: error.message || "Some error occurred while retrieving users."
+      })
+    })
+};
+
+const create = (req: Request, res: Response) => {
+  const user: User = req.body;
+
+  db.user.create(user).then(users => {
+      res.json(users);
+  })
   .catch(error => {
     res.status(500).send({
-      message: error.message || "Some error occurred while retrieving users."
+      message: error.message || "Some error occurred while creating the user."
     })
-  })
-};
-
-const findOne = (req:Request, res:Response) => {
-  User.findOne()
-  .then(users => {
-    })
-  .catch(error => {
-  })
-};
-const create = (req:Request, res:Response) => {
-  User.create()
-  .then(users => {
-    })
-  .catch(error => {
   })
 };
 
 // const update = (req, res) => {
-//   User.update()
+//   db.user.update()
 //   .then(users => {
 //     })
 //   .catch(error => {
 //   })
 // };
 
-const deleteRecord = (req:Request, res:Response) => {
-  User.destroy()
-  .then(users => {
-    })
+const destroy = (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  if (!id) return res.status(404).send({ message: "Id is undefined" });
+
+  db.user.destroy({ where: { id: id } }).then(() => {
+    res.json({message: "User deleted succesfully"})
+  })
   .catch(error => {
+    res.status(500).send({
+      message: error.message || "Some error occurred while deleting the user."
+    })
   })
 };
 
-const OurReports = {
+const UserController = {
   findAll,
   findOne,
   create,
-  delete: deleteRecord,
+  destroy,
   user: db.user,
 };
 
-export default OurReports;
+export default UserController;
