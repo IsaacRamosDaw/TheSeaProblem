@@ -1,18 +1,18 @@
-import companies from "../controllers/companyC";
+import Companies from "../controllers/companyC";
 import { type Express, Router } from "express";
 
 export default (app: Express) => {
   const router = Router();
 
-  router.get("/",  companies.findAll);
+  router.get("/",  Companies.findAll);
 
-  router.get("/:id", companies.findOneById);
+  router.get("/:id", Companies.findOneById);
 
-  router.post("/", companies.create);
+  router.post("/", Companies.create);
 
-  router.put("/:id", companies.updateById);
+  router.put("/:id", Companies.updateById);
 
-  router.delete("/:id", companies.destroyById);
+  router.delete("/:id", Companies.destroyById);
 
   app.use("/api/companies", router);
 };
