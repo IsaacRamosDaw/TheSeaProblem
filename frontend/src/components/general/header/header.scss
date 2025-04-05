@@ -1,0 +1,26 @@
+@use '../../../Global' as *;
+
+header{
+  @include flex(row, 0px);
+
+  img{
+    border: 1px solid black;
+  }
+  
+  nav{
+    background-color: red;
+    ul{
+      @include flex(row, 20px);
+      list-style: none;
+      padding: 0;
+
+      li{
+
+      }
+
+      a{
+        color: black;
+      }
+    }
+  }
+}
