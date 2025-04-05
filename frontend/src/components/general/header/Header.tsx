@@ -10,7 +10,6 @@ export function Header() {
           <li><a href="">About</a></li>
         </ul>
       </nav>
-      <span>Icon</span>
     </header> 
   );
 }

@@ -4,20 +4,24 @@ header{
   @include flex(row, 0px);
 
   img{
-    border: 1px solid black;
+    width: 40%;
+    height: 50px;
   }
-  
+
   nav{
-    background-color: red;
+    width: 100%;
+    padding-left: 30px;
+
     ul{
       @include flex(row, 20px);
       list-style: none;
       padding: 0;
+      margin: 0;
+      height: 100%;
 
       li{
-
+        margin: auto 0;
       }
-
       a{
         color: black;
       }
