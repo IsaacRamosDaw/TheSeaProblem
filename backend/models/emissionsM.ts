@@ -1,7 +1,7 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
-import { Emissions } from "@/shared/types/db-models";
+import { Emission } from "@/shared/types/db-models";
 
-export class EmissionsClass extends Model<Emissions>{
+export class EmissionsClass extends Model<Emission>{
   declare id: CreationOptional<number>;
   declare pollutionType: string;
   declare volume: number;
@@ -9,6 +9,7 @@ export class EmissionsClass extends Model<Emissions>{
   declare dischargePoint: string;
   declare reductionTarget: string;
   declare companyId: number;
+  declare date: string;
 }
 
 export default (sequelize: Sequelize) => {
@@ -19,7 +20,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       volume: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       frequency: {
@@ -36,6 +37,10 @@ export default (sequelize: Sequelize) => {
       },
       companyId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      date: {
+        type: DataTypes.DATE,
         allowNull: false,
       },
     },
