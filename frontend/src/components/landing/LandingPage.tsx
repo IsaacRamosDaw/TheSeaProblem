@@ -3,12 +3,13 @@ import type { Report } from "@/shared/types/db-models";
 import { getOurReports } from "../../services/ourReports";
 import { Header } from "../general/header/Header";
 import { Footer } from "../general/footer/Footer";
+import { StaticReportComp } from "./staticReports/StaticReports";
 
 import './landingPage.scss'
-//! Ten al lado el services/ourReports.services.js
+
 export function LandingPage() {
-  const [ourReports, setOurReports] = useState<Report[]>([]);
-  const [text, setText] = useState<string>();
+  // const [ourReports, setOurReports] = useState<Report[]>([]);
+  // const [text, setText] = useState<string>();
 
   // useEffect(() => {
   //   (async function fetchData() {
@@ -20,6 +21,30 @@ export function LandingPage() {
   return (
     <>
       <Header />
+      <StaticReportComp 
+        id={1} 
+        title="Título" 
+        subtitle="Subtitulo" 
+        image={'staticReports/FotoExample.jpg'}
+        paragraph="Texto textito textado texteado textando 
+        textaso texting textis text.  textetextuando textaxado 
+        textis, tuxto oxtus"/>
+      <StaticReportComp 
+        id={1} 
+        title="Título" 
+        subtitle="Subtitulo" 
+        image={'staticReports/FotoExample.jpg'}
+        paragraph="Texto textito textado texteado textando 
+        textaso texting textis text.  textetextuando textaxado 
+        textis, tuxto oxtus"/>
+      <StaticReportComp 
+        id={1} 
+        title="Título" 
+        subtitle="Subtitulo" 
+        image={'staticReports/FotoExample.jpg'}
+        paragraph="Texto textito textado texteado textando 
+        textaso texting textis text.  textetextuando textaxado 
+        textis, tuxto oxtus"/>
       <Footer />
     </>
   );
