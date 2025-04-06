@@ -3,6 +3,8 @@ import type { Report } from "@/shared/types/db-models";
 import { getOurReports } from "../../services/ourReports";
 import './landingPage.scss'
 //! Ten al lado el services/ourReports.services.js
+import { CompanyList } from "../companies/index";
+
 export function LandingPage() {
   const [ourReports, setOurReports] = useState<Report[]>([]);
   const [text, setText] = useState<string>();
@@ -16,7 +18,8 @@ export function LandingPage() {
 
   return (
     <div>
-      <h1>A</h1>
+      <h1>Prueba</h1>
+      <CompanyList />
     </div>
   );
 }

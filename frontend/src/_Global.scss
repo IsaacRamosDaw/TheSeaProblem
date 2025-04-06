@@ -1,10 +1,58 @@
-$color-primary: #333;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+// Breakpoints
+$mobile: 576px;
+$tablet: 768px;
+$desktop: 1200px;
+
+// Colores
+$color-primary: #fff;
 $color-secondary: #333;
 $color-third: #333;
 
+// Colores para iconos
+$color-icons-primary: #374957;
+$color-icons-focus: #50CAFF;
+
+$color-text-paragraph: #333;
+
+// Tamaños de texto base
 $text-header: 10px;
 $text-sub-header: 10px;
 $text-paragraph: 10px;
+
+// Tamaños de texto responsivos para formularios
+$form-title-desktop: 2rem;
+$form-title-tablet: 1.8rem;
+$form-title-mobile: 1.4rem;
+
+$form-subtitle-desktop: 1.5rem;
+$form-subtitle-tablet: 1.25rem;
+$form-subtitle-mobile: 1rem;
+
+$form-input-desktop: 1.1rem;
+$form-input-tablet: 0.9rem;
+$form-input-mobile: 0.75rem;
+
+$form-button-desktop: 1.1rem;
+$form-button-tablet: 0.9rem;
+$form-button-mobile: 0.8rem;
+
+$form-back-button-desktop: 1.2rem;
+$form-back-button-tablet: 1rem;
+$form-back-button-mobile: 0.9rem;
+
+$form-back-arrow-desktop: 1.5rem;
+$form-back-arrow-tablet: 1.2rem;
+$form-back-arrow-mobile: 1.1rem;
+
+// Tipografía
+$font-family: 'Roboto', sans-serif;
+
+// Aplicar la fuente a todo el documento
+* {
+  font-family: $font-family;
+}
 
 @mixin flex($direction, $gap) {
   display: flex;
