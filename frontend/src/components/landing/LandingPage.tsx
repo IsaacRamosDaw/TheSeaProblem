@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { Report } from "@/shared/types/db-models";
 import { getOurReports } from "../../services/ourReports";
 import { Header } from "../general/header/Header";
+import { Footer } from "../general/footer/Footer";
+
 import './landingPage.scss'
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
@@ -18,7 +20,7 @@ export function LandingPage() {
   return (
     <>
       <Header />
-      <h1>A</h1>
+      <Footer />
     </>
   );
 }
