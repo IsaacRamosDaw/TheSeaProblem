@@ -269,6 +269,26 @@ const CeruleanPollutionDashboard = () => {
 
   return (
     <div className="dashboard-container">
+      <div className="data-source-info">
+        <h3>Data Source</h3>
+        <p>
+          The Cerulean API leverages satellite imagery—particularly from sensors like Sentinel-1—to detect oil spills on the ocean's surface. By using machine learning algorithms and advanced radar image processing, the system analyzes large volumes of data to identify anomalies and patterns that are characteristic of oil spills, such as areas with low surface roughness and reflectivity.
+        </p>
+        <p>
+          Each detection is converted into a geospatial feature that includes key information such as:
+        </p>
+        <ul>
+          <li>Geographic coordinates of the spill</li>
+          <li>Estimated contaminated area in square meters</li>
+          <li>Confidence level of the detection (0-1)</li>
+          <li>Unique detection ID</li>
+          <li>Detection timestamp</li>
+        </ul>
+        <p>
+          This data enables users to monitor, analyze, and respond promptly to potential oil pollution incidents. The data is updated in real-time as new detections are processed. You can filter the data by date range and group nearby detections using the distance slider.
+        </p>
+      </div>
+
       <div className="filters-section">
         <div className="filter-group">
           <label>Initial date</label>
@@ -312,26 +332,6 @@ const CeruleanPollutionDashboard = () => {
             <span>1.0</span>
           </div>
         </div>
-      </div>
-
-      <div className="data-source-info">
-        <h3>Data Source</h3>
-        <p>
-          The Cerulean API leverages satellite imagery—particularly from sensors like Sentinel-1—to detect oil spills on the ocean's surface. By using machine learning algorithms and advanced radar image processing, the system analyzes large volumes of data to identify anomalies and patterns that are characteristic of oil spills, such as areas with low surface roughness and reflectivity.
-        </p>
-        <p>
-          Each detection is converted into a geospatial feature that includes key information such as:
-        </p>
-        <ul>
-          <li>Geographic coordinates of the spill</li>
-          <li>Estimated contaminated area in square meters</li>
-          <li>Confidence level of the detection (0-1)</li>
-          <li>Unique detection ID</li>
-          <li>Detection timestamp</li>
-        </ul>
-        <p>
-          This data enables users to monitor, analyze, and respond promptly to potential oil pollution incidents. The data is updated in real-time as new detections are processed. You can filter the data by date range and group nearby detections using the distance slider.
-        </p>
       </div>
 
       <div className="charts-section">
