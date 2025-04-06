@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Report } from "@/shared/types/db-models";
 import { getOurReports } from "../../services/ourReports";
+import Login from '../login/Login';
 import './landingPage.scss'
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
@@ -15,8 +16,8 @@ export function LandingPage() {
   // }, []);
 
   return (
-    <div>
-      <h1>A</h1>
+    <div className="landing-container">
+      <Login />
     </div>
   );
 }
