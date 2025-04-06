@@ -5,6 +5,7 @@ import { Chart } from 'react-chartjs-2';
 import MapComponent from '../map/MapComponent';
 import * as wellknown from 'wellknown';
 import { OilSpillFeature } from '@shared/types/oil-spill';
+import './CeruleanPollutionDashboard.scss';
 
 ChartJS.register(
   CategoryScale,
@@ -133,12 +134,20 @@ const CeruleanPollutionDashboard = () => {
             const geojson = wellknown.parse(feature.geometry);
             let coords: [number, number] = [0, 0];
 
-            if (geojson.type === 'Point') {
-              coords = geojson.coordinates;
-            } else if (geojson.type === 'Polygon') {
-              coords = geojson.coordinates[0][0];
-            } else if (geojson.type === 'MultiPolygon') {
-              coords = geojson.coordinates[0][0][0];
+            if (!geojson) {
+              console.error('Error: Invalid geometry format');
+              return null;
+            }
+
+            if (geojson.type === 'Point' && 'coordinates' in geojson) {
+              coords = geojson.coordinates as [number, number];
+            } else if (geojson.type === 'Polygon' && 'coordinates' in geojson) {
+              coords = (geojson.coordinates[0][0] as [number, number]);
+            } else if (geojson.type === 'MultiPolygon' && 'coordinates' in geojson) {
+              coords = (geojson.coordinates[0][0][0] as [number, number]);
+            } else {
+              console.error('Error: Unsupported geometry type:', geojson.type);
+              return null;
             }
 
             const confidence = feature.properties?.confidence || 
@@ -202,6 +211,7 @@ const CeruleanPollutionDashboard = () => {
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         yAxisID: 'y',
         type: 'line' as const,
+        // type: 'scatter' as const,
       },
       {
         label: 'Confidence Level (%)',
@@ -260,8 +270,8 @@ const CeruleanPollutionDashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="filters-section">
-        <div className="date-filter">
-          <label>Initial date:</label>
+        <div className="filter-group">
+          <label>Initial date</label>
           <input
             type="date"
             value={dateRange[0].toISOString().split('T')[0]}
@@ -270,8 +280,8 @@ const CeruleanPollutionDashboard = () => {
           />
         </div>
 
-        <div className="location-filter">
-          <label>Contaminated area:</label>
+        <div className="filter-group">
+          <label>Contaminated area</label>
           <select
             value={selectedLocation}
             onChange={e => setSelectedLocation(e.target.value)}
@@ -285,7 +295,10 @@ const CeruleanPollutionDashboard = () => {
         </div>
 
         <div className="distance-filter">
-          <label>Grouping distance (degrees): {groupDistance.toFixed(2)}</label>
+          <div className="distance-label">
+            <span>Grouping distance (degrees)</span>
+            <span className="distance-value">{groupDistance.toFixed(2)}</span>
+          </div>
           <input
             type="range"
             min="0.1"
@@ -293,7 +306,6 @@ const CeruleanPollutionDashboard = () => {
             step="0.01"
             value={groupDistance}
             onChange={e => setGroupDistance(parseFloat(e.target.value))}
-            style={{ width: '200px' }}
           />
           <div className="distance-limits">
             <span>0.1</span>
@@ -305,41 +317,26 @@ const CeruleanPollutionDashboard = () => {
       <div className="data-source-info">
         <h3>Data Source</h3>
         <p>
-          This dashboard displays oil spill detections from the Cerulean API (OGC API - Features).
-          The data is retrieved from the <code>public.slick</code> collection, which contains
-          detections of potential oil spills in marine environments. Each detection includes:
+          The Cerulean API leverages satellite imagery—particularly from sensors like Sentinel-1—to detect oil spills on the ocean's surface. By using machine learning algorithms and advanced radar image processing, the system analyzes large volumes of data to identify anomalies and patterns that are characteristic of oil spills, such as areas with low surface roughness and reflectivity.
+        </p>
+        <p>
+          Each detection is converted into a geospatial feature that includes key information such as:
         </p>
         <ul>
           <li>Geographic coordinates of the spill</li>
           <li>Estimated contaminated area in square meters</li>
           <li>Confidence level of the detection (0-1)</li>
           <li>Unique detection ID</li>
+          <li>Detection timestamp</li>
         </ul>
         <p>
-          The data is updated in real-time as new detections are processed. You can filter the data
-          by date range and group nearby detections using the distance slider.
+          This data enables users to monitor, analyze, and respond promptly to potential oil pollution incidents. The data is updated in real-time as new detections are processed. You can filter the data by date range and group nearby detections using the distance slider.
         </p>
       </div>
 
       <div className="charts-section">
         <div className="chart-container">
           <h2>Contaminated Area and Confidence Level</h2>
-          <div className="chart-description">
-            <p>
-              The line chart below shows the temporal evolution of oil spill detections.
-              The red line represents the contaminated area in square kilometers, while
-              the blue bars indicate the confidence level of each detection (0-100%).
-              Each point on the X-axis represents a unique detection ID.
-            </p>
-            <p>
-              This visualization helps identify patterns in spill sizes and detection
-              confidence over time. You can filter the data by selecting a specific
-              contaminated area from the dropdown menu above.
-            </p>
-            {selectedLocation !== 'all' && (
-              <p>Showing data for the selected location.</p>
-            )}
-          </div>
           <Chart 
             type='bar'
             data={chartData} 
@@ -349,24 +346,6 @@ const CeruleanPollutionDashboard = () => {
 
         <div className="map-section">
           <h2>Locations</h2>
-          <div className="map-description">
-            <p>
-              The map displays the geographic distribution of oil spill detections.
-              Each marker represents a detection location, and you can click on them
-              to view detailed information about each spill, including:
-            </p>
-            <ul>
-              <li>Detection ID</li>
-              <li>Contaminated area in square kilometers</li>
-              <li>Confidence level of the detection</li>
-            </ul>
-            <p>
-              The grouping distance slider above allows you to control how nearby
-              detections are grouped together. A smaller distance value will create
-              more groups, while a larger value will combine more detections into
-              fewer groups.
-            </p>
-          </div>
           <MapComponent features={filteredData} />
         </div>
       </div>

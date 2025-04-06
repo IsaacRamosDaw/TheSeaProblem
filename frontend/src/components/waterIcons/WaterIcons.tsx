@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GiWaterDrop, GiWaveCrest, GiMountainRoad, GiWaterBottle } from 'react-icons/gi';
 import CeruleanPollutionDashboard from '../ceruleanPollutionDashboard/CeruleanPollutionDashboard';
-import './WaterIcons.css';
+import './WaterIcons.scss';
 
 interface WaterIconProps {
   icon: React.ReactNode;
@@ -49,29 +49,29 @@ const WaterIcons: React.FC = () => {
       <div className="water-icons-container">
         <WaterIcon
           icon={<GiWaveCrest size={40} />}
-          label="Mar"
-          description="Contaminación en océanos y mares"
+          label="Sea"
+          description="Pollution in oceans and seas"
           isSelected={selectedView === 'sea'}
           onClick={() => handleIconClick('sea')}
         />
         <WaterIcon
           icon={<GiWaterDrop size={40} />}
-          label="Lagos"
-          description="Contaminación en cuerpos de agua estancada"
+          label="Lakes"
+          description="Pollution in stagnant water bodies"
           isSelected={selectedView === 'lakes'}
           onClick={() => handleIconClick('lakes')}
         />
         <WaterIcon
           icon={<GiMountainRoad size={40} />}
-          label="Ríos"
-          description="Contaminación en cursos de agua"
+          label="Rivers"
+          description="Pollution in water courses"
           isSelected={selectedView === 'rivers'}
           onClick={() => handleIconClick('rivers')}
         />
         <WaterIcon
           icon={<GiWaterBottle size={40} />}
-          label="Plásticos"
-          description="Contaminación por residuos plásticos"
+          label="Plastics"
+          description="Pollution from plastic waste"
           isSelected={selectedView === 'plastics'}
           onClick={() => handleIconClick('plastics')}
         />
