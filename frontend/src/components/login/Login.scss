@@ -81,6 +81,7 @@
     text-align: center;
     color: global.$color-secondary;
     margin-bottom: 2rem;
+    font-size: global.$form-title-desktop;
   }
 
   .form-group {
@@ -93,7 +94,7 @@
       padding: 0.8rem;
       border: 1px solid #ddd;
       border-radius: 5px;
-      font-size: 1rem;
+      font-size: global.$form-input-desktop;
       box-sizing: border-box;
 
       &:focus {
@@ -113,7 +114,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: global.$form-button-desktop;
     transition: background-color 0.3s ease;
 
     &.login-btn {
@@ -155,7 +156,7 @@
     border: none;
     color: global.$color-icons-primary;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: global.$form-back-button-desktop;
     padding: 0.5rem;
     @include global.flex(row, 0.5rem);
     align-items: center;
@@ -168,7 +169,7 @@
 
     &::before {
       content: '←';
-      font-size: 1.5rem;
+      font-size: global.$form-back-arrow-desktop;
     }
   }
 }
@@ -229,5 +230,85 @@
   
   h2 {
     margin-top: 1rem;
+  }
+}
+
+@media (max-width: global.$desktop) {
+  .form-container {
+    h2 {
+      font-size: global.$form-title-tablet;
+    }
+
+    input {
+      font-size: global.$form-input-tablet;
+    }
+
+    button {
+      font-size: global.$form-button-tablet;
+    }
+
+    .back-button {
+      font-size: global.$form-back-button-tablet;
+      
+      &::before {
+        font-size: global.$form-back-arrow-tablet;
+      }
+    }
+  }
+}
+
+@media (max-width: global.$tablet) {
+  .form-container {
+    h2 {
+      font-size: global.$form-title-tablet;
+    }
+
+    input {
+      font-size: global.$form-input-tablet;
+    }
+
+    button {
+      font-size: global.$form-button-tablet;
+    }
+
+    .back-button {
+      font-size: global.$form-back-button-tablet;
+      
+      &::before {
+        font-size: global.$form-back-arrow-tablet;
+      }
+    }
+  }
+}
+
+@media (max-width: global.$mobile) {
+  .form-container {
+    background: rgba(global.$color-primary, 0.7);
+    width: 95%;
+    padding: 1.5rem;
+
+    h2 {
+      font-size: global.$form-title-mobile;
+    }
+
+    input {
+      font-size: global.$form-input-mobile;
+      
+      &::placeholder {
+        font-size: global.$form-input-mobile;
+      }
+    }
+
+    button {
+      font-size: global.$form-button-mobile;
+    }
+
+    .back-button {
+      font-size: global.$form-back-button-mobile;
+      
+      &::before {
+        font-size: global.$form-back-arrow-mobile;
+      }
+    }
   }
 } 

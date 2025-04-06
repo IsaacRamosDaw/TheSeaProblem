@@ -16,9 +16,31 @@ $color-icons-focus: #50CAFF;
 
 $color-text-paragraph: #333;
 
+// Tamaños de texto base
 $text-header: 10px;
 $text-sub-header: 10px;
 $text-paragraph: 10px;
+
+// Tamaños de texto responsivos para formularios
+$form-title-desktop: 2rem;
+$form-title-tablet: 1.8rem;
+$form-title-mobile: 1.4rem;
+
+$form-input-desktop: 1.1rem;
+$form-input-tablet: 0.9rem;
+$form-input-mobile: 0.75rem;
+
+$form-button-desktop: 1.1rem;
+$form-button-tablet: 0.9rem;
+$form-button-mobile: 0.8rem;
+
+$form-back-button-desktop: 1.2rem;
+$form-back-button-tablet: 1rem;
+$form-back-button-mobile: 0.9rem;
+
+$form-back-arrow-desktop: 1.5rem;
+$form-back-arrow-tablet: 1.2rem;
+$form-back-arrow-mobile: 1.1rem;
 
 // Tipografía
 $font-family: 'Roboto', sans-serif;
