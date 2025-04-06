@@ -1,18 +1,35 @@
-import "./staticReports.scss"
-import { StaticReport } from "@/shared/types/db-models";
+import { StaticReportComp } from "./individualStaticReport/StaticReportComp";
 
-
-export function StaticReportComp({id, title, subtitle, image, paragraph}: StaticReport) {
+export function StaticReports() {
   return (
-    <div key={id} className="static-report">
-
-      <p className="report-title"> {title} </p>
-
-      <p className="report-sub-title"> {subtitle} </p>
-
-      <img src={image} alt=" " />
-
-      <p className="report-paragraph"> {paragraph} </p>
-    </div>
+    <>
+      <StaticReportComp
+        id={1} 
+        title="Título" 
+        subtitle="Subtitulo" 
+        image={'staticReports/FotoExample.jpg'}
+        paragraph="Texto textito textado texteado textando 
+        textaso texting textis text.  textetextuando textaxado 
+        textis, tuxto oxtus"
+      />
+      <StaticReportComp
+        id={2} 
+        title="Título" 
+        subtitle="Subtitulo" 
+        image={'staticReports/FotoExample.jpg'}
+        paragraph="Texto textito textado texteado textando 
+        textaso texting textis text.  textetextuando textaxado 
+        textis, tuxto oxtus"
+      />
+      <StaticReportComp
+        id={3} 
+        title="Título" 
+        subtitle="Subtitulo" 
+        image={'staticReports/FotoExample.jpg'}
+        paragraph="Texto textito textado texteado textando 
+        textaso texting textis text.  textetextuando textaxado 
+        textis, tuxto oxtus"
+      />
+    </>
   );
 }
