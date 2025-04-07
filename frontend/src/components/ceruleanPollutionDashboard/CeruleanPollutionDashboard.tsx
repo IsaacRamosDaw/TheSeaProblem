@@ -264,8 +264,8 @@ const CeruleanPollutionDashboard = () => {
     }
   };
 
-  if (loading) return <div className="loading">Loading data...</div>;
-  if (error) return <div className="error-alert">{error}</div>;
+  if (loading) return <div className={styles.dashboard__loading}>Loading data...</div>;
+  if (error) return <div className={styles.dashboard__error}>{error}</div>;
 
   return (
     <div className={styles.dashboard__container}>
@@ -315,9 +315,11 @@ const CeruleanPollutionDashboard = () => {
         </div>
 
         <div className={styles.dashboard__distanceFilter}>
+          <label>Grouping distance (degrees)</label>
           <div className={styles.dashboard__distanceFilterLabel}>
-            <span>Grouping distance (degrees)</span>
-            <span className={styles.dashboard__distanceFilterLabel}>{groupDistance.toFixed(2)}</span>
+            <span className={styles.dashboard__distanceFilterValue} style={{fontSize: '14.4px'}}>
+              {groupDistance.toFixed(1)}
+            </span>
           </div>
           <input
             type="range"
@@ -327,9 +329,9 @@ const CeruleanPollutionDashboard = () => {
             value={groupDistance}
             onChange={e => setGroupDistance(parseFloat(e.target.value))}
           />
-          <div className="distance-limits">
-            <span>0.1</span>
-            <span>1.0</span>
+          <div className={styles.dashboard__distanceFilterLimits}>
+            <span className={styles.dashboard__minValue}>0.1</span>
+            <span className={styles.dashboard__maxValue}>1.0</span>
           </div>
         </div>
       </div>

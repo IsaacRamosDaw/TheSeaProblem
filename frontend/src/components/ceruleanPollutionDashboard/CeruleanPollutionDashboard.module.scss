@@ -1,5 +1,6 @@
 // CeruleanPollutionDashboard.module.scss
 @use '../../_Global' as *;
+@use "sass:color";
 
 .dashboard {
   &__container {
@@ -19,7 +20,7 @@
     }
   }
 
-  &__data-source {
+  &__dataSource {
     margin-bottom: 2rem;
     padding: 1.5rem;
     background-color: white;
@@ -33,7 +34,7 @@
 
     p, ul {
       line-height: 1.6;
-      color: lighten($color-text-paragraph, 15%);
+      color: rgba($color-text-paragraph, 0.85);
     }
   }
 
@@ -51,14 +52,26 @@
       flex-direction: column;
       gap: 1rem;
     }
+
+    @media (max-width: $mobile) {
+      padding: 0.75rem;
+      margin: 0.5rem;
+      width: calc(100% - 1rem);
+    }
   }
 
-  &__filter-group {
+  &__filterGroup {
     flex: 1;
     min-width: 200px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+
+    @media (max-width: $mobile) {
+      min-width: 100%;
+      width: 100%;
+      padding: 0 0.25rem;
+    }
 
     label {
       font-weight: 500;
@@ -66,22 +79,49 @@
       font-size: 0.9rem;
     }
 
-    input, select {
+    input[type="date"],
+    select {
       padding: 0.75rem;
       border: 1px solid #e0e0e0;
       border-radius: 4px;
       font-size: 0.9rem;
+      color: $color-text-paragraph;
+      background-color: white;
       transition: all 0.3s ease;
       width: 100%;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: $color-icons-primary;
+        box-shadow: 0 0 0 2px rgba($color-icons-primary, 0.1);
+      }
+
+      @media (max-width: $mobile) {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    select {
+      cursor: pointer;
+      // Remover el estilo de flecha personalizado
+      background-image: none !important;
     }
   }
 
-  &__distance-filter {
+  &__distanceFilter {
     flex: 1;
     min-width: 200px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+
+    @media (max-width: $mobile) {
+      min-width: 100%;
+      width: 100%;
+      padding: 0 0.25rem;
+    }
 
     &-label {
       display: flex;
@@ -89,18 +129,101 @@
       align-items: center;
       font-weight: 500;
       color: $color-text-paragraph;
+      font-size: 14.4px;
+
+      label {
+        font-size: 14.4px;
+      }
+
+      @media (max-width: $mobile) {
+        font-size: 0.85rem;
+        
+        label {
+          font-size: 0.85rem;
+        }
+      }
     }
 
     &-value {
       color: $color-icons-primary;
       font-weight: 600;
+      font-size: 14.4px;
+    }
+  }
+
+  &__sliderContainer {
+    position: relative;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  &__distanceFilterLimits {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  &__minValue {
+    float: left;
+  }
+
+  &__maxValue {
+    float: right;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    outline: none;
+    box-sizing: border-box;
+
+    @media (max-width: $mobile) {
+      height: 4px;
     }
 
-    &-limits {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: #666;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      background: $color-icons-primary;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      @media (max-width: $mobile) {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      background: $color-icons-primary;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      @media (max-width: $mobile) {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 
@@ -123,7 +246,7 @@
     }
   }
 
-  &__map-section {
+  &__mapSection {
     width: 100%;
     height: 400px;
     margin-top: 1.5rem;
