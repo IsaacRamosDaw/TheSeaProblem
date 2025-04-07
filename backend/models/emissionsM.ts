@@ -1,13 +1,7 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
-<<<<<<< HEAD
-import { Emissions } from "@/shared/types/db-models";
-//NEEDS Echedy's update from issue #23
-export class EmissionsClass extends Model<Emissions>{
-=======
 import { Emission } from "../../shared/types/db-models";
 
 export class EmissionsClass extends Model<Emission> {
->>>>>>> 9e37b44436f93fea2eb527baf9c305113cdb122b
   declare id: CreationOptional<number>;
   declare pollutionType: string;
   declare volume: number;

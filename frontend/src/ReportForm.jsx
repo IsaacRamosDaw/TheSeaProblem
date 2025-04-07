@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LandingPage } from "./components/landing/LandingPage";
 import { useForm } from "react-hook-form";
-import './App.css'
+
 
 export const ReportForm = () => {
     console.log('ReportForm component is being rendered!');
