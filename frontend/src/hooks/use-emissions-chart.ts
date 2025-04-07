@@ -71,8 +71,8 @@ export const useEmissionsChart = () => {
         label: type,
         data: labels.map((date) => dataMap.get(date) ?? null),
         fill: false,
-        backgroundColor: COLORS[type]?.bg || DEFAULT_COLOR.bg,
-        borderColor: COLORS[type]?.border || DEFAULT_COLOR.border,
+        backgroundColor: COLORS[type as keyof typeof COLORS]?.bg || DEFAULT_COLOR.bg,
+        borderColor: COLORS[type as keyof typeof COLORS]?.border || DEFAULT_COLOR.border,
       };
     });
   }, [selectedCompanyId, allData, visibleTypes, labels]);
