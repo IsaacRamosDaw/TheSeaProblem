@@ -5,7 +5,7 @@ import { Chart } from 'react-chartjs-2';
 import MapComponent from '../map/MapComponent';
 import * as wellknown from 'wellknown';
 import { OilSpillFeature } from '@shared/types/oil-spill';
-import './CeruleanPollutionDashboard.scss';
+import styles from './CeruleanPollutionDashboard.module.scss';
 
 ChartJS.register(
   CategoryScale,
@@ -268,8 +268,8 @@ const CeruleanPollutionDashboard = () => {
   if (error) return <div className="error-alert">{error}</div>;
 
   return (
-    <div className="dashboard-container">
-      <div className="data-source-info">
+    <div className={styles.dashboard__container}>
+      <div className={styles.dashboard__dataSource}>
         <h3>Data Source</h3>
         <p>
           The Cerulean API leverages satellite imagery—particularly from sensors like Sentinel-1—to detect oil spills on the ocean's surface. By using machine learning algorithms and advanced radar image processing, the system analyzes large volumes of data to identify anomalies and patterns that are characteristic of oil spills, such as areas with low surface roughness and reflectivity.
@@ -289,8 +289,8 @@ const CeruleanPollutionDashboard = () => {
         </p>
       </div>
 
-      <div className="filters-section">
-        <div className="filter-group">
+      <div className={styles.dashboard__filters}>
+        <div className={styles.dashboard__filterGroup}>
           <label>Initial date</label>
           <input
             type="date"
@@ -300,7 +300,7 @@ const CeruleanPollutionDashboard = () => {
           />
         </div>
 
-        <div className="filter-group">
+        <div className={styles.dashboard__filterGroup}>
           <label>Contaminated area</label>
           <select
             value={selectedLocation}
@@ -314,10 +314,10 @@ const CeruleanPollutionDashboard = () => {
           </select>
         </div>
 
-        <div className="distance-filter">
-          <div className="distance-label">
+        <div className={styles.dashboard__distanceFilter}>
+          <div className={styles.dashboard__distanceFilterLabel}>
             <span>Grouping distance (degrees)</span>
-            <span className="distance-value">{groupDistance.toFixed(2)}</span>
+            <span className={styles.dashboard__distanceFilterLabel}>{groupDistance.toFixed(2)}</span>
           </div>
           <input
             type="range"
@@ -334,8 +334,8 @@ const CeruleanPollutionDashboard = () => {
         </div>
       </div>
 
-      <div className="charts-section">
-        <div className="chart-container">
+      <div className={styles.dashboard__charts}>
+        <div className={styles.dashboard__chartsContainer}>
           <h2>Contaminated Area and Confidence Level</h2>
           <Chart 
             type='bar'
@@ -344,7 +344,7 @@ const CeruleanPollutionDashboard = () => {
           />
         </div>
 
-        <div className="map-section">
+        <div className={styles.dashboard__mapSection}>
           <h2>Locations</h2>
           <MapComponent features={filteredData} />
         </div>
