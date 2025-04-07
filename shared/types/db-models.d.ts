@@ -7,7 +7,7 @@ import { EmissionsEnum, EmissionSchema } from "../schemas/emission-schema";
 export type Report = z.infer<typeof ReportSchema>;
 export type PollutionType = z.infer<typeof PollutionEnum>;
 export type EmissionsType = z.infer<typeof EmissionsEnum>;
-export type Emissions = z.infer<EmissionsSchema>
+export type Emissions = z.infer<EmissionsSchema>;
 
 export type User = {
   id?: number;
@@ -15,8 +15,7 @@ export type User = {
   lastname: string;
   email: string;
   password: string;
-}
-
+};
 
 // Define a type for the attributes of the model
 export type Company = {
@@ -27,6 +26,4 @@ export type Company = {
   userId: number;
   industrialSector: string;
   relatedActivitiesDescription: string;
-  emissionsId: number; // dudo, porque esto es el fk de la tabla emissions
-}
-
+};
