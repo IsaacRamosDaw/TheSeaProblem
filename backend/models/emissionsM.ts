@@ -19,7 +19,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       volume: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       frequency: {
