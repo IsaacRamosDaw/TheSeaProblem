@@ -6,9 +6,8 @@ import UserR from "./routes/userR";
 import ReportsR from "./routes/reportsR";
 import CompanyR from "./routes/companyR";
 import EmissionsR from "./routes/emissionsR";
-
-import "dotenv/config";
-
+import ProfileR from "./routes/profileR";
+import Auth from "./auth";
 
 const app = express();
 
@@ -27,6 +26,7 @@ export const server = app.listen(PORT, () => {
   console.log(`Server is running http://localhost:${PORT}`);
 });
 
+// change to alter:true in production ?
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Reboot of the db");
 });
@@ -36,5 +36,6 @@ UserR(app);
 ReportsR(app);
 CompanyR(app);
 EmissionsR(app);
-
+Auth(app);
+ProfileR(app);
 export default app;

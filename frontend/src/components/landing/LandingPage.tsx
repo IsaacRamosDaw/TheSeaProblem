@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Report } from "@/shared/types/db-models";
-import { getOurReports } from "../../services/ourReports";
+import type { Report } from "@shared/types/db-models";
 import './landingPage.scss'
 import WaterIcons from "../waterIcons/WaterIcons";
 //! Ten al lado el services/ourReports.services.js
