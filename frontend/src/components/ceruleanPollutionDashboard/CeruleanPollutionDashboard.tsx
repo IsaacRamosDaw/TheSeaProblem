@@ -317,7 +317,7 @@ const CeruleanPollutionDashboard = () => {
         <div className={styles.dashboard__distanceFilter}>
           <label>Grouping distance (degrees)</label>
           <div className={styles.dashboard__distanceFilterLabel}>
-            <span className={styles.dashboard__distanceFilterValue} style={{fontSize: '14.4px'}}>
+            <span className={styles.dashboard__distanceFilterValue} style={{fontSize: '0.9rem'}}>
               {groupDistance.toFixed(1)}
             </span>
           </div>
