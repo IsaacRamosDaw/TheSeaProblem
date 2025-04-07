@@ -4,7 +4,7 @@ import { type Express, Router } from "express";
 export default (app: Express) => {
   const router = Router();
 
-  router.get("/",  Companies.findAll);
+  router.get("/", Companies.findAll);
 
   router.get("/:id", Companies.findOneById);
 
