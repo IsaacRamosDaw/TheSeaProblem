@@ -6,7 +6,8 @@ import { EmissionsEnum, EmissionSchema } from "../schemas/emission-schema";
 // This allows us to use the same types in both the frontend and backend
 export type Report = z.infer<typeof ReportSchema>;
 export type PollutionType = z.infer<typeof PollutionEnum>;
-export type Emissions = z.infer<typeof EmissionsEnum>;
+export type EmissionsType = z.infer<typeof EmissionsEnum>;
+export type Emissions = z.infer<EmissionsSchema>
 
 export type User = {
   id?: number;
@@ -29,4 +30,3 @@ export type Company = {
   emissionsId: number; // dudo, porque esto es el fk de la tabla emissions
 }
 
-export type Emissions = z.infer<EmissionsSchema>
