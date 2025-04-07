@@ -6,10 +6,10 @@ import type { Report } from "../../shared/types/db-models";
 jest.mock("../models/index", () => ({
   db: {
     reports: {
-      findOne: jest.fn(),
       create: jest.fn(),
-      update: jest.fn(),
       findAll: jest.fn(),
+      findOne: jest.fn(),
+      update: jest.fn(),
       destroy: jest.fn(),
     },
     sequelize: {
@@ -38,8 +38,8 @@ describe("findOneById Report", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); // Close Sequelize connection
-    server.close(); // Close the server
+    await db.sequelize.close(); 
+    server.close(); 
   });
 
   it("should return a report if found", async () => {
@@ -89,8 +89,8 @@ describe("create Report", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); // Close Sequelize connection
-    server.close(); // Close the server
+    await db.sequelize.close(); 
+    server.close(); 
   });
 
   it("should not create a report with invalid properties", async () => {
@@ -139,8 +139,8 @@ describe("updateById Report", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); // Close Sequelize connection
-    server.close(); // Close the server
+    await db.sequelize.close(); 
+    server.close(); 
   });
 
   it("should return 404 if ID is not provided", async () => {
@@ -224,8 +224,8 @@ describe("destroyById Report", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); // Close Sequelize connection
-    server.close(); // Close the server
+    await db.sequelize.close(); 
+    server.close(); 
   });
 
   it("should return 404 if ID is not provided", async () => {

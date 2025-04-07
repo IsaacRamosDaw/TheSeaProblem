@@ -1,4 +1,3 @@
-
 //! Esto es lo mismo que llamar al models/index.js
 import { ReportSchema } from "../../shared/schemas/report-schema";
 import { db } from "../models/index";

@@ -1,12 +1,11 @@
 import { dbConfig } from '../db/db.config';
+
 import reports from './reportsM';
 import emissions from './emissionsM';
-import user from './userM';
+import user from './usersM';
 import company from './companyM';
 
-import { Sequelize } from 'sequelize'; // Use ES module syntax
-import { Model, InferAttributes, InferCreationAttributes, CreationOptional, Dialect } from 'sequelize';
-
+import { Sequelize } from 'sequelize'; 
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -23,22 +22,22 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 const db: {
   reports: ReturnType<typeof reports>;
   emissions: ReturnType<typeof emissions>;
-  user: ReturnType<typeof user>;
-  company: ReturnType<typeof company>;
+  users: ReturnType<typeof user>;
+  companies: ReturnType<typeof company>;
   sequelize: Sequelize;
 } = {
-    sequelize,
-    reports: reports(sequelize),
-    emissions: emissions(sequelize),
-    user: user(sequelize),
-    company: company(sequelize)
-  };
+  sequelize,
+  reports: reports(sequelize),
+  emissions: emissions(sequelize),
+  users: user(sequelize),
+  companies: company(sequelize)
+};
 
-//? Ve a models/reportsM.js
-db.user = user(sequelize);
+
+db.users = user(sequelize);
 db.reports = reports(sequelize);
 db.emissions = emissions(sequelize);
-db.company = company(sequelize);
+db.companies = company(sequelize);
 db.sequelize = sequelize;
 
 export {db};

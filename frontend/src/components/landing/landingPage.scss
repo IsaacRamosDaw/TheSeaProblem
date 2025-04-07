@@ -1,0 +1,6 @@
+@use '../../Global' as global;
+
+body{
+  background-color: global.$color-primary;
+}
+

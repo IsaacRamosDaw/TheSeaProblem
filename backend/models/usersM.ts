@@ -1,7 +1,7 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import { User } from "@/shared/types/db-models";
 
-class UserClass extends Model<User> {
+class UsersClass extends Model<User> {
   declare id?: number;
   declare name: string;
   declare lastname: string;
@@ -10,7 +10,7 @@ class UserClass extends Model<User> {
 }
 
 export default (sequelize:Sequelize) => {
-  UserClass.init({
+  UsersClass.init({
       name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -36,5 +36,5 @@ export default (sequelize:Sequelize) => {
     }
   );
 
-  return UserClass;
+  return UsersClass;
 };
