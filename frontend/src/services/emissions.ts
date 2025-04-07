@@ -1,5 +1,6 @@
 import type { Emission } from "@/shared/types/db-models";
 import { DELETE, GET, POST, PUT } from "../utils/http";
+import { EmissionsSchema } from "@/shared/schemas/emission-schema";
 
 const endpoint = "http://localhost:8080/api/emissions";
 
@@ -7,16 +8,31 @@ const endpoint = "http://localhost:8080/api/emissions";
 
 export const getAllEmissions = (): Promise<Emission[]> => GET(`${endpoint}`);
 
-export const gerEmissionById = (id: string): Promise<Emission> =>
+export const getEmissionById = (id: string): Promise<Emission> =>
   GET(`${endpoint}/${id}`);
 
-export const createEmission = (Emission: Emission): Promise<Emission> =>
-  POST(`${endpoint}`, Emission);
+export const createEmission = (
+  Emission: Emission,
+): Promise<Emission> | null => {
+  const result = EmissionsSchema.safeParse(Emission);
+  if (!result.success) {
+    console.error("Validation failed:", result.error);
+    return null;
+  }
+  return POST(`${endpoint}`, Emission);
+};
 
 export const updateEmissionById = (
   id: string,
   updatedEmission: Emission,
-): Promise<Emission> => PUT(`${endpoint}/${id}`, updatedEmission);
+): Promise<Emission> | null => {
+  const result = EmissionsSchema.safeParse(updatedEmission);
+  if (!result.success) {
+    console.error("Validation failed:", result.error);
+    return null;
+  }
+  return PUT(`${endpoint}/${id}`, updatedEmission);
+};
 
 export const deleteEmissionById = (id: string): Promise<void> =>
   DELETE(`${endpoint}/${id}`);
