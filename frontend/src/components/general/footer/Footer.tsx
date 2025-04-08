@@ -1,5 +1,5 @@
 import "./footer.scss"
-import { FaYoutube } from "react-icons/fa";
+import { FaYoutube } from "react-icons";
 import { BsTwitterX } from "react-icons/bs";
 import { RiInstagramFill } from "react-icons/ri";
 import { AiFillTikTok } from "react-icons/ai";
