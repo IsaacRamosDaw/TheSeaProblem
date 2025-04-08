@@ -1,4 +1,4 @@
-import s from "./topic.module.scss";
+import s from "./relatedTopic.module.scss";
 
 export function RelatedTopicComp() {
   return (
