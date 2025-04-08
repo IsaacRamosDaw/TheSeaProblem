@@ -1,9 +1,11 @@
 import s from "./relatedTopic.module.scss";
 
-export function RelatedTopicComp() {
+export function RelatedTopicComp({text, img, href} : {text: string, img: string , href: string}) {
   return (
-    <div className={s.topic}>
-      asdsda
-    </div>
+      <a className={s.topic} href={href}>
+        <img src={img} alt="" />
+
+        <p>{text}</p>
+      </a>
   );
 }
