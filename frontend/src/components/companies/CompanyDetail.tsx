@@ -1,26 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getCompanyById } from '../../services/companies';
+import { getCompanyById } from '../../services/companys';
 import { useAuth } from '../../context/AuthContext';
+import { Company, User } from '@/shared/types/db-models';
 import './CompanyStyles.scss';
-
-interface Company {
-  id: number;
-  companyName: string;
-  taxId: string;
-  address: string;
-  industrialSector: string;
-  relatedActivitiesDescription: string;
-  userId: number;
-}
-
-interface User {
-  id: number;
-  username: string;
-  email: string;
-  name: string;
-  lastname: string;
-}
 
 const CompanyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -36,7 +19,7 @@ const CompanyDetail: React.FC = () => {
       
       try {
         setLoading(true);
-        const data = await getCompanyById(parseInt(id));
+        const data = await getCompanyById(id);
         setCompany(data);
         setLoading(false);
       } catch (err) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getCompanies, deleteCompany } from '../../services/companies';
+import { getAllCompanies, deleteCompanyById } from '../../services/companys';
 import { useNavigate } from 'react-router-dom';
 import type { Company } from '@/shared/types/db-models';
 import { useAuth } from '../../context/AuthContext';
@@ -20,7 +20,7 @@ const CompanyList: React.FC = () => {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const data = await getCompanies();
+        const data = await getAllCompanies();
         setCompanies(data);
         setLoading(false);
       } catch (err) {
@@ -48,7 +48,7 @@ const CompanyList: React.FC = () => {
 
     setDeletingId(companyToDelete.id);
     try {
-      await deleteCompany(companyToDelete.id);
+      await deleteCompanyById(companyToDelete.id.toString());
       setCompanies(companies.filter(c => c.id !== companyToDelete.id));
     } catch (err) {
       setError('Error al eliminar la empresa');

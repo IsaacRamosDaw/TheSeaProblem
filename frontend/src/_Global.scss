@@ -14,12 +14,19 @@ $color-third: #333;
 $color-icons-primary: #374957;
 $color-icons-focus: #50CAFF;
 
-$color-text-paragraph: #333;
-
 // Tamaños de texto base
 $text-header: 10px;
 $text-sub-header: 10px;
 $text-paragraph: 10px;
+//Text 
+$text-primary-color: #555555;
+$text-secondary-color: #333;
+$text-paragraphs-color: #333;
+
+//Static Reports 
+$report-title: 2.5em;
+$report-sub-title: 1.5em;
+$report-paragraph: 1em;
 
 // Tamaños de texto responsivos para formularios
 $form-title-desktop: 2rem;
@@ -52,6 +59,38 @@ $font-family: 'Roboto', sans-serif;
 // Aplicar la fuente a todo el documento
 * {
   font-family: $font-family;
+}
+
+.main-title {
+  font-size: $form-title-desktop;
+  color: $color-secondary;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  font-weight: 700;
+  
+  @media (max-width: $tablet) {
+    font-size: $form-title-tablet;
+  }
+  
+  @media (max-width: $mobile) {
+    font-size: $form-title-mobile;
+  }
+}
+
+.subtitle {
+  font-size: $form-subtitle-desktop;
+  color: $color-icons-focus;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  font-weight: 500;
+  
+  @media (max-width: $tablet) {
+    font-size: $form-subtitle-tablet;
+  }
+  
+  @media (max-width: $mobile) {
+    font-size: $form-subtitle-mobile;
+  }
 }
 
 @mixin flex($direction, $gap) {

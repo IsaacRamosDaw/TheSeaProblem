@@ -1,86 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { createCompany, getCompanyById, updateCompany } from '../../services/companies';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CompanyStyles.scss';
 import InspirationSection from '../common/InspirationSection';
+import useCompanyForm from '../../hooks/useCompanyForm';
 
 const AddCompany: React.FC = () => {
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const { user, isAuthenticated } = useAuth();
-  const [formData, setFormData] = useState({
-    companyName: '',
-    taxId: '',
-    address: '',
-    industrialSector: '',
-    relatedActivitiesDescription: '',
-    userId: user?.id || 0
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const isEditMode = !!id;
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
-  }, [isAuthenticated, navigate]);
-
-  useEffect(() => {
-    const fetchCompanyData = async () => {
-      if (isEditMode && id) {
-        try {
-          setLoading(true);
-          const companyData = await getCompanyById(parseInt(id));
-          setFormData({
-            companyName: companyData.companyName,
-            taxId: companyData.taxId,
-            address: companyData.address,
-            industrialSector: companyData.industrialSector,
-            relatedActivitiesDescription: companyData.relatedActivitiesDescription,
-            userId: companyData.userId
-          });
-          setLoading(false);
-        } catch (err) {
-          console.error('Error fetching company data:', err);
-          setError('Error loading company data. Please try again.');
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchCompanyData();
-  }, [id, isEditMode]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      if (isEditMode && id) {
-        await updateCompany(parseInt(id), {
-          ...formData,
-          userId: user?.id || 0
-        });
-      } else {
-        await createCompany({
-          ...formData,
-          userId: user?.id || 0
-        });
-      }
-      navigate('/companies');
-    } catch (error) {
-      console.error('Error saving company:', error);
-      setError('Error saving company data. Please try again.');
-    }
-  };
+  const {
+    formData,
+    loading,
+    error,
+    isEditMode,
+    isAuthenticated,
+    handleChange,
+    handleSubmit
+  } = useCompanyForm();
 
   if (!isAuthenticated) {
     return (
@@ -190,4 +124,4 @@ const AddCompany: React.FC = () => {
   );
 };
 
-export default AddCompany; 
+export default AddCompany;
