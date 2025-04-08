@@ -6,8 +6,8 @@ import { AiFillTikTok } from "react-icons/ai";
 
 export function Footer() {
   return (
-    <footer>
-      <div id="social-media">
+    <footer className={s.footer}>
+      <div className={s.footer__inner}>
         <a href="">
           <FaYoutube className={s.icon} />
           <span>text</span>
