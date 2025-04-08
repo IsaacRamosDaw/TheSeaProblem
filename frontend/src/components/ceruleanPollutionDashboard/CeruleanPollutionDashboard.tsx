@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement,
 import { Chart } from 'react-chartjs-2';
 import MapComponent from '../map/MapComponent';
 import * as wellknown from 'wellknown';
-import { OilSpillFeature } from '@shared/types/oil-spill';
+import { OilSpillFeature } from '@/shared/types/oil-spill';
 import styles from './CeruleanPollutionDashboard.module.scss';
 
 ChartJS.register(

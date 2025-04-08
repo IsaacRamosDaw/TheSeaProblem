@@ -15,8 +15,8 @@ export function LandingPage() {
       <StaticReports/>
       <Footer />
       {/* I put it here to be able to see that the graph was displayed correctly. */}
-      <h1>Bienvenido al Dashboard de The Sea Problem</h1>
-      <EmissionsChart />
+      {/*  <h1>Bienvenido al Dashboard de The Sea Problem</h1>
+      <EmissionsChart />  */}
     </div>
   );
 }
