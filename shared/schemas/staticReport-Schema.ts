@@ -3,7 +3,7 @@ import { z } from "zod";
 //? Need to confirm this 
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 // https://stackoverflow.com/questions/72674930/zod-validator-validate-image
-export const StatictReporSchema = z.object({
+export const StatictReportSchema = z.object({
   id: z.number(),
   title: z.string(),
   subtitle: z.string(),

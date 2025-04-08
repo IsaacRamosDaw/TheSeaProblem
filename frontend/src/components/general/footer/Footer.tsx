@@ -4,6 +4,7 @@ import { BsTwitterX } from "react-icons/bs";
 import { RiInstagramFill } from "react-icons/ri";
 import { AiFillTikTok } from "react-icons/ai";
 
+
 export function Footer() {
   return(
     <footer>

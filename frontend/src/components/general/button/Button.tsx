@@ -1,7 +1,10 @@
-import './button.scss'
+import './button.module.scss'
 
-export function Button({text}: {text: string}) {
+type Props = React.HTMLAttributes<HTMLButtonElement> & {
+  variant?: 'primary' | 'secondary' | 'tertiary';
+}
+export const Button = ({ variant, children, ...props }: Props) => {
   return (
-    <button>{text}</button>
+    <button {...props} className={`button ${variant && `button--${variant}`}`}>{children}</button>
   );
 }
