@@ -32,10 +32,10 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 // Routes
+Auth(app);
 UserR(app);
 ReportsR(app);
 CompanyR(app);
 EmissionsR(app);
-Auth(app);
-ProfileR(app);
+// ProfileR(app);
 export default app;

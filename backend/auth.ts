@@ -1,26 +1,33 @@
-import { auth } from "express-openid-connect";
-import { type Express, Router } from "express";
+import { auth, type ConfigParams } from "express-openid-connect";
+import { type Express } from "express";
 
-const { AUTH_CLIENT_ID, AUTH_SECRET, AUTH_BASE_URL, BASE_URL } = process.env;
+const { AUTH_SECRET, BASE_URL, AUTH_CLIENT_ID, ISSUER_BASE_URL } = process.env;
 
-// default values for the config for testing
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  secret: AUTH_SECRET || "a long, randomly string",
-  baseURL: BASE_URL || "http://localhost:8080",
-  clientID: AUTH_CLIENT_ID || "a-client-id",
-  issuerBaseURL: AUTH_BASE_URL || "https://your-tenant.auth0.com",
+// Auth0 configuration
+const config: ConfigParams = {
+  authRequired: false, // Set to true if all routes require authentication
+  auth0Logout: true, // Enables Auth0 logout
+  secret: AUTH_SECRET!,
+  baseURL: BASE_URL!, // Backend base URL (http://localhost:8080)
+  clientID: AUTH_CLIENT_ID!,
+  issuerBaseURL: ISSUER_BASE_URL!,
+  routes: {
+    callback: "/callback", // Callback route
+  },
 };
 
 export default (app: Express) => {
-  const router = Router();
-
-  // req.isAuthenticated is provided from the auth router
-  router.get("/", (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+  // Callback route - Redirect to the frontend after login
+  app.get("/callback", (req, res) => {
+    console.log("Callback route hit");
+    res.redirect("http://localhost:5173"); // Redirect to the frontend
   });
 
-  // auth router attaches /login, /logout, and /callback routes to the baseURL
+  // Attach the OpenID Connect middleware
   app.use(auth(config));
+
+  // Example protected route
+  app.get("/protected", (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+  });
 };
