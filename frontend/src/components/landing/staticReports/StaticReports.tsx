@@ -8,7 +8,7 @@ export function StaticReports() {
         id={1} 
         title="Plastic Waste Crisis" 
         subtitle="How microplastics are invading our oceans" 
-        image='staticReports/report1.jfif' // e.g., plastic debris in water
+        image='staticReports/report1.jfif' 
         paragraph="Over 8 million tons of plastic enter the ocean annually, threatening marine life and ecosystems. 
         This report reveals the top sources of leakage and innovative solutions to curb the tide by 2030."
       />
@@ -16,7 +16,7 @@ export function StaticReports() {
         id={2} 
         title="Oil Spill Impacts" 
         subtitle="Long-term damage to marine biodiversity" 
-        image='staticReports/staticReport2.avif'// e.g., oil-covered wildlife
+        image='staticReports/staticReport2.avif'
         paragraph="Oil spills destroy coastal habitats for decades. We analyze case studies from the Deepwater Horizon 
         disaster and present breakthrough cleanup technologies to mitigate future accidents."
       />
