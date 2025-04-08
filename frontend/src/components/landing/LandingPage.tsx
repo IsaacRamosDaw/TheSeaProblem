@@ -7,16 +7,6 @@ import EmissionsChart from "../emissionsChart/EmissionsChart";
 import styles from "./landingPage.module.scss";
 
 export function LandingPage() {
-  const [ourReports, setOurReports] = useState<Report[]>([]);
-  const [text, setText] = useState<string>();
-
-  // useEffect(() => {
-  //   (async function fetchData() {
-  //     const data = await getOurReports();
-  //     setOurReports(data);
-  //   })();
-  // }, []);
-
   return (
     <div className={styles.landingPage}>
       <Header />

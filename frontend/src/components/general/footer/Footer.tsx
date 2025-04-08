@@ -1,30 +1,30 @@
-import "./footer.scss"
+import s from "./footer.module.scss";
 import { FaYoutube } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 import { RiInstagramFill } from "react-icons/ri";
 import { AiFillTikTok } from "react-icons/ai";
 
 export function Footer() {
-  return(
+  return (
     <footer>
-        <div id="social-media">
+      <div id="social-media">
         <a href="">
-          <FaYoutube className="icon" />
+          <FaYoutube className={s.icon} />
           <span>text</span>
         </a>
         <a href="">
-          <BsTwitterX className="icon" />
+          <BsTwitterX className={s.icon} />
           <span>text</span>
         </a>
         <a href="">
-          <RiInstagramFill className="icon" />
+          <RiInstagramFill className={s.icon} />
           <span>text</span>
         </a>
         <a href="">
-          <AiFillTikTok className="icon" />
+          <AiFillTikTok className={s.icon} />
           <span>text</span>
         </a>
       </div>
     </footer>
-  )
+  );
 }
