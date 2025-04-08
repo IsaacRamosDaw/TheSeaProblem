@@ -3,6 +3,8 @@ import { GiWaterDrop, GiWaveCrest, GiMountainRoad, GiWaterBottle } from 'react-i
 import CeruleanPollutionDashboard from '../ceruleanPollutionDashboard/CeruleanPollutionDashboard';
 import './WaterIcons.scss';
 
+type SelectedView = 'sea' | 'lakes' | 'rivers' | 'plastics';
+
 interface WaterIconProps {
   icon: React.ReactNode;
   label: string;
@@ -23,25 +25,10 @@ const WaterIcon: React.FC<WaterIconProps> = ({ icon, label, description, isSelec
 );
 
 const WaterIcons: React.FC = () => {
-  const [selectedView, setSelectedView] = useState<string | null>(null);
+  const [selectedView, setSelectedView] = useState<SelectedView | null>(null);
 
-  const handleIconClick = (view: string) => {
+  const handleIconClick = (view: SelectedView) => {
     setSelectedView(view === selectedView ? null : view);
-  };
-
-  const renderSelectedComponent = () => {
-    switch (selectedView) {
-      case 'sea':
-        return <CeruleanPollutionDashboard />;
-      case 'lakes':
-        return <div>Lakes Dashboard (Coming Soon)</div>;
-      case 'rivers':
-        return <div>Rivers Dashboard (Coming Soon)</div>;
-      case 'plastics':
-        return <div>Plastics Dashboard (Coming Soon)</div>;
-      default:
-        return null;
-    }
   };
 
   return (
@@ -78,7 +65,10 @@ const WaterIcons: React.FC = () => {
       </div>
       {selectedView && (
         <div className="selected-component">
-          {renderSelectedComponent()}
+          {selectedView === 'sea' && <CeruleanPollutionDashboard />}
+          {selectedView === 'lakes' && <div>Lakes Dashboard (Coming Soon)</div>}
+          {selectedView === 'rivers' && <div>Rivers Dashboard (Coming Soon)</div>}
+          {selectedView === 'plastics' && <div>Plastics Dashboard (Coming Soon)</div>}
         </div>
       )}
     </div>
