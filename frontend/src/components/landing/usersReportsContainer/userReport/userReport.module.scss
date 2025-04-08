@@ -2,11 +2,16 @@
   .userReportInfo{
     display: flex;
     margin-bottom: 20px;
+    justify-content: center;
 
     img{
       margin-right: 10px;
       width: 150px;
       height: auto;
+    }
+
+    p{
+      margin: 0 0 10px;
     }
 
     span{
