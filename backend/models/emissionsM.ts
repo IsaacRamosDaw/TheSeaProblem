@@ -9,6 +9,7 @@ export class EmissionsClass extends Model<Emission> {
   declare dischargePoint: string;
   declare reductionTarget: string;
   declare companyId: number;
+  declare date: string;
 }
 
 export default (sequelize: Sequelize) => {
