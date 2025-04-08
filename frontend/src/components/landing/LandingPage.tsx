@@ -8,7 +8,6 @@ export function LandingPage() {
   return (
     <>
       <Header />
-      <Button text="Textito"/>
       <StaticReports/>
       <Footer />
     </>
