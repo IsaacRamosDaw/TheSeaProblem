@@ -2,12 +2,20 @@ $color-primary: #fff;
 $color-secondary: #333;
 $color-third: #333;
 
-$text-header: 10px;
-$text-sub-header: 10px;
-$text-paragraph: 10px;
+//Text 
+$text-primary-color: #555555;
+$text-secondary-color: #333;
+$text-paragraphs-color: #333;
+
+//Static Reports 
+$report-title: 2.5em;
+$report-sub-title: 1.5em;
+$report-paragraph: 1em;
 
 @mixin flex($direction, $gap) {
   display: flex;
   flex-direction: $direction;
   gap: $gap;
 }
+
+
