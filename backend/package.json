@@ -30,7 +30,6 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
-    "cross-env": "^7.0.3",
     "sequelize-cli": "^6.6.2"
   }
 }
