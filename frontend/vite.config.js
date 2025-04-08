@@ -6,13 +6,17 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // Redirige las solicitudes que empiecen con /api a la API externa
-      '/api': {
+      '/api/cerulean': {
         target: 'https://api.cerulean.skytruth.org',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api\/cerulean/, '')
+      },
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false
       }
     }
-  }
+  },
 })

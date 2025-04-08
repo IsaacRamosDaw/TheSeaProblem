@@ -1,0 +1,25 @@
+@use "../../../Global" as *;
+
+footer {
+  #social-media{
+    @include flex(row, 2px);
+    justify-content: center;
+
+    a{
+      @include flex(column, 2px);
+      margin: 0 5%;
+      color: black;
+      justify-content: center;
+      align-items: center;
+
+      .icon{
+        width: 1.8em;
+        height: auto;
+      }
+
+      span{
+        font-size: 1.2em;
+      }
+    }
+  }
+}

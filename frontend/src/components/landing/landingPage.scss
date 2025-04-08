@@ -1,4 +1,4 @@
-@use '../../Global' as global;
+@use '../../Global' as *;
 
 .landing-container {
   min-height: 100vh;

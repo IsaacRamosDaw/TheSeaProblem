@@ -18,7 +18,7 @@ ChartJS.register(
   Legend
 );
 
-const API_BASE = "/api";
+const API_BASE = "/api/cerulean";
 const COLLECTION_ID = "public.slick"; // Verificar nombre exacto en /collections
 
 const CeruleanPollutionDashboard = () => {
