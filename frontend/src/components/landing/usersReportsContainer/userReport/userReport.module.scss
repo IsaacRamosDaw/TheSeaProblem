@@ -1,0 +1,22 @@
+.userReport{
+  .userReportInfo{
+    display: flex;
+    margin-bottom: 20px;
+
+    img{
+      margin-right: 10px;
+      width: 150px;
+      height: auto;
+    }
+
+    span{
+      font-weight: bolder;
+    }
+  }
+
+  .longDescription{
+    display: none;
+    text-align: justify;
+    padding: 0 15px;
+  }
+}
