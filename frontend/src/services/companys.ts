@@ -6,12 +6,18 @@ const endpoint = "http://localhost:8080/api/companies";
 
 //! Aquí me encargo de hacer una llamada a los datos con el controlador findall() de ourCompanysC.js+
 
-export const getAllCompanies = (): Promise<Company[]> => GET(`${endpoint}`);
+export const getAllCompanies = (headers: Headers): Promise<Company[]> =>
+  GET(`${endpoint}`);
 
-export const gerCompanyById = (id: string): Promise<Company> =>
-  GET(`${endpoint}/${id}`);
+export const getCompanyById = (
+  id: string,
+  headers: Headers,
+): Promise<Company> => GET(`${endpoint}/${id}`);
 
-export const createCompany = (Company: Company): Promise<Company> | null => {
+export const createCompany = (
+  Company: Company,
+  headers: Headers,
+): Promise<Company> | null => {
   const result = CompanySchema.safeParse(Company);
   if (!result.success) {
     console.error("Validation failed:", result.error);
@@ -23,6 +29,7 @@ export const createCompany = (Company: Company): Promise<Company> | null => {
 export const updateCompanyById = (
   id: string,
   updatedCompany: Company,
+  headers: Headers,
 ): Promise<Company> | null => {
   const result = CompanySchema.safeParse(updatedCompany);
   if (!result.success) {
@@ -32,5 +39,7 @@ export const updateCompanyById = (
   return PUT(`${endpoint}/${id}`, updatedCompany);
 };
 
-export const deleteCompanyById = (id: string): Promise<void> =>
-  DELETE(`${endpoint}/${id}`);
+export const deleteCompanyById = (
+  id: string,
+  headers: Headers,
+): Promise<void> => DELETE(`${endpoint}/${id}`);

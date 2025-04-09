@@ -3,6 +3,10 @@ import app, { server } from "../server";
 import { db } from "../models/index";
 import type { Report } from "../../shared/types/db-models";
 
+jest.mock("../auth", () => ({
+  checkJwt: jest.fn((req, res, next) => next()),
+}));
+
 jest.mock("../models/index", () => ({
   db: {
     reports: {
@@ -38,8 +42,8 @@ describe("findOneById Report", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should return a report if found", async () => {
@@ -89,8 +93,8 @@ describe("create Report", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should not create a report with invalid properties", async () => {
@@ -139,8 +143,8 @@ describe("updateById Report", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should return 404 if ID is not provided", async () => {
@@ -224,8 +228,8 @@ describe("destroyById Report", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should return 404 if ID is not provided", async () => {

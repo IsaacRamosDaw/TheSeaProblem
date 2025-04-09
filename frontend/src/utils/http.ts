@@ -1,6 +1,5 @@
-const defaultHeaders = new Headers({
+export const defaultHeaders = new Headers({
   Accept: "application/json",
-  "Content-Type": "application/x-www-form-urlencoded",
 });
 
 export const GET = async <T>(
