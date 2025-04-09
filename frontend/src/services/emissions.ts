@@ -8,12 +8,12 @@ const endpoint = "http://localhost:8080/api/emissions";
 
 export const getAllEmissions = (): Promise<Emission[]> => GET(`${endpoint}`);
 
-export const getEmissionById = (id: string): Promise<Emission> =>
+export const getEmissionById = async (id: string): Promise<Emission> =>
   GET(`${endpoint}/${id}`);
 
-export const createEmission = (
+export const createEmission = async (
   Emission: Emission,
-): Promise<Emission> | null => {
+): Promise<Emission| null>  => {
   const result = EmissionsSchema.safeParse(Emission);
   if (!result.success) {
     console.error("Validation failed:", result.error);
@@ -22,10 +22,10 @@ export const createEmission = (
   return POST(`${endpoint}`, Emission);
 };
 
-export const updateEmissionById = (
+export const updateEmissionById = async (
   id: string,
   updatedEmission: Emission,
-): Promise<Emission> | null => {
+): Promise<Emission | null>  => {
   const result = EmissionsSchema.safeParse(updatedEmission);
   if (!result.success) {
     console.error("Validation failed:", result.error);
@@ -34,5 +34,5 @@ export const updateEmissionById = (
   return PUT(`${endpoint}/${id}`, updatedEmission);
 };
 
-export const deleteEmissionById = (id: string): Promise<void> =>
+export const deleteEmissionById = async (id: string): Promise<void> =>
   DELETE(`${endpoint}/${id}`);

@@ -6,12 +6,13 @@ const endpoint = "http://localhost:8080/api/companies";
 
 //! Aquí me encargo de hacer una llamada a los datos con el controlador findall() de ourCompanysC.js+
 
-export const getAllCompanies = (): Promise<Company[]> => GET(`${endpoint}`);
+export const getAllCompanies = (headers: Headers): Promise<Company[]> =>
+  GET(`${endpoint}`);
 
 export const getCompanyById = (id: string): Promise<Company> =>
   GET(`${endpoint}/${id}`);
 
-export const createCompany = async (companyData: Company): Promise<Company> => {
+export const createCompany = async (companyData: Company): Promise<Company | null> => {
   const headers = new Headers({
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -65,5 +66,7 @@ export const updateCompanyById = async (
   return PUT(`${endpoint}/${id}`, body, headers);
 };
 
-export const deleteCompanyById = (id: string): Promise<void> =>
-  DELETE(`${endpoint}/${id}`);
+export const deleteCompanyById = (
+  id: string,
+  headers: Headers,
+): Promise<void> => DELETE(`${endpoint}/${id}`);

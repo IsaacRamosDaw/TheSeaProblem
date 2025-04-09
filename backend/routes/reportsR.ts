@@ -1,10 +1,11 @@
 import Reports from "../controllers/reportsC";
 import { type Express, Router } from "express";
+import { checkJwt } from "../auth";
 
 export default (app: Express) => {
   const router = Router();
 
-  router.get("/", Reports.findAll);
+  router.get("/", checkJwt, Reports.findAll);
 
   router.get("/:id", Reports.findOneById);
 
@@ -15,4 +16,5 @@ export default (app: Express) => {
   router.delete("/:id", Reports.destroyById);
 
   app.use("/api/reports", router);
+  
 };
