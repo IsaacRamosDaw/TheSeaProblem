@@ -3,6 +3,7 @@ import { LandingPage } from "./components/landing/LandingPage";
 
 function App() {
   return (
+    
     <Router>
       <Routes>
       {/* Cree un componente que ya tiene las llamadas de servicios  */}
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<LandingPage />}/>
       </Routes>
     </Router>
+    
   )
 }
 
