@@ -2,9 +2,7 @@ import { createHeaders } from "./createHeaders";
 
 export const GET = async <T>(url: string): Promise<T> => {
   const headers = await createHeaders();
-  headers.forEach((header) => {
-    console.log(header);
-  });
+
   const response = await fetch(url, {
     method: "GET",
     headers,
@@ -27,7 +25,7 @@ export const POST = async <T>(url: string, body: T): Promise<T | null> => {
     }
     return response.json();
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return null;
   }
 };
