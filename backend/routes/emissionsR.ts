@@ -4,9 +4,8 @@ import { type Express, Router } from "express";
 export default (app: Express) => {
   const router = Router();
 
-  router.get("/",  Emissions.findAll);
-
-  router.get("/:id", Emissions.findOneById);
+  //List all users
+  router.get("/", Emissions.findAll);
 
   router.post("/", Emissions.create);
 

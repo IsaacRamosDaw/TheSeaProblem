@@ -12,11 +12,12 @@ export const StaticReportSchema = z.object({
   id: z.number(),
   title: z.string(),
   subtitle: z.string(),
-  image: z
-    .any()
-    .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      "Only .jpg, .jpeg, .png and .webp formats are supported.",
-    ),
+  // image: z
+  //   .any()
+  //   .refine(
+  //     (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+  //     "Only .jpg, .jpeg, .png and .webp formats are supported.",
+  //   ),
+  image: z.string(),
   paragraph: z.string(),
 });
