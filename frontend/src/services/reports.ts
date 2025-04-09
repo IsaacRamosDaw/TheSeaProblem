@@ -1,6 +1,6 @@
 import type { Report } from "@/shared/types/db-models";
 import { DELETE, GET, POST, PUT } from "../utils/http";
-import { ReportSchema } from "@/shared/schemas/report-schema";
+import { ReportSchema } from "../../../shared/schemas/report-schema";
 
 const endpoint = "http://localhost:8080/api/reports";
 
@@ -11,13 +11,16 @@ export const getAllReports = (): Promise<Report[]> => GET(`${endpoint}`);
 export const getReportById = (id: string): Promise<Report> =>
   GET(`${endpoint}/${id}`);
 
-export const createReport = (Report: Report): Promise<Report> | null => {
+export const createReport = async(Report: Report): Promise<Report | null> => {
   const result = ReportSchema.safeParse(Report);
   if (!result.success) {
+    console.log("servise error in succes")
     console.error("Validation failed:", result.error);
     return null;
   }
-  return POST(`${endpoint}`, Report);
+  console.log("servise not error")
+
+  return await POST(`${endpoint}`, Report);
 };
 
 export const updateReportById = (

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "npx tsc --build",
-    "server": "npx tsx -r dotenv/config backend/server.ts",
+    "server": "cd backend && npx tsx -r dotenv/config server.ts",
     "tsc": "npx tsc --noEmit",
     "lint": "eslint .",
     "test": "jest --passWithNoTests",

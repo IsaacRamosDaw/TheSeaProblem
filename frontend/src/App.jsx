@@ -8,7 +8,7 @@ function App() {
       <Routes>
       {/* Cree un componente que ya tiene las llamadas de servicios  */}
       {/* Ve a components/landing/LandingPage.jsx  */}
-        <Route path="*splat" element={<LandingPage />}/>
+        <Route path="*" element={<LandingPage />}/>
         <Route path="/" element={<LandingPage />}/>
       </Routes>
     </Router>

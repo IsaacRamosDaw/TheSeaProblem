@@ -15,4 +15,5 @@ export default (app: Express) => {
   router.delete("/:id", Reports.destroyById);
 
   app.use("/api/reports", router);
+  
 };
