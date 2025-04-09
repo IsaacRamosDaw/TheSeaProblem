@@ -4,7 +4,7 @@ import s from './userReport.module.scss'
 
 export function UserReport(
   { id, location, Pollution, shortDescription, date, img, longDescription, alt }
-    : { id: number, location: string, Pollution: PollutionType, longDescription: string, shortDescription: string, date: string, img: string, alt: string }
+    : { id?: number, location: string, Pollution: PollutionType, longDescription: string, shortDescription: string, date: string, img: string, alt: string }
 ) {
 
   const [isExpanded, setIsExpanded] = useState(false); 

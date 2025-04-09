@@ -1,5 +1,5 @@
-import type { Report } from "@/shared/types/db-models";
-import { ReportSchema } from "@/shared/schemas/report-schema";
+import type { Report } from "../../../shared/types/db-models";
+import { ReportSchema } from "../../..//shared/schemas/report-schema";
 import { DELETE, GET, POST, PUT } from "../utils/http";
 
 const endpoint = "http://localhost:8080/api/reports";
