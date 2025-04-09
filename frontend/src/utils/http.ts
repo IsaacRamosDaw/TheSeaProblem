@@ -1,11 +1,10 @@
-export const defaultHeaders = new Headers({
-  Accept: "application/json",
-});
+import { createHeaders } from "./createHeaders";
 
-export const GET = async <T>(
-  url: string,
-  headers = defaultHeaders,
-): Promise<T> => {
+export const GET = async <T>(url: string): Promise<T> => {
+  const headers = await createHeaders();
+  headers.forEach((header) => {
+    console.log(header);
+  });
   const response = await fetch(url, {
     method: "GET",
     headers,
@@ -16,36 +15,27 @@ export const GET = async <T>(
   return response.json();
 };
 
-export const POST = async <T>(
-  url: string,
-  body: T,
-  headers = defaultHeaders,
-): Promise<T | null> => {
+export const POST = async <T>(url: string, body: T): Promise<T | null> => {
   try {
-  const response = await fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-  });
-  if (!response.ok) {
-    throw new Error(`Error fetching data: ${response.statusText}`);
-  }
-  return response.json();
+    const response = await fetch(url, {
+      method: "POST",
+      headers: await createHeaders(),
+      body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+      throw new Error(`Error fetching data: ${response.statusText}`);
+    }
+    return response.json();
   } catch (error) {
-    console.log(error)
-    return null
+    console.log(error);
+    return null;
   }
-
 };
 
-export const PUT = async <T>(
-  url: string,
-  body: T,
-  headers = defaultHeaders,
-): Promise<T> => {
+export const PUT = async <T>(url: string, body: T): Promise<T> => {
   const response = await fetch(url, {
     method: "PUT",
-    headers,
+    headers: await createHeaders(),
     body: JSON.stringify(body),
   });
   if (!response.ok) {
@@ -54,14 +44,10 @@ export const PUT = async <T>(
   return response.json();
 };
 
-
-export const DELETE = async (
-  url: string,
-  headers = defaultHeaders,
-): Promise<void> => {
+export const DELETE = async (url: string): Promise<void> => {
   const response = await fetch(url, {
     method: "DELETE",
-    headers,
+    headers: await createHeaders(),
   });
   if (!response.ok) {
     throw new Error(`Error fetching data: ${response.statusText}`);
