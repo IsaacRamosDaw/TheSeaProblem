@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import './ConfirmModal.scss';
 
 interface ConfirmModalProps {
@@ -22,7 +23,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div className="modal-overlay">
       <div className="modal-content">
         <h2 className="modal-title">{title}</h2>
@@ -37,6 +38,11 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
         </div>
       </div>
     </div>
+  );
+
+  return createPortal(
+    modalContent,
+    document.getElementById('portal-root') as HTMLElement
   );
 };
 
