@@ -1,6 +1,7 @@
 import { Button } from "../../general/button/Button";
 import { UserReport } from "./userReport/UserReport";
 import s from './userReportsContainer.module.scss';
+import { getAllReports } from "@/frontend/src/services/reports";
 
 export function UserReportsContainer() {
   return (
@@ -39,7 +40,7 @@ export function UserReportsContainer() {
         'kasjfkdsklfkajf jksdj kjfiojweio dsjfei cksjvcnveiej aji ifhcuiuhvuir e hscanscn'
       />
       <Button variant="primary" onClick={() => console.log("Click!")}>
-        Enviar
+        Send report
       </Button>
     </section>
   )
