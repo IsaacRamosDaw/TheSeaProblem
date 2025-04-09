@@ -4,6 +4,10 @@ import { type Express, Router } from "express";
 export default (app: Express) => {
   const router = Router();
 
+  // how to use checkJwt middleware in express
+  // import { checkJwt } from "../auth";
+  // router.get("/someRoute", checkJwt, someFunc);
+
   router.get("/", Companies.findAll);
 
   router.get("/:id", Companies.findOneById);

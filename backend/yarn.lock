@@ -975,6 +975,13 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
+express-oauth2-jwt-bearer@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/express-oauth2-jwt-bearer/-/express-oauth2-jwt-bearer-1.6.1.tgz#3e84f06eb52932654f90da3fe73f49b00c0c3d29"
+  integrity sha512-fhgIvVZ6iSR/jqyVHBcN9Df7VeBdVhg5d2yN6+HNrSEegmhbh9hFY+TvtvBmsv130fI06EW3Dgp9ApmYwArN6Q==
+  dependencies:
+    jose "^4.15.5"
+
 express-openid-connect@^2.18.0:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/express-openid-connect/-/express-openid-connect-2.18.0.tgz#23cb40ad65232b7291deca157e24890ec1a17a55"
@@ -1417,6 +1424,11 @@ jose@^2.0.5, jose@^2.0.7:
   integrity sha512-5hFWIigKqC+e/lRyQhfnirrAqUdIPMB7SJRqflJaO29dW7q5DFvH1XCSTmv6PQ6pb++0k6MJlLRoS0Wv4s38Wg==
   dependencies:
     "@panva/asn1.js" "^1.0.0"
+
+jose@^4.15.5:
+  version "4.15.9"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-4.15.9.tgz#9b68eda29e9a0614c042fa29387196c7dd800100"
+  integrity sha512-1vUQX+IdDMVPj4k8kOxgUqlcK518yluMuGZwqlr44FS1ppZB/5GWh4rZG89erpOBOJjU/OBsnCVFfapsRz6nEA==
 
 js-beautify@^1.14.5, js-beautify@^1.8.9:
   version "1.15.4"

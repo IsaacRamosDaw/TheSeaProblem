@@ -3,6 +3,10 @@ import app, { server } from "../server";
 import { db } from "../models/index";
 import type { Company } from "../../shared/types/db-models";
 
+jest.mock("../auth", () => ({
+  checkJwt: jest.fn((req, res, next) => next()),
+}));
+
 jest.mock("../models/index", () => ({
   db: {
     companies: {
@@ -28,7 +32,7 @@ const mockCompany: Company = {
   userId: 1,
   industrialSector: "sector",
   relatedActivitiesDescription: "acrtivities",
-}
+};
 
 const invalidMockCompany = { id: 1, name: "company" };
 
@@ -62,7 +66,9 @@ describe("findOneById company", () => {
   });
 
   it("should handle database errors properly", async () => {
-    (db.companies.findByPk as jest.Mock).mockRejectedValue(new Error("DB error"));
+    (db.companies.findByPk as jest.Mock).mockRejectedValue(
+      new Error("DB error"),
+    );
     const response = await request(app).get("/api/companies/1");
 
     expect(response.status).toBe(500);
@@ -76,8 +82,8 @@ describe("create Company", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should not create a company with invalid properties", async () => {
@@ -94,7 +100,9 @@ describe("create Company", () => {
   it("should create a company with valid properties", async () => {
     (db.companies.create as jest.Mock).mockResolvedValue(mockCompany);
 
-    const response = await request(app).post("/api/companies").send(mockCompany);
+    const response = await request(app)
+      .post("/api/companies")
+      .send(mockCompany);
 
     expect(response.status).toBe(201);
     expect(response.body).toEqual(mockCompany);
@@ -113,10 +121,15 @@ describe("create Company", () => {
   it("should handle database errors properly", async () => {
     (db.companies.create as jest.Mock).mockRejectedValue(new Error("DB error"));
 
-    const response = await request(app).post("/api/companies").send(mockCompany);
+    const response = await request(app)
+      .post("/api/companies")
+      .send(mockCompany);
 
     expect(response.status).toBe(500);
-    expect(response.body).toHaveProperty("message", "Some error occurred while creating the company.");
+    expect(response.body).toHaveProperty(
+      "message",
+      "Some error occurred while creating the company.",
+    );
   });
 });
 
@@ -126,12 +139,14 @@ describe("updateById company", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should return 404 if ID is not provided", async () => {
-    const response = await request(app).put("/api/companies/").send(mockCompany);
+    const response = await request(app)
+      .put("/api/companies/")
+      .send(mockCompany);
 
     expect(response.status).toBe(404);
   });
@@ -148,7 +163,9 @@ describe("updateById company", () => {
   it("should update a user with valid properties", async () => {
     (db.companies.update as jest.Mock).mockResolvedValue(mockCompany);
 
-    const response = await request(app).put("/api/companies/1").send(mockCompany);
+    const response = await request(app)
+      .put("/api/companies/1")
+      .send(mockCompany);
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockCompany);
@@ -158,14 +175,13 @@ describe("updateById company", () => {
   });
 
   it("should handle database errors properly", async () => {
-
     (db.companies.update as jest.Mock).mockRejectedValue(new Error("DB error"));
 
     const res = await request(app).put("/api/companies/1").send(mockCompany);
 
     expect(res.status).toBe(500);
     expect(res.body).toHaveProperty("message", "DB error");
-  });  
+  });
 });
 
 describe("findAll Companies", () => {
@@ -187,7 +203,9 @@ describe("findAll Companies", () => {
   });
 
   it("should handle database errors properly", async () => {
-    (db.companies.findAll as jest.Mock).mockRejectedValue(new Error("DB error"));
+    (db.companies.findAll as jest.Mock).mockRejectedValue(
+      new Error("DB error"),
+    );
     const response = await request(app).get("/api/companies");
     expect(response.status).toBe(500);
     expect(response.body).toHaveProperty("message", "DB error");
@@ -207,12 +225,12 @@ describe("destroyById Companies", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should return 404 if ID is not provided", async () => {
-    const response = await request(app).delete('/api/companies/');
+    const response = await request(app).delete("/api/companies/");
 
     expect(response.status).toBe(404);
   });
@@ -229,7 +247,9 @@ describe("destroyById Companies", () => {
   });
 
   it("should handle database errors properly", async () => {
-    (db.companies.destroy as jest.Mock).mockRejectedValue(new Error("DB error"));
+    (db.companies.destroy as jest.Mock).mockRejectedValue(
+      new Error("DB error"),
+    );
 
     const response = await request(app).delete("/api/companies/1");
 

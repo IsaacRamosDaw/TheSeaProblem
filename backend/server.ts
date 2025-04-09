@@ -6,8 +6,6 @@ import UserR from "./routes/userR";
 import ReportsR from "./routes/reportsR";
 import CompanyR from "./routes/companyR";
 import EmissionsR from "./routes/emissionsR";
-import ProfileR from "./routes/profileR";
-import Auth from "./auth";
 
 const app = express();
 
@@ -32,7 +30,6 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 // Routes
-Auth(app);
 UserR(app);
 ReportsR(app);
 CompanyR(app);
