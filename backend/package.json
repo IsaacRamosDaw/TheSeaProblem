@@ -6,7 +6,13 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    
+    "////!- LUKE CHANGE THIS": "This script under this are for the docker, you need to adapt it to our typescript",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "db:reset-and-start": "npm run db:reset && npm start",
+    "db:migrate-and-start": "npx sequelize-cli db:migrate && npm start",
+    "start": "node server.js"
   },
   "author": "Echedey | Isaac | Luke | Nicolas",
   "license": "ISC",
