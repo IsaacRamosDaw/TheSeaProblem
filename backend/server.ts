@@ -6,8 +6,6 @@ import UserR from "./routes/userR";
 import ReportsR from "./routes/reportsR";
 import CompanyR from "./routes/companyR";
 import EmissionsR from "./routes/emissionsR";
-import ProfileR from "./routes/profileR";
-import Auth from "./auth";
 
 const app = express();
 
@@ -15,10 +13,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors("http://localhost:5173/" as CorsOptions));
-
-// app.get("/", (req, res) => {
-//   res.json({message: "Welcome to marine polution application"})
-// });
 
 const PORT = process.env.PORT || 8080;
 
@@ -36,6 +30,5 @@ UserR(app);
 ReportsR(app);
 CompanyR(app);
 EmissionsR(app);
-Auth(app);
-ProfileR(app);
+// ProfileR(app);
 export default app;
