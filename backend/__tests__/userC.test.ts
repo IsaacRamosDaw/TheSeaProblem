@@ -3,6 +3,10 @@ import app, { server } from "../server";
 import { db } from "../models/index";
 import type { User } from "../../shared/types/db-models";
 
+jest.mock("../auth", () => ({
+  checkJwt: jest.fn((req, res, next) => next()),
+}));
+
 jest.mock("../models/index", () => ({
   db: {
     users: {
@@ -124,7 +128,10 @@ describe("create User", () => {
     const response = await request(app).post("/api/users").send(mockUser);
 
     expect(response.status).toBe(500);
-    expect(response.body).toHaveProperty("message", "Some error occurred while creating the user.");
+    expect(response.body).toHaveProperty(
+      "message",
+      "Some error occurred while creating the user.",
+    );
   });
 });
 
@@ -134,8 +141,8 @@ describe("updateById user", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should return 404 if ID is not provided", async () => {
@@ -166,14 +173,13 @@ describe("updateById user", () => {
   });
 
   it("should handle database errors properly", async () => {
-
     (db.users.update as jest.Mock).mockRejectedValue(new Error("DB error"));
 
     const res = await request(app).put("/api/users/1").send(mockUser);
 
     expect(res.status).toBe(500);
     expect(res.body).toHaveProperty("message", "DB error");
-  });  
+  });
 });
 
 describe("findAll Users", () => {
@@ -215,8 +221,8 @@ describe("destroyById Users", () => {
   });
 
   afterAll(async () => {
-    await db.sequelize.close(); 
-    server.close(); 
+    await db.sequelize.close();
+    server.close();
   });
 
   it("should return 404 if ID is not provided", async () => {
@@ -245,16 +251,3 @@ describe("destroyById Users", () => {
     expect(response.body).toHaveProperty("message", "DB error");
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
