@@ -1,0 +1,65 @@
+#report-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f4faff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  
+    label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: #333;
+    }
+  
+    input,
+    select {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+  
+      &:focus {
+        border-color: #00aaff;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 170, 255, 0.2);
+      }
+    }
+  
+    .location-and-pollution {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+  
+      .description,
+      .pollution-type {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  
+    input[type='submit'] {
+      background-color: #00aaff;
+      color: #fff;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #008ecc;
+      }
+    }
+  }
+  

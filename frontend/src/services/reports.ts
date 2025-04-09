@@ -1,23 +1,21 @@
-import type { Report } from "@/shared/types/db-models";
+import type { Report } from "../../../shared/types/db-models";
+import { ReportSchema } from "../../..//shared/schemas/report-schema";
 import { DELETE, GET, POST, PUT } from "../utils/http";
-import { ReportSchema } from "@/shared/schemas/report-schema";
 
 const endpoint = "http://localhost:8080/api/reports";
 
-//! Aquí me encargo de hacer una llamada a los datos con el controlador findall() de ourReportsC.js+
-
 export const getAllReports = (): Promise<Report[]> => GET(`${endpoint}`);
 
-export const getReportById = (id: string): Promise<Report> =>
-  GET(`${endpoint}/${id}`);
+export const getReportById = (id: string): Promise<Report> => GET(`${endpoint}/${id}`);
 
-export const createReport = (Report: Report): Promise<Report> | null => {
+export const createReport = async(Report: Report): Promise<Report | null> => {
   const result = ReportSchema.safeParse(Report);
+  
   if (!result.success) {
     console.error("Validation failed:", result.error);
     return null;
   }
-  return POST(`${endpoint}`, Report);
+  return await POST(`${endpoint}`, Report);
 };
 
 export const updateReportById = (
@@ -32,5 +30,4 @@ export const updateReportById = (
   return PUT(`${endpoint}/${id}`, updatedReport);
 };
 
-export const deleteReportById = (id: string): Promise<void> =>
-  DELETE(`${endpoint}/${id}`);
+export const deleteReportById = (id: string): Promise<void> => DELETE(`${endpoint}/${id}`);

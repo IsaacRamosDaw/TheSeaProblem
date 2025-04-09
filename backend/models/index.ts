@@ -1,4 +1,4 @@
-import { dbConfig } from '../db/db.config';
+import { dbConfig } from '../config/db.config';
 
 import reports from './reportsM';
 import emissions from './emissionsM';

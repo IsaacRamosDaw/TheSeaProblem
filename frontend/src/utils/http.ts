@@ -20,7 +20,8 @@ export const POST = async <T>(
   url: string,
   body: T,
   headers = defaultHeaders,
-): Promise<T> => {
+): Promise<T | null> => {
+  try {
   const response = await fetch(url, {
     method: "POST",
     headers,
@@ -30,6 +31,11 @@ export const POST = async <T>(
     throw new Error(`Error fetching data: ${response.statusText}`);
   }
   return response.json();
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+
 };
 
 export const PUT = async <T>(
@@ -47,6 +53,7 @@ export const PUT = async <T>(
   }
   return response.json();
 };
+
 
 export const DELETE = async (
   url: string,

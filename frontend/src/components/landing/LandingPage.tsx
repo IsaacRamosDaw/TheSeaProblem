@@ -3,8 +3,9 @@ import { StaticReports } from "./staticReports/StaticReports";
 import EmissionsChart from "../emissionsChart/EmissionsChart";
 import styles from "./landingPage.module.scss";
 import { RelatedTopics } from "./relatedTopics/RelatedTopics";
-
+import { UserReportsContainer } from "./usersReportsContainer/UserReportsContainer";
 import { useAuth0 } from "@auth0/auth0-react";
+
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
@@ -15,7 +16,8 @@ export function LandingPage() {
       <StaticReports />
       {/* I put it here to be able to see that the graph was displayed correctly. */}
       <h1>Bienvenido al Dashboard de The Sea Problem</h1>
-      <RelatedTopics />
+      <RelatedTopics/>
+      <UserReportsContainer/>
       <EmissionsChart />
       <h1>login stuff</h1>
       {isAuthenticated ? (
