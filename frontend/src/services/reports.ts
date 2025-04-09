@@ -10,13 +10,11 @@ export const getReportById = (id: string): Promise<Report> => GET(`${endpoint}/$
 
 export const createReport = async(Report: Report): Promise<Report | null> => {
   const result = ReportSchema.safeParse(Report);
+  
   if (!result.success) {
-    console.log("servise error in succes")
     console.error("Validation failed:", result.error);
     return null;
   }
-  console.log("servise not error")
-
   return await POST(`${endpoint}`, Report);
 };
 

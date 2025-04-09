@@ -11,6 +11,7 @@ import {
 } from "../../../services/reports";
 import type { Report } from "@/shared/types/db-models";
 import { number } from "zod";
+import { ReportForm } from "./ReportForm";
 
 export function UserReportsContainer() {
   useEffect(() => {
@@ -39,6 +40,8 @@ export function UserReportsContainer() {
           )
         }
       )}
+
+      <ReportForm/>
 
       <Button variant="primary" onClick={() => console.log("Click!")}>
         Send report
