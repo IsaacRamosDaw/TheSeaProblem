@@ -12,13 +12,22 @@ import {
 import type { Report } from "@/shared/types/db-models";
 import { number } from "zod";
 import { ReportForm } from "./ReportForm";
+import { useReportService } from "../../../hooks/services/useReportService";
 
 export function UserReportsContainer() {
+
+    const {getAllReports} = useReportService();
+    const [reports, setReports] = useState<Report[]>([]);
+
   useEffect(() => {
-    getAllReports().then((data) => setReports(data));
+    const fetchReports = async () => {
+    const allReports = await getAllReports();
+    setReports(allReports);
+    };
+    fetchReports();
   }, [])
 
-  const [reports, setReports] = useState<Report[]>([]);
+
 
 
   return (

@@ -1,4 +1,5 @@
-import { ReportSchema } from "@/shared/schemas/report-schema";
+import { ReportSchema } from "../../../../shared/schemas/report-schema";
+import type { Report } from "../../../../shared/types/db-models";
 import { useHttp } from "../useHttp";
 
 const endpoint = "http://localhost:8080/api/reports";

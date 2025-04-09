@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   GET as get,
   POST as post,
@@ -9,13 +10,16 @@ import { useHeaders } from "./useHeaders";
 export const useHttp = () => {
   const headers = useHeaders();
 
+  useEffect(()=>{    headers.forEach((k)=>console.log(k))
+},[headers])
+
   const GET = async <T>(url: string): Promise<T> => {
     return get<T>(url, headers);
   };
 
-  const POST = async <T>(url: string, body: T): Promise<T> => {
-    return post<T>(url, body, headers);
-  };
+  // const POST = async <T>(url: string, body: T): Promise<T> => {
+  //   return post<T>(url, body, headers);
+  // };
 
   const PUT = async <T>(url: string, body: T): Promise<T> => {
     return put<T>(url, body, headers);

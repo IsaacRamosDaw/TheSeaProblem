@@ -1,12 +1,14 @@
 import { PollutionType } from "@/shared/types/db-models";
 import { useState } from "react";
 import s from './userReport.module.scss'
+import { useReportService } from "../../../../../src/hooks/services/useReportService";
 
 export function UserReport(
   { id, location, Pollution, shortDescription, date, img, longDescription, alt }
     : { id?: number, location: string, Pollution: PollutionType, longDescription: string, shortDescription: string, date: string, img: string, alt: string }
 ) {
 
+const {deleteReportById} = useReportService();
   const [isExpanded, setIsExpanded] = useState(false); 
 
   const toggleDescription = () => {
@@ -27,6 +29,9 @@ export function UserReport(
           >
             {isExpanded ? "Read less" : "Read more"}
           </button>
+          <button onClick={() => {
+            deleteReportById(String(id));
+          }}>Delete</button>
         </div>
       </div>
       {isExpanded && (
