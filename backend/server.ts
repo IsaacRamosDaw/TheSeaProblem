@@ -14,10 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors("http://localhost:5173/" as CorsOptions));
 
-// app.get("/", (req, res) => {
-//   res.json({message: "Welcome to marine polution application"})
-// });
-
 const PORT = process.env.PORT || 8080;
 
 export const server = app.listen(PORT, () => {

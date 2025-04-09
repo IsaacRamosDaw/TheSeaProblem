@@ -9,7 +9,6 @@ function App() {
         {/* Ve a components/landing/LandingPage.jsx  */}
         <Route path="*" element={<LandingPage />} />
         <Route path="/" element={<LandingPage />} />
-        <Route path="/callback" element={<div>Hello world</div>} />
       </Routes>
     </Router>
   );
