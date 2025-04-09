@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { getAllCompanies, deleteCompanyById } from '../../services/companys';
 import { useNavigate } from 'react-router-dom';
 import type { Company } from '@/shared/types/db-models';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth0 } from "@auth0/auth0-react";
 import ConfirmModal from '../common/ConfirmModal';
 import './CompanyStyles.scss';
 import InspirationSection from '../common/InspirationSection';
 
 const CompanyList: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth0();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -20,7 +20,11 @@ const CompanyList: React.FC = () => {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const data = await getAllCompanies();
+        const headers = new Headers({
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        });
+        const data = await getAllCompanies(headers);
         setCompanies(data);
         setLoading(false);
       } catch (err) {
@@ -48,7 +52,11 @@ const CompanyList: React.FC = () => {
 
     setDeletingId(companyToDelete.id);
     try {
-      await deleteCompanyById(companyToDelete.id.toString());
+      const headers = new Headers({
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      });
+      await deleteCompanyById(companyToDelete.id.toString(), headers);
       setCompanies(companies.filter(c => c.id !== companyToDelete.id));
     } catch (err) {
       setError('Error al eliminar la empresa');

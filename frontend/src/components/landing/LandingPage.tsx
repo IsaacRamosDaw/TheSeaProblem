@@ -22,6 +22,7 @@ export function LandingPage() {
       <RelatedTopics/>
       <UserReportsContainer/>
       <EmissionsChart />
+      <CompanyList/>
       <h1>login stuff</h1>
       {isAuthenticated ? (
         <div>

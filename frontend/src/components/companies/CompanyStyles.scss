@@ -102,8 +102,8 @@
 
     &:focus {
       outline: none;
-      border-color: $color-icons-focus;
-      box-shadow: 0 0 0 2px rgba($color-icons-focus, 0.2);
+      border-color: #333;
+      box-shadow: 0 0 0 2px rgba(#333, 0.2);
     }
 
     &::placeholder {
@@ -166,7 +166,7 @@
   }
   
   .submit-button {
-    background-color: $color-icons-focus;
+    background-color: #333;
     border: none;
     color: white;
     
@@ -201,7 +201,7 @@
 }
 
 .add-button {
-  background-color: $color-icons-focus;
+  background-color: #333;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
