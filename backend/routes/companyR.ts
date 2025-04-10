@@ -5,21 +5,15 @@ import { checkJwt } from "../auth";
 export default (app: Express) => {
   const router = Router();
 
-  // Aplicar el middleware de autenticación a todas las rutas
-  router.use(checkJwt);
+  router.get("/", checkJwt, Companies.findAll);
 
-  // how to use checkJwt middleware in express
-  // router.get("/someRoute", checkJwt, someFunc);
+  router.get("/:id", checkJwt, Companies.findOneById);
 
-  router.get("/", Companies.findAll);
+  router.post("/", checkJwt, Companies.create);
 
-  router.get("/:id", Companies.findOneById);
+  router.put("/:id", checkJwt, Companies.updateById);
 
-  router.post("/", Companies.create);
-
-  router.put("/:id", Companies.updateById);
-
-  router.delete("/:id", Companies.destroyById);
+  router.delete("/:id", checkJwt, Companies.destroyById);
 
   app.use("/api/companies", router);
 };

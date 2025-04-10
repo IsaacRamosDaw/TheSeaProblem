@@ -1,13 +1,15 @@
 import { useEffect, useState, useMemo } from "react";
-import axios from "axios";
 import { Emission, Company, PollutionType } from "@/shared/types/db-models";
 import { COLORS, DEFAULT_COLOR } from "../constants/chart-colors";
-import { API_BASE } from "../config";
+import { getAllEmissions } from "../services/emissions";
+import { getAllCompanies } from "../services/companys";
 
 export const useEmissionsChart = () => {
   const [allData, setAllData] = useState<Emission[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [selectedCompanyId, setSelectedCompanyId] = useState<number | null>(null);
+  const [selectedCompanyId, setSelectedCompanyId] = useState<number | null>(
+    null,
+  );
   const [visibleTypes, setVisibleTypes] = useState<Set<string>>(new Set());
   const [pollutionTypes, setPollutionTypes] = useState<string[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
@@ -15,14 +17,14 @@ export const useEmissionsChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [emissionsRes, companiesRes] = await Promise.all([
-          axios.get<Emission[]>(`${API_BASE}/emissions`),
-          axios.get<Company[]>(`${API_BASE}/companies`),
+        const [emissions, companies] = await Promise.all([
+          getAllEmissions(),
+          getAllCompanies(),
         ]);
 
-        setAllData(emissionsRes.data);
-        setCompanies(companiesRes.data);
-        setSelectedCompanyId(companiesRes.data[0]?.id || null);
+        setAllData(emissions);
+        setCompanies(companies);
+        setSelectedCompanyId(companies[0]?.id || null);
       } catch (error) {
         console.error("Error loading data:", error);
       }
@@ -35,13 +37,16 @@ export const useEmissionsChart = () => {
     if (!selectedCompanyId) return;
 
     const filtered = allData.filter((e) => e.companyId === selectedCompanyId);
-    const types:PollutionType[] = [...new Set(filtered.map((e) => e.pollutionType))];
-    
+    const types: PollutionType[] = [
+      ...new Set(filtered.map((e) => e.pollutionType)),
+    ];
+
     setPollutionTypes(types);
     setVisibleTypes(new Set(types));
 
-    const dates = [...new Set(filtered.map((e) => e.date.split("T")[0]))]
-      .sort((a, b) => a.localeCompare(b));
+    const dates = [...new Set(filtered.map((e) => e.date.split("T")[0]))].sort(
+      (a, b) => a.localeCompare(b),
+    );
 
     setLabels(dates);
   }, [selectedCompanyId, allData]);
@@ -61,18 +66,24 @@ export const useEmissionsChart = () => {
   const datasets = useMemo(() => {
     if (!selectedCompanyId) return [];
 
-    const dataForCompany = allData.filter((e) => e.companyId === selectedCompanyId);
+    const dataForCompany = allData.filter(
+      (e) => e.companyId === selectedCompanyId,
+    );
 
     return Array.from(visibleTypes).map((type) => {
       const filtered = dataForCompany.filter((e) => e.pollutionType === type);
-      const dataMap = new Map(filtered.map((e) => [e.date.split("T")[0], e.volume]));
+      const dataMap = new Map(
+        filtered.map((e) => [e.date.split("T")[0], e.volume]),
+      );
 
       return {
         label: type,
         data: labels.map((date) => dataMap.get(date) ?? null),
         fill: false,
-        backgroundColor: COLORS[type as keyof typeof COLORS]?.bg || DEFAULT_COLOR.bg,
-        borderColor: COLORS[type as keyof typeof COLORS]?.border || DEFAULT_COLOR.border,
+        backgroundColor:
+          COLORS[type as keyof typeof COLORS]?.bg || DEFAULT_COLOR.bg,
+        borderColor:
+          COLORS[type as keyof typeof COLORS]?.border || DEFAULT_COLOR.border,
       };
     });
   }, [selectedCompanyId, allData, visibleTypes, labels]);
