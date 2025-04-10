@@ -56,14 +56,13 @@ export const ReportForm = () => {
     <div>
       <form className={s.reportForm} onSubmit={handleSubmit(onSubmit)}>
         <div className="user">
-          <label htmlFor="user">User:</label>
           <input
             {...register("user", {
               required: true,
               maxLength: 20,
               pattern: /^[A-Za-z\s]+$/i,
             })}
-            value={formData.user || "user"}
+            placeholder={"user"}
           />
           {errors.user?.type === "required" && "Needs to be filled out"}
           {errors.user?.type === "pattern" && "Only letters allowed"}
@@ -71,52 +70,47 @@ export const ReportForm = () => {
 
         <div className={s.location_and_pollution}>
           <div>
-            <label htmlFor="location">Location:</label>
             <input
               {...register("location", {
                 required: true,
                 pattern: /^[A-Za-z\s]+$/i,
               })}
-              value={formData.location || "location"}
+              placeholder={"location"}
             />
             {errors.location?.type === "required" && "Needs to be filled out"}
             {errors.location?.type === "pattern" && "Only letters allowed"}
           </div>
 
           <div className={s.description}>
-            <label htmlFor="description">Description:</label>
             <input
               {...register("description", {
                 required: true,
                 pattern: /^[A-Za-z\s]+$/i,
               })}
-              value={formData.description || "description"}
+              placeholder={"description"}
             />
             {errors.description?.type === "required" &&
               "Needs to be filled out"}
           </div>
 
           <div className="shortdescription">
-            <label htmlFor="shortdescription">shortDescription:</label>
             <input
               {...register("shortDescription", { required: true })}
-              value={formData.shortDescription || "sdescription"}
+              placeholder={"description"}
             />
             {errors.shortDescription?.type === "required" &&
               "Needs to be filled out"}
           </div>
 
           <div className="Date">
-            <label htmlFor="Date">Date:</label>
             <input
               {...register("date", { required: true })}
-              value={formData.date || "10/10/12"}
+              placeholder={"date"}
             />
             {errors.date?.type === "required" && "Needs to be filled out"}
           </div>
 
           <div className={s.pollution_type}>
-            <label htmlFor="pollutionType">pollutionType:</label>
             <select {...register("pollutionType", { required: true })}>
               <option value="Plastic">Plastic</option>
               <option value="Oil Spill">Oil Spill</option>
