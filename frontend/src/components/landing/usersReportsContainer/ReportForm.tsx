@@ -109,7 +109,7 @@ export const ReportForm = () => {
               {...register("date", { required: true })}
               value={formData.date || "10/10/12"}
             />
-            {errors.location?.type === "required" && "Needs to be filled out"}
+            {errors.date?.type === "required" && "Needs to be filled out"}
           </div>
 
           <div className="pollution-type">
