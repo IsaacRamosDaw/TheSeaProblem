@@ -1,6 +1,8 @@
 import { PollutionType } from "@/shared/types/db-models";
 import { useState } from "react";
+import { deleteReportById } from "../../../../services/reports";
 import s from './userReport.module.scss'
+import { Button } from "../../../general/button/Button";
 
 export function UserReport(
   { id, location, Pollution, shortDescription, date, img, longDescription, alt }
@@ -8,10 +10,17 @@ export function UserReport(
 ) {
 
   const [isExpanded, setIsExpanded] = useState(false); 
+  const valueId = id;
+
 
   const toggleDescription = () => {
     setIsExpanded(!isExpanded); 
   };
+
+  const deleteReport = () => {
+    deleteReportById(String(valueId));
+    window.location.reload();
+  }
   return (
     <div className={s.userReport} key={id}>
       <div className={s.userReportInfo}>
@@ -27,6 +36,12 @@ export function UserReport(
           >
             {isExpanded ? "Read less" : "Read more"}
           </button>
+          <Button 
+            className={s.deleteButton} 
+            onClick={deleteReport} 
+          >
+          Delete
+          </Button>
         </div>
       </div>
       {isExpanded && (
