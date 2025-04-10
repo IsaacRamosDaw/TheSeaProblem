@@ -11,11 +11,11 @@ export const getAllUsers = (): Promise<User[]> => GET(`${endpoint}`);
 export const getUserById = (id: string): Promise<User> =>
   GET(`${endpoint}/${id}`);
 
-export const createUser = (User: User): Promise<User> | null => {
+export const createUser = (User: User): Promise<User | null> => {
   const result = UsersSchema.safeParse(User);
   if (!result.success) {
     console.error("Validation failed:", result.error);
-    return null;
+    return Promise.reject(null);
   }
   return POST(`${endpoint}`, User);
 };
@@ -35,3 +35,4 @@ export const updateUserById = (
 export const deleteUserById = (id: string): void => {
   DELETE(`${endpoint}/${id}`);
 };
+

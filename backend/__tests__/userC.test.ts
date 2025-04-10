@@ -29,7 +29,7 @@ const mockUser: User = {
   name: "name",
   lastname: "lastname",
   email: "email@email.com",
-  password: "password",
+  auth0Id: "authId",
 };
 
 const invalidMockUser = { id: 1, username: "username" };

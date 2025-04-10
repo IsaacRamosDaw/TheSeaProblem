@@ -19,6 +19,7 @@ $color-text-paragraph: #333;
 $text-header: 10px;
 $text-sub-header: 10px;
 $text-paragraph: 10px;
+
 //Text 
 $text-primary-color: #555555;
 $text-secondary-color: #333;
@@ -29,6 +30,31 @@ $report-title: 2.5em;
 $report-sub-title: 1.5em;
 $report-paragraph: 1em;
 
+// Tamaños de texto responsivos para formularios
+$form-title-desktop: 2rem;
+$form-title-tablet: 1.8rem;
+$form-title-mobile: 1.4rem;
+
+$form-subtitle-desktop: 1.5rem;
+$form-subtitle-tablet: 1.25rem;
+$form-subtitle-mobile: 1rem;
+
+$form-input-desktop: 1.1rem;
+$form-input-tablet: 0.9rem;
+$form-input-mobile: 0.75rem;
+
+$form-button-desktop: 1.1rem;
+$form-button-tablet: 0.9rem;
+$form-button-mobile: 0.8rem;
+
+$form-back-button-desktop: 1.2rem;
+$form-back-button-tablet: 1rem;
+$form-back-button-mobile: 0.9rem;
+
+$form-back-arrow-desktop: 1.5rem;
+$form-back-arrow-tablet: 1.2rem;
+$form-back-arrow-mobile: 1.1rem;
+
 // Tipografía
 $font-family: 'Roboto', sans-serif;
 
@@ -37,11 +63,42 @@ $font-family: 'Roboto', sans-serif;
   font-family: $font-family;
 }
 
+.main-title {
+  font-size: $form-title-desktop;
+  color: $color-secondary;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  font-weight: 700;
+  
+  @media (max-width: $tablet) {
+    font-size: $form-title-tablet;
+  }
+  
+  @media (max-width: $mobile) {
+    font-size: $form-title-mobile;
+  }
+}
+
+.subtitle {
+  font-size: $form-subtitle-desktop;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  font-weight: 500;
+  
+  @media (max-width: $tablet) {
+    font-size: $form-subtitle-tablet;
+  }
+  
+  @media (max-width: $mobile) {
+    font-size: $form-subtitle-mobile;
+  }
+}
+
 @mixin flex($direction, $gap) {
   display: flex;
   flex-direction: $direction;
   gap: $gap;
 }
-
 
 
