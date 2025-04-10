@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { createReport } from "../../../services/reports";
 import type { Report } from "@/shared/types/db-models";
 import { ReportSchema } from "../../../../../shared/schemas/report-schema";
+import './ReportForm.scss'
 
 export const ReportForm = () => {
   const {

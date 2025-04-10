@@ -24,6 +24,7 @@ export function RelatedTopics() {
           text="Plastic Pollution in the Ocean: Where does it come from?" 
           alt="alt-exmaple"
         />
+        
       </div>
     </section>
   );

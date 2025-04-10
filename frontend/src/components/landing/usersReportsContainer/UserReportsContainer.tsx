@@ -5,6 +5,7 @@ import s from "./userReportsContainer.module.scss";
 import { getAllReports } from "../../../services/reports";
 import type { Report } from "@/shared/types/db-models";
 import { ReportForm } from "./ReportForm";
+import './ReportForm.scss'
 
 export function UserReportsContainer() {
   useEffect(() => {

@@ -7,6 +7,7 @@ import { UserReportsContainer } from "./usersReportsContainer/UserReportsContain
 import { login, logout } from "../../../auth";
 import { useUser } from "../../hooks/useUser";
 
+
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
   const { user } = useUser();
@@ -14,9 +15,12 @@ export function LandingPage() {
     <div className={styles.landingPage}>
       <Header />
       <StaticReports />
-      {/* I put it here to be able to see that the graph was displayed correctly. */}
-      <h1>Bienvenido al Dashboard de The Sea Problem</h1>
       <RelatedTopics />
+      {/*}
+     
+      
+      <h1>Bienvenido al Dashboard de The Sea Problem</h1>
+      
       <UserReportsContainer />
       <EmissionsChart />
       <h1>login stuff</h1>
@@ -34,6 +38,8 @@ export function LandingPage() {
       )}
       <button onClick={login}>Log In</button>
       <button onClick={logout}>Log Out</button>
+      */}
     </div>
+    
   );
 }

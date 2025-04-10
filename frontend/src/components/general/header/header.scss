@@ -25,6 +25,42 @@ header{
       a{
         color: black;
       }
+      
+    }
+  } 
+}
+header {
+  @include flex(row, 0px);
+
+  img {
+    min-width: 30%;
+    height: 50px;
+
+    @include respond-to(desktop) {
+      height: 40px;
+      width: 40px;
+      min-width: 20%;
+    }
+  }
+
+  nav {
+    width: 100%;
+    padding-left: 30px;
+   padding:  1.5vw 6vw;
+
+    @include respond-to(desktop) {
+      padding-left: 690px;
+    }
+    
+    
+    
+
+    ul {
+      @include flex(row, 20px);
+
+      @include respond-to(desktop) {
+        gap: 40px;
+      }
     }
   }
 }

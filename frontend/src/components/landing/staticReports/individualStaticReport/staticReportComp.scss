@@ -20,9 +20,49 @@ div.static-report {
     margin: 0 auto;
     width: 100%;
     border-radius: 5px;
+
+    @include respond-to(desktop) {
+      width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    }
   }
 
   .paragraph{
     margin: 5px 0;
   }
 }
+
+.static-report {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+
+  .report-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .report-sub-title {
+    font-size: 1.5em;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  .report-paragraph {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.5;
+    text-align: justify;
+  }
+}
+
+

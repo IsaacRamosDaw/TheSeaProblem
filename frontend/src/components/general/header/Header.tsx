@@ -3,7 +3,7 @@ export function Header() {
   return ( 
     <header>
       <img src="Logo.svg" alt="" />
-      <nav>
+      <nav className="nav">
         <ul>
           <li><a href="">Home</a></li>
           <li><a href="">Report</a></li>

@@ -1,14 +1,16 @@
+import { ReportForm } from "../usersReportsContainer/ReportForm";
 import { StaticReportComp } from "./individualStaticReport/StaticReportComp";
 import s from './staticReports.module.scss'
 
 export function StaticReports() {
+  
   return (
     <section className={s.staticReportContainer}>
       <StaticReportComp
         id={1} 
         title="Plastic Waste Crisis" 
         subtitle="How microplastics are invading our oceans" 
-        image='staticReports/report1.jfif' 
+        image ='staticReports/report1.jfif' 
         paragraph="Over 8 million tons of plastic enter the ocean annually, threatening marine life and ecosystems. 
         This report reveals the top sources of leakage and innovative solutions to curb the tide by 2030."
       />
@@ -28,6 +30,11 @@ export function StaticReports() {
         paragraph="50% of the world’s coral reefs have died due to pollution and warming waters. Explore actionable 
         strategies to protect remaining reefs through policy and community-led conservation."
       />
+      <button>Report</button>
+      {/* TEST FORMULAR*/}
+      <div className={s['report-form-container']}>
+      <ReportForm />
+      </div> 
     </section>
   );
 }
