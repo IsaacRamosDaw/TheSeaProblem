@@ -2,7 +2,7 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { OilSpillFeature } from '@shared/types/oil-spill';
+import type { OilSpillFeature } from '../../../../shared/types/oil-spill';
 
 // Ícono personalizado
 const markerIcon = new Icon({
@@ -24,13 +24,9 @@ const MapComponent: React.FC<MapComponentProps> = ({ features }) => {
                    !isNaN(feature.geometry.coordinates[0]) &&
                    !isNaN(feature.geometry.coordinates[1]);
     
-    if (!isValid) {
-      console.log('Feature inválido:', feature);
-    }
     return isValid;
   });
 
-  console.log('Features válidos:', validFeatures);
 
   // Calcular un centro por defecto basado en el promedio de las coordenadas
   const defaultCenter: [number, number] = validFeatures.length > 0 
@@ -42,7 +38,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ features }) => {
       }, [0, 0]).map((sum: number) => sum / validFeatures.length) as [number, number]
     : [0, 0];
 
-  console.log('Centro del mapa:', defaultCenter);
 
   return (
     <MapContainer 
@@ -59,7 +54,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ features }) => {
           feature.geometry.coordinates[1], // latitud
           feature.geometry.coordinates[0]  // longitud
         ];
-        console.log('Posición del marcador:', position);
         return (
           <Marker 
             key={feature.id} 

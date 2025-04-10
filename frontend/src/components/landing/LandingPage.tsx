@@ -9,6 +9,7 @@ import { RelatedTopics } from "./relatedTopics/RelatedTopics";
 import { UserReportsContainer } from "./usersReportsContainer/UserReportsContainer";
 import { login, logout } from "../../../auth";
 import { useUser } from "../../hooks/useUser";
+import { EmissionsImport } from "../EmissionsImport";
 
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
@@ -18,6 +19,10 @@ export function LandingPage() {
       <Header />
       {/* I put it here to be able to see that the graph was displayed correctly. */}
       <h1>Bienvenido al Dashboard de The Sea Problem</h1>
+      <RelatedTopics/>
+      <UserReportsContainer/>
+      <EmissionsChart />
+      <EmissionsImport/>
       <h1>login stuff</h1>
       {user ? (
         <div>
