@@ -1,6 +1,6 @@
 import type { Company } from "@/shared/types/db-models";
 import { DELETE, GET, POST, PUT } from "../utils/http";
-import { CompanySchema } from "@/shared/schemas/company-schema";
+import { CompanySchema } from "../../../shared/schemas/company-schema";
 
 const endpoint = "http://localhost:8080/api/companies";
 
@@ -17,11 +17,11 @@ export const getCompanyById = (
 export const createCompany = (
   Company: Company,
   headers: Headers,
-): Promise<Company> | null => {
+): Promise<Company | null> => {
   const result = CompanySchema.safeParse(Company);
   if (!result.success) {
     console.error("Validation failed:", result.error);
-    return null;
+    return Promise.resolve(null);
   }
   return POST(`${endpoint}`, Company);
 };

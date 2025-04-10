@@ -5,7 +5,7 @@ import styles from "./landingPage.module.scss";
 import { RelatedTopics } from "./relatedTopics/RelatedTopics";
 import { UserReportsContainer } from "./usersReportsContainer/UserReportsContainer";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { EmissionsImport } from "../EmissionsImport";
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
@@ -19,6 +19,7 @@ export function LandingPage() {
       <RelatedTopics/>
       <UserReportsContainer/>
       <EmissionsChart />
+      <EmissionsImport/>
       <h1>login stuff</h1>
       {isAuthenticated ? (
         <div>

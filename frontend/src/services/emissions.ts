@@ -1,6 +1,6 @@
-import type { Emission } from "@/shared/types/db-models";
+import type { Emission } from "../../../shared/types/db-models";
 import { DELETE, GET, POST, PUT } from "../utils/http";
-import { EmissionsSchema } from "@/shared/schemas/emission-schema";
+import { EmissionsSchema } from "../../../shared/schemas/emission-schema";
 
 const endpoint = "http://localhost:8080/api/emissions";
 
@@ -12,14 +12,14 @@ export const getEmissionById = async (id: string): Promise<Emission> =>
   GET(`${endpoint}/${id}`);
 
 export const createEmission = async (
-  Emission: Emission,
+  emission: Emission,
 ): Promise<Emission| null>  => {
-  const result = EmissionsSchema.safeParse(Emission);
+  const result = EmissionsSchema.safeParse(emission);
   if (!result.success) {
     console.error("Validation failed:", result.error);
     return null;
   }
-  return POST(`${endpoint}`, Emission);
+  return POST(`${endpoint}`, emission);
 };
 
 export const updateEmissionById = async (

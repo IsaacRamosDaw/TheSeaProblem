@@ -43,26 +43,34 @@ const findOneById = (req: Request, res: Response) => {
 };
 
 const create = (req: Request, res: Response) => {
-  const emissions = req.body;
+  const emission = req.body;
 
-  const cleanEmissions = EmissionsSchema.safeParse(emissions);
-
-  if (!cleanEmissions.success) {
+  if (!emission) {
     res.status(400).json({
       message: "Invalid data",
-      errors: cleanEmissions.error.errors,
+      errors: [{ code: "invalid_type", expected: "object", received: "undefined", path: [], message: "Required" }],
     });
     return;
   }
 
-  db.emissions.create(cleanEmissions.data).then(emission => {
+  const cleanEmission = EmissionsSchema.safeParse(emission);
+
+  if (!cleanEmission.success) {
+    res.status(400).json({
+      message: "Invalid data",
+      errors: cleanEmission.error.errors,
+    });
+    return;
+  }
+
+  db.emissions.create(cleanEmission.data).then(emission => {
       res.status(201).json(emission);
   })
   .catch((error) => {
     res.status(500).send({
       message:
         error.message ||
-        "Some error occurred while creating the emissions.",
+        "Some error occurred while creating the emission.",
     });
   });
 };

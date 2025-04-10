@@ -1,5 +1,6 @@
 export const defaultHeaders = new Headers({
   Accept: "application/json",
+  "Content-Type": "application/json",
 });
 
 export const GET = async <T>(
