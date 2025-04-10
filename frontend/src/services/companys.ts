@@ -4,7 +4,6 @@ import { CompanySchema } from "../../../shared/schemas/company-schema";
 
 const endpoint = "http://localhost:8080/api/companies";
 
-
 export const getAllCompanies = () : Promise<Company[]> =>
   GET(`${endpoint}`);
 
@@ -12,9 +11,9 @@ export const getCompanyById = (id: string): Promise<Company> =>
   GET(`${endpoint}/${id}`);
 
 export const createCompany = (
-  Company: Company,
+  company: Company,
 ): Promise<Company | null> => {
-  const result = CompanySchema.safeParse(Company);
+  const result = CompanySchema.safeParse(company);
   if (!result.success) {
     console.error("Validation failed:", result.error);
     return Promise.reject(null);
@@ -25,10 +24,10 @@ export const createCompany = (
 
 export const updateCompanyById = async (
   id: string,
-  companyData: Company,
+  company: Company,
 ): Promise<Company> => {  
 
-  const result = CompanySchema.safeParse(companyData);
+  const result = CompanySchema.safeParse(company);
   if (!result.success) {
     console.error("Validation failed:", result.error);
     throw new Error(`Validation failed: ${result.error.message}`);

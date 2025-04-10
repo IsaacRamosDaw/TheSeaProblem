@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getCompanyById } from '../../services/companys';
-import { useAuth } from '../../context/AuthContext';
 import { Company, User } from '@/shared/types/db-models';
 import './CompanyStyles.scss';
+import { useUser } from '../../hooks/useUser';
 
 const CompanyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { user } = useUser();
   const [company, setCompany] = useState<Company | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +44,7 @@ const CompanyDetail: React.FC = () => {
     return <div className="error-message">Company not found</div>;
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <div className="auth-required-message">
         You must be logged in to view company details.
