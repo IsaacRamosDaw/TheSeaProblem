@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
-import { createReport } from "../../../services/reports";
+import { createReport } from "../../../../services/reports";
 import type { Report } from "@/shared/types/db-models";
-import { ReportSchema } from "../../../../../shared/schemas/report-schema";
-import './ReportForm.scss'
+import { ReportSchema } from "../../../../../../shared/schemas/report-schema";
+import s from './reportForm.module.scss'
+
 export const ReportForm = () => {
   const {
     register,
@@ -45,13 +46,15 @@ export const ReportForm = () => {
       const result = await createReport(report);
 
       reset();
+
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
   return (
     <div>
-      <form id="report-form" onSubmit={handleSubmit(onSubmit)}>
+      <form className={s.reportForm} onSubmit={handleSubmit(onSubmit)}>
         <div className="user">
           <label htmlFor="user">User:</label>
           <input
@@ -66,7 +69,7 @@ export const ReportForm = () => {
           {errors.user?.type === "pattern" && "Only letters allowed"}
         </div>
 
-        <div className="location-and-pollution">
+        <div className={s.location_and_pollution}>
           <div>
             <label htmlFor="location">Location:</label>
             <input
@@ -80,7 +83,7 @@ export const ReportForm = () => {
             {errors.location?.type === "pattern" && "Only letters allowed"}
           </div>
 
-          <div className="description">
+          <div className={s.description}>
             <label htmlFor="description">Description:</label>
             <input
               {...register("description", {
@@ -112,7 +115,7 @@ export const ReportForm = () => {
             {errors.date?.type === "required" && "Needs to be filled out"}
           </div>
 
-          <div className="pollution-type">
+          <div className={s.pollution_type}>
             <label htmlFor="pollutionType">pollutionType:</label>
             <select {...register("pollutionType", { required: true })}>
               <option value="Plastic">Plastic</option>

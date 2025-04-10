@@ -1,4 +1,4 @@
-#report-form {
+.reportForm {
     max-width: 500px;
     margin: 2rem auto;
     padding: 2rem;
@@ -34,13 +34,13 @@
       }
     }
   
-    .location-and-pollution {
+    .location_and_pollution {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
   
       .description,
-      .pollution-type {
+      .pollution_type {
         display: flex;
         flex-direction: column;
       }
