@@ -16,6 +16,8 @@ export function LandingPage() {
   return (
     <div className={styles.landingPage}>
       <Header />
+      {/* I put it here to be able to see that the graph was displayed correctly. */}
+      <h1>Bienvenido al Dashboard de The Sea Problem</h1>
       <h1>login stuff</h1>
       {user ? (
         <div>
@@ -32,8 +34,6 @@ export function LandingPage() {
       <button onClick={login}>Log In</button>
       <button onClick={logout}>Log Out</button>
       <StaticReports />
-      {/* I put it here to be able to see that the graph was displayed correctly. */}
-      <h1>Bienvenido al Dashboard de The Sea Problem</h1>
       <UserReportsContainer />
       <EmissionsChart />
       <RelatedTopics />
