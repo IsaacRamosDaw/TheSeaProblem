@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createCompany, getCompanyById, updateCompanyById } from '../services/companys';
-import { useAuth } from '../context/AuthContext';
+import { useUser } from './useUser';
 
 const useCompanyForm = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { user, isAuthenticated } = useAuth();
+  const { user } = useUser();
   
   const [formData, setFormData] = useState({
     companyName: '',
@@ -22,10 +22,10 @@ const useCompanyForm = () => {
   const isEditMode = !!id;
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!user) {
       navigate('/login');
     }
-  }, [isAuthenticated, navigate]);
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -120,7 +120,7 @@ const useCompanyForm = () => {
     loading,
     error,
     isEditMode,
-    isAuthenticated,
+    user,
     handleChange,
     handleSubmit
   };
