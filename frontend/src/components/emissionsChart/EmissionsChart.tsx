@@ -40,9 +40,24 @@ export const EmissionsChart: React.FC = () => {
     labels,
     datasets: datasets.map((dataset) => ({
       ...dataset,
-      backgroundColor: COLORS[dataset.label]?.bg || DEFAULT_COLOR.bg,
-      borderColor: COLORS[dataset.label]?.border || DEFAULT_COLOR.border,
+      backgroundColor: COLORS[dataset.label as keyof typeof COLORS]?.bg || DEFAULT_COLOR.bg,
+      borderColor: COLORS[dataset.label as keyof typeof COLORS]?.border || DEFAULT_COLOR.border,
+      spanGaps: true,
     })),
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
   };
 
   return (
@@ -80,7 +95,7 @@ export const EmissionsChart: React.FC = () => {
       </div>
 
       {labels.length > 0 && datasets.length > 0 ? (
-        <Line data={chartData} />
+        <Line data={chartData} options={options} />
       ) : (
         <p>No data available</p>
       )}

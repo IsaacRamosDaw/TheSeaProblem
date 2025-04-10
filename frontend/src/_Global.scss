@@ -1,8 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+// Breakpoints
+$mobile: 576px;
+$tablet: 768px;
+$desktop: 1200px;
+
+// Colores
 $color-primary: #fff;
 $color-secondary: #333;
 $color-third: #333;
 
-//Text
+// Colores para iconos
+$color-icons-primary: #374957;
+$color-icons-focus: #50CAFF;
+
+$color-text-paragraph: #333;
+
+$text-header: 10px;
+$text-sub-header: 10px;
+$text-paragraph: 10px;
+//Text 
 $text-primary-color: #555555;
 $text-secondary-color: #333;
 $text-paragraphs-color: #333;
@@ -11,6 +28,14 @@ $text-paragraphs-color: #333;
 $report-title: 2.5em;
 $report-sub-title: 1.5em;
 $report-paragraph: 1em;
+
+// Tipografía
+$font-family: 'Roboto', sans-serif;
+
+// Aplicar la fuente a todo el documento
+* {
+  font-family: $font-family;
+}
 
 @mixin flex($direction, $gap) {
   display: flex;
