@@ -1,29 +1,50 @@
 @use '../../../Global' as *;
 
-header{
-  @include flex(row, 0px);
+$light-blue: #e3f2fd;
+$blue: #64b5f6;
+$dark-blue: #235bb0;
+$hover-blue: #07406e;
 
-  img{
+header {
+  @include flex(row, 0px);
+  background-color: $light-blue;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid $blue;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  margin-bottom: 10px;
+
+  img {
     min-width: 30%;
     height: 50px;
   }
 
-  nav{
+  nav {
     width: 100%;
     padding-left: 30px;
 
-    ul{
+    ul {
       @include flex(row, 20px);
       list-style: none;
       padding: 0;
       margin: 0;
       height: 100%;
 
-      li{
+      li {
         margin: auto 0;
       }
-      a{
-        color: black;
+
+      a {
+        color: $dark-blue;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          color: $hover-blue;
+        }
       }
     }
   }

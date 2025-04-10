@@ -5,9 +5,8 @@ export function Header() {
       <img src="Logo.svg" alt="" />
       <nav>
         <ul>
-          <li><a href="">Home</a></li>
-          <li><a href="">Report</a></li>
-          <li><a href="">About</a></li>
+          <li><a href="http://localhost:5173/companies">Add my company</a></li>
+          <li><a href="http://localhost:5173/companies/1">My company</a></li>
         </ul>
       </nav>
     </header> 

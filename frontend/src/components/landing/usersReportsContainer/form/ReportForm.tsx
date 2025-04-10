@@ -62,7 +62,7 @@ export const ReportForm = () => {
               maxLength: 20,
               pattern: /^[A-Za-z\s]+$/i,
             })}
-            placeholder={"user"}
+            value={"Isaac"}
           />
           {errors.user?.type === "required" && "Needs to be filled out"}
           {errors.user?.type === "pattern" && "Only letters allowed"}
@@ -75,7 +75,7 @@ export const ReportForm = () => {
                 required: true,
                 pattern: /^[A-Za-z\s]+$/i,
               })}
-              placeholder={"location"}
+              placeholder={"Las palmas"}
             />
             {errors.location?.type === "required" && "Needs to be filled out"}
             {errors.location?.type === "pattern" && "Only letters allowed"}
@@ -87,7 +87,7 @@ export const ReportForm = () => {
                 required: true,
                 pattern: /^[A-Za-z\s]+$/i,
               })}
-              placeholder={"description"}
+              value={"La laja está lajosa','La laja está llena de morenos mu chungos que solo tiran heineken al mar, tirando los cigarron que te piden"}
             />
             {errors.description?.type === "required" &&
               "Needs to be filled out"}
@@ -96,7 +96,7 @@ export const ReportForm = () => {
           <div className="shortdescription">
             <input
               {...register("shortDescription", { required: true })}
-              placeholder={"description"}
+              value={"La laja está lajosa"}
             />
             {errors.shortDescription?.type === "required" &&
               "Needs to be filled out"}
@@ -105,7 +105,7 @@ export const ReportForm = () => {
           <div className="Date">
             <input
               {...register("date", { required: true })}
-              placeholder={"date"}
+              value={"10/10/10"}
             />
             {errors.date?.type === "required" && "Needs to be filled out"}
           </div>
