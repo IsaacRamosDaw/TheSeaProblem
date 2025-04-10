@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getCompanyById } from '../../services/companys';
+<<<<<<< HEAD
 import { useAuth } from '../../context/AuthContext';
 import { Company, User } from '@/shared/types/db-models';
 import './CompanyStyles.scss';
+=======
+import { Company, User } from '@/shared/types/db-models';
+import './CompanyStyles.scss';
+import { useUser } from '../../hooks/useUser';
+>>>>>>> 259760b1f06e620c732165665b0a41c63eca920c
 
 const CompanyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+<<<<<<< HEAD
   const { user, isAuthenticated } = useAuth();
+=======
+  const { user } = useUser();
+>>>>>>> 259760b1f06e620c732165665b0a41c63eca920c
   const [company, setCompany] = useState<Company | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +54,11 @@ const CompanyDetail: React.FC = () => {
     return <div className="error-message">Company not found</div>;
   }
 
+<<<<<<< HEAD
   if (!isAuthenticated) {
+=======
+  if (!user) {
+>>>>>>> 259760b1f06e620c732165665b0a41c63eca920c
     return (
       <div className="auth-required-message">
         You must be logged in to view company details.

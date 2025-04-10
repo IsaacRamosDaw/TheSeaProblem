@@ -1,5 +1,4 @@
-declare module '@/shared/types/oil-spill' {
-  export interface OilSpillFeature {
+export type OilSpillFeature = {
     id: string;
     geometry: {
       type: "Point";
@@ -9,4 +8,4 @@ declare module '@/shared/types/oil-spill' {
     area: number;
     machine_confidence: number;
   }
-} 
+ 

@@ -20,11 +20,7 @@ const CompanyList: React.FC = () => {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const headers = new Headers({
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        });
-        const data = await getAllCompanies(headers);
+        const data = await getAllCompanies();
         setCompanies(data);
         setLoading(false);
       } catch (err) {
@@ -52,11 +48,7 @@ const CompanyList: React.FC = () => {
 
     setDeletingId(companyToDelete.id);
     try {
-      const headers = new Headers({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      });
-      await deleteCompanyById(companyToDelete.id.toString(), headers);
+      await deleteCompanyById(companyToDelete.id.toString());
       setCompanies(companies.filter(c => c.id !== companyToDelete.id));
     } catch (err) {
       setError('Error al eliminar la empresa');
