@@ -7,6 +7,9 @@ export default (app: Express) => {
   //List all users
   router.get("/", Emissions.findAll);
 
+  //Get user by id
+  router.get("/:id", Emissions.findOneById);
+
   router.post("/", Emissions.create);
 
   router.put("/:id", Emissions.updateById);

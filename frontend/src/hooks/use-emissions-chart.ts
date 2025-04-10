@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import { Emission, Company } from "@/shared/types/db-models";
+import { Emission, Company, PollutionType } from "@/shared/types/db-models";
 import { COLORS, DEFAULT_COLOR } from "../constants/chart-colors";
 import { API_BASE } from "../config";
 
@@ -35,7 +35,7 @@ export const useEmissionsChart = () => {
     if (!selectedCompanyId) return;
 
     const filtered = allData.filter((e) => e.companyId === selectedCompanyId);
-    const types = [...new Set(filtered.map((e) => e.pollutionType))];
+    const types:PollutionType[] = [...new Set(filtered.map((e) => e.pollutionType))];
     
     setPollutionTypes(types);
     setVisibleTypes(new Set(types));

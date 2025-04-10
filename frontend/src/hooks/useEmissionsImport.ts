@@ -13,7 +13,7 @@ export const useEmissionsImport = () => {
 
   const loadCompanies = async () => {
     try {
-      const companiesData = await getAllCompanies(new Headers());
+      const companiesData = await getAllCompanies();
       setCompanies(companiesData);
     } catch (err) {
       setError('Error loading companies');
@@ -30,7 +30,6 @@ export const useEmissionsImport = () => {
   };
 
   const parseCSV = (text: string): Emission[] => {
-    console.log('Parsing CSV file');
     const lines = text.split('\n');
     
     if (lines.length < 2) {
@@ -98,7 +97,6 @@ export const useEmissionsImport = () => {
   };
 
   const parseExcel = (file: File): Promise<Emission[]> => {
-    console.log('Parsing Excel file');
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -158,7 +156,6 @@ export const useEmissionsImport = () => {
   };
 
   const handleFileUpload = async (file: File) => {
-    console.log('handleFileUpload called with file:', file.name);
     
     if (!selectedCompany) {
       setError('Please select a company first');
@@ -173,17 +170,14 @@ export const useEmissionsImport = () => {
       let emissions: Emission[] = [];
 
       if (file.name.endsWith('.csv') || file.name.endsWith('.txt')) {
-        console.log('Processing CSV/TXT file');
         const text = await file.text();
         emissions = parseCSV(text);
       } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
-        console.log('Processing Excel file');
         emissions = await parseExcel(file);
       } else {
         throw new Error('Unsupported file format');
       }
 
-      console.log('Parsed emissions:', emissions);
 
       if (emissions.length === 0) {
         throw new Error('No valid data found in the file');
@@ -194,12 +188,10 @@ export const useEmissionsImport = () => {
       let errorCount = 0;
       
       for (const emission of emissions) {
-        console.log('Creating emission:', emission);
         try {
           const result = await createEmission(emission);
           if (result) {
             successCount++;
-            console.log('Emission created:', result);
           } else {
             errorCount++;
             console.error('Failed to create emission');

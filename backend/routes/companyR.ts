@@ -1,8 +1,12 @@
 import Companies from "../controllers/companyC";
 import { type Express, Router } from "express";
+import { checkJwt } from "../auth";
 
 export default (app: Express) => {
   const router = Router();
+
+  // Aplicar el middleware de autenticación a todas las rutas
+  router.use(checkJwt);
 
   // how to use checkJwt middleware in express
   // router.get("/someRoute", checkJwt, someFunc);

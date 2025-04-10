@@ -1,0 +1,79 @@
+@use '../../_Global.scss' as *;
+
+.container {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+  
+  @media (max-width: $mobile) {
+    padding: 1rem;
+  }
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  @media (max-width: $mobile) {
+    height: 200px;
+  }
+}
+
+.inspirationImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.overlayText {
+  color: white;
+  font-size: $form-title-desktop;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  
+  @media (max-width: $tablet) {
+    font-size: $form-title-tablet;
+  }
+  
+  @media (max-width: $mobile) {
+    font-size: $form-title-mobile;
+  }
+}
+
+.inspirationText {
+  color: $text-paragraphs-color;
+  line-height: 1.6;
+  text-align: left;
+  font-size: $form-input-desktop;
+  
+  @media (max-width: $tablet) {
+    font-size: $form-input-tablet;
+  }
+  
+  @media (max-width: $mobile) {
+    font-size: $form-input-mobile;
+  }
+}

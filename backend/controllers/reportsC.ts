@@ -47,15 +47,9 @@ const findOneById = (req: Request, res: Response) => {
 
 const create = (req: Request, res: Response) => {
   const reportData = req.body;
-  //! This return the data
-  console.log(reportData);
   const result = ReportSchema.safeParse(reportData);
-  //! This return null 
-  console.log(result);
 
   if (!result.success) {
-    console.log("RESULT FAILED BECAUSE OF THIS");
-    console.log(result.error.errors);
     res.status(400).json({
       message: "Invalid data",
       errors: result.error.errors,

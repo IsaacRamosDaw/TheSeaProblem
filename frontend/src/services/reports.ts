@@ -8,14 +8,14 @@ export const getAllReports = (): Promise<Report[]> => GET(`${endpoint}`);
 
 export const getReportById = (id: string): Promise<Report> => GET(`${endpoint}/${id}`);
 
-export const createReport = async(Report: Report): Promise<Report | null> => {
-  const result = ReportSchema.safeParse(Report);
+export const createReport = async(report: Report): Promise<Report | null> => {
+  const result = ReportSchema.safeParse(report);
   
   if (!result.success) {
     console.error("Validation failed:", result.error);
     return null;
   }
-  return await POST(`${endpoint}`, Report);
+  return await POST(`${endpoint}`,result.data);
 };
 
 export const updateReportById = (

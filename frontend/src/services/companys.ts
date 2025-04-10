@@ -4,42 +4,39 @@ import { CompanySchema } from "../../../shared/schemas/company-schema";
 
 const endpoint = "http://localhost:8080/api/companies";
 
-//! Aquí me encargo de hacer una llamada a los datos con el controlador findall() de ourCompanysC.js+
 
-export const getAllCompanies = (headers: Headers): Promise<Company[]> =>
+export const getAllCompanies = () : Promise<Company[]> =>
   GET(`${endpoint}`);
 
-export const getCompanyById = (
-  id: string,
-  headers: Headers,
-): Promise<Company> => GET(`${endpoint}/${id}`);
+export const getCompanyById = (id: string): Promise<Company> =>
+  GET(`${endpoint}/${id}`);
 
 export const createCompany = (
   Company: Company,
-  headers: Headers,
 ): Promise<Company | null> => {
   const result = CompanySchema.safeParse(Company);
   if (!result.success) {
     console.error("Validation failed:", result.error);
-    return Promise.resolve(null);
+    return Promise.reject(null);
   }
-  return POST(`${endpoint}`, Company);
+
+  return POST(`${endpoint}`, result.data);
 };
 
-export const updateCompanyById = (
+export const updateCompanyById = async (
   id: string,
-  updatedCompany: Company,
-  headers: Headers,
-): Promise<Company> | null => {
-  const result = CompanySchema.safeParse(updatedCompany);
+  companyData: Company,
+): Promise<Company> => {  
+
+  const result = CompanySchema.safeParse(companyData);
   if (!result.success) {
     console.error("Validation failed:", result.error);
-    return null;
+    throw new Error(`Validation failed: ${result.error.message}`);
   }
-  return PUT(`${endpoint}/${id}`, updatedCompany);
+
+  return PUT(`${endpoint}/${id}`,result.data);
 };
 
 export const deleteCompanyById = (
   id: string,
-  headers: Headers,
 ): Promise<void> => DELETE(`${endpoint}/${id}`);
