@@ -18,8 +18,6 @@ export function LandingPage() {
     <div className={styles.landingPage}>
       <Header />
       {/* I put it here to be able to see that the graph was displayed correctly. */}
-      <h1>Bienvenido al Dashboard de The Sea Problem</h1>
-      <h1>login stuff</h1>
       {user ? (
         <div>
           <img src={user.picture} alt={user.name} />
@@ -32,7 +30,7 @@ export function LandingPage() {
           <p>Please log in to see your profile</p>
         </div>
       )}
-      <button onClick={login}>Log In</button>
+      {/* <button onClick={login}>Log In</button> */}
       <button onClick={logout}>Log Out</button>
       <StaticReports />
       <UserReportsContainer />
