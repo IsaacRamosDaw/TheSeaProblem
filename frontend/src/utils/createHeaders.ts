@@ -2,6 +2,6 @@ import { getAuthToken } from "../../auth";
 
 export const createHeaders = async () =>
   new Headers({
-    Accept: "application/json",
+    "Content-Type": "application/json",
     Authorization: `Bearer ${await getAuthToken()}`,
   });

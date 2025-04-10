@@ -46,10 +46,15 @@ const findOneById = (req: Request, res: Response) => {
 };
 
 const create = (req: Request, res: Response) => {
+  console.log("req", req.body);
   const reportData = req.body;
+  console.log("reportData", reportData);
   //! This return the data
   const result = ReportSchema.safeParse(reportData);
+  console.log("result", result);
   //! This return null
+
+  console.log(result.error)
 
   if (!result.success) {
     res.status(400).json({

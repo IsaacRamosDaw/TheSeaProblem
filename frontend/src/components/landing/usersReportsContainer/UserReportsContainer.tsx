@@ -32,10 +32,6 @@ export function UserReportsContainer() {
       })}
 
       <ReportForm />
-
-      <Button variant="primary" onClick={() => console.log("Click!")}>
-        Send report
-      </Button>
     </section>
   );
 }
