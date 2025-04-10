@@ -4,7 +4,7 @@ import { UserReport } from "./userReport/UserReport";
 import s from "./userReportsContainer.module.scss";
 import { getAllReports } from "../../../services/reports";
 import type { Report } from "@/shared/types/db-models";
-import { ReportForm } from "./ReportForm";
+import { ReportForm } from "./form/ReportForm";
 
 export function UserReportsContainer() {
   useEffect(() => {
@@ -32,10 +32,6 @@ export function UserReportsContainer() {
       })}
 
       <ReportForm />
-
-      <Button variant="primary" onClick={() => console.log("Click!")}>
-        Send report
-      </Button>
     </section>
   );
 }
