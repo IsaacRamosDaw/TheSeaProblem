@@ -6,27 +6,23 @@ import EmissionsChart from "../emissionsChart/EmissionsChart";
 import styles from "./landingPage.module.scss";
 import { RelatedTopics } from "./relatedTopics/RelatedTopics";
 import { UserReportsContainer } from "./usersReportsContainer/UserReportsContainer";
-import { useAuth0 } from "@auth0/auth0-react";
+import { login, logout } from "../../../auth";
+import { useUser } from "../../hooks/useUser";
 
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
-  const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
-
+  const { user } = useUser();
   return (
     <div className={styles.landingPage}>
       <Header />
-      <StaticReports/>
       {/* I put it here to be able to see that the graph was displayed correctly. */}
       <h1>Bienvenido al Dashboard de The Sea Problem</h1>
-      <RelatedTopics/>
-      <UserReportsContainer/>
-      <EmissionsChart />
       <h1>login stuff</h1>
-      {isAuthenticated ? (
+      {user ? (
         <div>
-          <img src={user?.picture} alt={user?.name} />
-          <h2>{user?.name}</h2>
-          <p>{user?.email}</p>
+          <img src={user.picture} alt={user.name} />
+          <h2>{user.name}</h2>
+          <p>{user.email}</p>
         </div>
       ) : (
         <div>
@@ -34,14 +30,12 @@ export function LandingPage() {
           <p>Please log in to see your profile</p>
         </div>
       )}
-      <button onClick={() => loginWithRedirect()}>Log In</button>
-      <button
-        onClick={() =>
-          logout({ logoutParams: { returnTo: window.location.origin } })
-        }
-      >
-        Log Out
-      </button>
+      <button onClick={login}>Log In</button>
+      <button onClick={logout}>Log Out</button>
+      <StaticReports />
+      <UserReportsContainer />
+      <EmissionsChart />
+      <RelatedTopics />
     </div>
   );
 }
