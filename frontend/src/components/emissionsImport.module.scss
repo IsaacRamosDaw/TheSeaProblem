@@ -1,0 +1,101 @@
+/* EmissionsImport.module.scss */
+$light-blue: #d0e8ff;
+$medium-blue: #7bb6f2;
+$dark-blue: #468fd1;
+$border-radius: 0.5rem;
+
+.emissions-container {
+  background-color: #f8fbff;
+  padding: 2rem;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  font-family: sans-serif;
+  color: #333;
+
+  h2 {
+    color: $dark-blue;
+    margin-bottom: 1rem;
+  }
+
+  label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: $dark-blue;
+    font-weight: bold;
+  }
+
+  select, input[type="file"] {
+    padding: 0.5rem;
+    border: 1px solid $medium-blue;
+    border-radius: $border-radius;
+    width: 100%;
+    max-width: 300px;
+    background-color: #fff;
+  }
+
+  button {
+    background-color: $medium-blue;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: $dark-blue;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  .file-name {
+    margin-left: 1rem;
+    color: #555;
+  }
+
+  .message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: $border-radius;
+    font-weight: bold;
+  }
+
+  .error {
+    background-color: #ffe5e5;
+    color: #c70000;
+  }
+
+  .success {
+    background-color: #e2fbe4;
+    color: #2e8b57;
+  }
+
+  ul {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    li {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .example-section {
+    margin-top: 1rem;
+    background-color: $light-blue;
+    padding: 1rem;
+    border-radius: $border-radius;
+
+    pre {
+      background-color: #eef6ff;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: $border-radius;
+    }
+  }
+}

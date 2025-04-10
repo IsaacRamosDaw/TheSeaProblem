@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useEmissionsImport } from '../hooks/useEmissionsImport';
 import { Company } from '../../../shared/types/db-models';
+import s from './emissionsImport.module.scss';
 
 export const EmissionsImport = () => {
   const {
@@ -36,8 +37,9 @@ export const EmissionsImport = () => {
   };
 
   const downloadExample = () => {
-    const exampleContent = 'volume,frequency,dischargePoint,reductionTarget,pollutionType,date\n100,Daily,North Beach,Reduce 20%,Plastic,2023-01-15\n200,Weekly,South Beach,Reduce 30%,Oil Spill,2023-02-20\n150,Monthly,East Beach,Reduce 10%,Chemical,2023-03-25';
-    
+    const exampleContent =
+      'volume,frequency,dischargePoint,reductionTarget,pollutionType,date\n100,Daily,North Beach,Reduce 20%,Plastic,2023-01-15\n200,Weekly,South Beach,Reduce 30%,Oil Spill,2023-02-20\n150,Monthly,East Beach,Reduce 10%,Chemical,2023-03-25';
+
     const blob = new Blob([exampleContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -50,14 +52,13 @@ export const EmissionsImport = () => {
   };
 
   return (
-    <div>
+    <div className={s['emissions-container']}>
       <h2>Import Emissions</h2>
-      
+
       <div>
-        <label>
-          Select Company
-        </label>
+        <label className={s.label}>Select Company</label>
         <select
+          className={s.select}
           value={selectedCompany?.id || ''}
           onChange={(e) => {
             const company = companies.find((c: Company) => c.id === Number(e.target.value));
@@ -74,9 +75,7 @@ export const EmissionsImport = () => {
       </div>
 
       <div>
-        <label>
-          Emissions File
-        </label>
+        <label className={s.label}>Emissions File</label>
         <div>
           <input
             type="file"
@@ -86,20 +85,18 @@ export const EmissionsImport = () => {
             onChange={handleFileChange}
           />
           <button
+            className={s.button}
             onClick={() => fileInputRef.current?.click()}
           >
             Select File
           </button>
-          {selectedFile && (
-            <span>
-              {selectedFile.name}
-            </span>
-          )}
+          {selectedFile && <span className={s['file-name']}>{selectedFile.name}</span>}
         </div>
       </div>
 
       <div>
         <button
+          className={s.button}
           onClick={handleImport}
           disabled={loading || !selectedCompany || !selectedFile}
         >
@@ -107,17 +104,9 @@ export const EmissionsImport = () => {
         </button>
       </div>
 
-      {error && (
-        <div>
-          {error}
-        </div>
-      )}
+      {error && <div className={`${s.message} ${s.error}`}>{error}</div>}
 
-      {success && (
-        <div>
-          {success}
-        </div>
-      )}
+      {success && <div className={`${s.message} ${s.success}`}>{success}</div>}
 
       <div>
         <p>Supported formats: CSV, TXT, Excel (.xlsx, .xls)</p>
@@ -130,14 +119,15 @@ export const EmissionsImport = () => {
           <li>pollutionType (must be: Plastic, Oil Spill, Chemical)</li>
           <li>date (date)</li>
         </ul>
-        
-        <div>
-          <button 
+
+        <div className={s['example-section']}>
+          <button
+            className={s.button}
             onClick={() => setShowExample(!showExample)}
           >
             {showExample ? 'Hide example' : 'Show format example'}
           </button>
-          
+
           {showExample && (
             <div>
               <p>CSV file example:</p>
@@ -147,9 +137,7 @@ export const EmissionsImport = () => {
                 200,Weekly,South Beach,Reduce 30%,Oil Spill,2023-02-20
                 150,Monthly,East Beach,Reduce 10%,Chemical,2023-03-25
               </pre>
-              <button 
-                onClick={downloadExample}
-              >
+              <button className={s.button} onClick={downloadExample}>
                 Download example
               </button>
             </div>
@@ -158,4 +146,4 @@ export const EmissionsImport = () => {
       </div>
     </div>
   );
-}; 
+};

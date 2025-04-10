@@ -10,6 +10,7 @@ import { UserReportsContainer } from "./usersReportsContainer/UserReportsContain
 import { login, logout } from "../../../auth";
 import { useUser } from "../../hooks/useUser";
 import { EmissionsImport } from "../EmissionsImport";
+import { Footer } from "../general/footer/Footer";
 
 //! Ten al lado el services/ourReports.services.js
 export function LandingPage() {
@@ -37,6 +38,7 @@ export function LandingPage() {
       <EmissionsImport/>
       <EmissionsChart />
       <RelatedTopics />
+      <Footer/>
     </div>
   );
 }

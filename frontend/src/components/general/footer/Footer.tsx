@@ -10,19 +10,19 @@ export function Footer() {
       <div className={s.footer__inner}>
         <a href="">
           <FaYoutube className={s.icon} />
-          <span>text</span>
+          <span>Youtube</span>
         </a>
         <a href="">
           <BsTwitterX className={s.icon} />
-          <span>text</span>
+          <span>X</span>
         </a>
         <a href="">
           <RiInstagramFill className={s.icon} />
-          <span>text</span>
+          <span>Instagram</span>
         </a>
         <a href="">
           <AiFillTikTok className={s.icon} />
-          <span>text</span>
+          <span>Tiktok</span>
         </a>
       </div>
     </footer>

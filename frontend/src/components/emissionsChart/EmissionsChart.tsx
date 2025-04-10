@@ -62,12 +62,13 @@ export const EmissionsChart: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Waste Volume by Company</h2>
+      <h2 className={styles.title}>Waste Volume by Company</h2>
 
       <div className={styles.controlGroup}>
-        <label>
+        <label className={styles.label}>
           <strong>Select company: </strong>
           <select
+            className={styles.select}
             value={selectedCompanyId ?? ""}
             onChange={(e) => handleCompanyChange(Number(e.target.value))}
           >
@@ -81,24 +82,28 @@ export const EmissionsChart: React.FC = () => {
       </div>
 
       <div className={styles.controlGroup}>
-        <strong>Filter by pollution type:</strong>
-        {pollutionTypes.map((type) => (
-          <label key={type} className={styles.checkboxLabel}>
-            <input
-              type="checkbox"
-              checked={visibleTypes.has(type)}
-              onChange={() => handleCheckboxChange(type)}
-            />
-            {type}
-          </label>
-        ))}
+        <strong className={styles.label}>Filter by pollution type:</strong>
+        <div className={styles.checkboxGroup}>
+          {pollutionTypes.map((type) => (
+            <label key={type} className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={visibleTypes.has(type)}
+                onChange={() => handleCheckboxChange(type)}
+              />
+              {type}
+            </label>
+          ))}
+        </div>
       </div>
 
-      {labels.length > 0 && datasets.length > 0 ? (
-        <Line data={chartData} options={options} />
-      ) : (
-        <p>No data available</p>
-      )}
+      <div className={styles.chartWrapper}>
+        {labels.length > 0 && datasets.length > 0 ? (
+          <Line data={chartData} options={options} />
+        ) : (
+          <p className={styles.noData}>No data available</p>
+        )}
+      </div>
     </div>
   );
 };
