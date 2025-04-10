@@ -1,4 +1,3 @@
-// auth.js
 import { Auth0Client } from "@auth0/auth0-spa-js";
 
 let auth0: Auth0Client | null = null;

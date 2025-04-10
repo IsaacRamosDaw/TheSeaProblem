@@ -1,5 +1,5 @@
 import { getUser } from "../../auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type User } from "@auth0/auth0-spa-js";
 
 export const useUser = () => {
@@ -8,10 +8,11 @@ export const useUser = () => {
   useEffect(() => {
     const intervalId = setInterval(async () => {
       setUser(await getUser());
-    }, 500);
+    }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
+
   return {
     user,
   };
