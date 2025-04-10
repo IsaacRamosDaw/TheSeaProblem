@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { getAllCompanies, deleteCompanyById } from '../../services/companys';
 import { useNavigate } from 'react-router-dom';
 import type { Company } from '@/shared/types/db-models';
-import { useAuth0 } from "@auth0/auth0-react";
 import ConfirmModal from '../common/ConfirmModal';
 import './CompanyStyles.scss';
 import InspirationSection from '../common/InspirationSection';
+import { useUser } from '../../hooks/useUser';
 
 const CompanyList: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth0();
+  const { user} = useUser();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +38,7 @@ const CompanyList: React.FC = () => {
   }, []);
 
   // Filter companies based on the logged-in user's ID
-  const filteredCompanies = isAuthenticated 
+  const filteredCompanies = user 
     ? companies.filter(company => company.userId === user?.id)
     : [];
 
@@ -80,7 +80,7 @@ const CompanyList: React.FC = () => {
     return <div className="error-message">{error}</div>;
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <div className="auth-required-message">
         You must be logged in to view your companies.
