@@ -1,7 +1,6 @@
 import type { User } from "@/shared/types/db-models";
 import { DELETE, GET, POST, PUT } from "../utils/http";
 import { UsersSchema } from "@/shared/schemas/user-schema";
-import { useHttp } from "../hooks/useHttp";
 
 const endpoint = "http://localhost:8080/api/users";
 
@@ -12,11 +11,11 @@ export const getAllUsers = (): Promise<User[]> => GET(`${endpoint}`);
 export const getUserById = (id: string): Promise<User> =>
   GET(`${endpoint}/${id}`);
 
-export const createUser = (User: User): Promise<User> | null => {
+export const createUser = (User: User): Promise<User | null> => {
   const result = UsersSchema.safeParse(User);
   if (!result.success) {
     console.error("Validation failed:", result.error);
-    return null;
+    return Promise.reject(null);
   }
   return POST(`${endpoint}`, User);
 };
@@ -37,13 +36,3 @@ export const deleteUserById = (id: string): void => {
   DELETE(`${endpoint}/${id}`);
 };
 
-export const getOrCreateAuth0User = async (auth0User: any): Promise<User> => {
-  const { POST } = useHttp();
-  const response = await POST<User>('/users/auth0', {
-    auth0Id: auth0User.sub,
-    email: auth0User.email,
-    name: auth0User.given_name || auth0User.nickname,
-    lastname: auth0User.family_name || '',
-  });
-  return response;
-};
