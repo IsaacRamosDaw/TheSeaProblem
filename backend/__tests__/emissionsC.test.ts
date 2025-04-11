@@ -57,12 +57,12 @@ describe("findOneById emission", () => {
     expect(db.emissions.findByPk).toHaveBeenCalledWith(1);
   });
 
-  it("should return 500 when no emission is found", async () => {
+  it("should return 404 when no emission is found", async () => {
     (db.emissions.findByPk as jest.Mock).mockResolvedValue(null);
 
     const response = await request(app).get("/api/emissions/99");
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(404);
     expect(db.emissions.findByPk).toHaveBeenCalledWith(99);
   });
 

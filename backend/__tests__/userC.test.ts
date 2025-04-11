@@ -54,12 +54,12 @@ describe("findOneById user", () => {
     expect(db.users.findByPk).toHaveBeenCalledWith(1);
   });
 
-  it("should return 500 when no users is found", async () => {
+  it("should return 404 when no users is found", async () => {
     (db.users.findByPk as jest.Mock).mockResolvedValue(null);
 
     const response = await request(app).get("/api/users/99");
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(404);
     expect(db.users.findByPk).toHaveBeenCalledWith(99);
   });
 

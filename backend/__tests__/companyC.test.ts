@@ -56,12 +56,12 @@ describe("findOneById company", () => {
     expect(db.companies.findByPk).toHaveBeenCalledWith(1);
   });
 
-  it("should return 500 when no companies is found", async () => {
+  it("should return 404 when no companies is found", async () => {
     (db.companies.findByPk as jest.Mock).mockResolvedValue(null);
 
     const response = await request(app).get("/api/companies/99");
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(404);
     expect(db.companies.findByPk).toHaveBeenCalledWith(99);
   });
 

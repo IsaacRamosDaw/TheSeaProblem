@@ -57,12 +57,12 @@ describe("findOneById Report", () => {
     expect(db.reports.findOne).toHaveBeenCalledWith({ where: { id: "1" } });
   });
 
-  it("should return 500 when no report is found", async () => {
+  it("should return 404 when no report is found", async () => {
     (db.reports.findOne as jest.Mock).mockResolvedValue(null);
 
     const res = await request(app).get("/api/reports/99");
 
-    expect(res.status).toBe(500);
+    expect(res.status).toBe(404);
     expect(db.reports.findOne).toHaveBeenCalledWith({
       where: { id: "99" },
     });
