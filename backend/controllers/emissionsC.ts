@@ -33,7 +33,10 @@ const findOneById = (req: Request, res: Response) => {
     .findByPk(id)
     .then((emission) => {
       if (!emission) {
-        throw new Error(`Unable to locate User with id: ${id}`);
+        res
+          .status(404)
+          .send({ message: `Unable to locate emission with id: ${id}` });
+        return;
       }
 
       res.status(200).json(emission);
@@ -52,7 +55,15 @@ const create = (req: Request, res: Response) => {
   if (!emission) {
     res.status(400).json({
       message: "Invalid data",
-      errors: [{ code: "invalid_type", expected: "object", received: "undefined", path: [], message: "Required" }],
+      errors: [
+        {
+          code: "invalid_type",
+          expected: "object",
+          received: "undefined",
+          path: [],
+          message: "Required",
+        },
+      ],
     });
     return;
   }
@@ -67,16 +78,17 @@ const create = (req: Request, res: Response) => {
     return;
   }
 
-  db.emissions.create(cleanEmission.data).then(emission => {
+  db.emissions
+    .create(cleanEmission.data)
+    .then((emission) => {
       res.status(201).json(emission);
-  })
-  .catch((error) => {
-    res.status(500).send({
-      message:
-        error.message ||
-        "Some error occurred while creating the emission.",
-    }); 
-  });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message:
+          error.message || "Some error occurred while creating the emission.",
+      });
+    });
 };
 
 const updateById = (req: Request, res: Response) => {

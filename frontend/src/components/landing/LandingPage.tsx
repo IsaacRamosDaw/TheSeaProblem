@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import type { Report } from "@/shared/types/db-models";
-import { CompanyList } from "../companies/index";
 import { Header } from "../general/header/Header";
 import { StaticReports } from "./staticReports/StaticReports";
 import EmissionsChart from "../emissionsChart/EmissionsChart";
@@ -31,14 +28,14 @@ export function LandingPage() {
           <p>Please log in to see your profile</p>
         </div>
       )}
-      {/* <button onClick={login}>Log In</button> */}
+      <button onClick={login}>Log In</button>
       <button onClick={logout}>Log Out</button>
       <StaticReports />
       <UserReportsContainer />
-      <EmissionsImport/>
+      <EmissionsImport />
       <EmissionsChart />
       <RelatedTopics />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

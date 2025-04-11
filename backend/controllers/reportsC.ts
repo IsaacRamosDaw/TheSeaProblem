@@ -33,7 +33,10 @@ const findOneById = (req: Request, res: Response) => {
     .findOne({ where: { id } })
     .then((report) => {
       if (!report) {
-        throw new Error(`Unable to locate report with id: ${id}`);
+        res
+          .status(404)
+          .send({ message: `Unable to locate report with id: ${id}` });
+        return;
       }
       res.status(200).json(report);
     })
